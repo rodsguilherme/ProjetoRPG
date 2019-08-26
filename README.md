@@ -8,7 +8,7 @@ Projeto para o trabalho final do 3 semestre - TSI.
    Endpoints que utilizaremos na API - [Endpoints](Endpoints.md).
 
 
-#### Primeiro passo- Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
+#### Primeiro passo - Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
 
 #### Segundo Passo - Baixe/Clone o ProjetoRPG.  
 
