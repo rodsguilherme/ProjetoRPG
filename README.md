@@ -6,9 +6,9 @@ Projeto para o trabalho final do 3 semestre - TSI.
    Endpoints que utilizaremos na API - [Endpoints](Endpoints.md).
 
 
-# Primeiro passo- Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
+### Primeiro passo- Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
 
-# Comandos no inicio: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
+Comandos no inicio: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
 
 
 Para não precisar ficar atualizando a api vamos utilizar o [Nodemom](https://nodemon.io/).
