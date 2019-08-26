@@ -12,7 +12,7 @@ Projeto para o trabalho final do 3 semestre - TSI.
 
 No terminal do Linux ou CMD digite os seguintes comandos: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
 
-# Todos os comandos são no Terminal do Linux ou CMD!
+### Todos os comandos são no Terminal do Linux ou CMD!
 
 Para não precisar ficar atualizando a api vamos utilizar o [Nodemom](https://nodemon.io/).
 Instalar o Nodemom: `npm install -g nodemom`.
