@@ -32,3 +32,5 @@ Testar a API utilize o [Postman](https://www.getpostman.com).
 
 [O que é Node?](https://www.youtube.com/watch?v=Oc71YSSA8Tk)
 
+## Tasks - [Trello do Projeto](https://trello.com/b/LJAgiiLX/projeto-rpg).
+
