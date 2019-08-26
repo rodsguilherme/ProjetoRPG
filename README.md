@@ -4,9 +4,8 @@
 
 
 Projeto para o trabalho final do 3 semestre - TSI.
-  ### API 
-   Endpoints que utilizaremos na API - [Endpoints](Endpoints.md).
 
+  ### API 
 
 #### Primeiro passo - Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
 
@@ -32,6 +31,8 @@ Documentação [Express](https://expressjs.com/).
 Testar a API utilize o [Postman](https://www.getpostman.com).
 
 [O que é uma API?](https://www.youtube.com/watch?v=vGuqKIRWosk)
+
+[O que são Endpoints?](https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api/86402).
 
 [O que é Node?](https://www.youtube.com/watch?v=Oc71YSSA8Tk)
 
