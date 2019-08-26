@@ -23,6 +23,7 @@ Instalar o Nodemom: `npm install -g nodemon`.
 
 Para rodar a api digite no terminal: `npm run dev`.
 
+No banco vamo usar o [Sqlite](https://www.sqlite.org/index.html).
 
 Documentação [Express](https://expressjs.com/).
 
