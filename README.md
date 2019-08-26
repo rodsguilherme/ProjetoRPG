@@ -10,8 +10,9 @@ Projeto para o trabalho final do 3 semestre - TSI.
 
 ### Primeiro passo- Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
 
-### Segundo Passo - Baixe/Clone o ProjetoRPG, abra o Terminal/CMD. 
-    Vá no diretório onde baixou os arquivos `cd ProjetoRPG/Api`.
+### Segundo Passo - Baixe/Clone o ProjetoRPG. 
+
+Abra o Terminal/CMD, vá no diretório onde baixou os arquivos `cd ProjetoRPG/Api`.
 
 No terminal do Linux ou CMD digite os seguintes comandos: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
 
