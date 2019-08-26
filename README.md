@@ -1,15 +1,26 @@
 # ProjetoRPG
+
+
 Projeto para o trabalho final do 3 semestre - TSI.
 
 
-Primeiro passo - Instalar o Nodejs: https://nodejs.org/en/
+Primeiro passo - Instalar o Nodejs: https://nodejs.org/en/.
 
-Depois utilize o comando: npm init para iniciar um projeto.
+Depois utilize os comandos: npm init para iniciar um projeto, depois o npm install que fará com que tudo que é necessário para o projeto seja instalado.
 
-Para instalar o framework que vamos usar: npm install express --save. Documentação - https://expressjs.com/
 
-Para não precisar atualizando a api vamo utilizar o Nodemom, https://nodemon.io/, instalar o Nodemom: npm install -g nodemom ("-g" é.  
 
-Para rodar a api digite no terminal: npm run dev
+Para não precisar ficar atualizando a api vamos utilizar o Nodemom, https://nodemon.io/.
+Instalar o Nodemom: npm install -g nodemom.
 
+Para rodar a api digite no terminal: npm run dev.
+
+
+Documentação Express - https://expressjs.com/.
+
+Testar a API utilize o Postman - https://www.getpostman.com.
+
+O que é uma API? https://www.youtube.com/watch?v=vGuqKIRWosk.
+
+O que é Node? https://www.youtube.com/watch?v=Oc71YSSA8Tk.
 
