@@ -31,6 +31,7 @@ Testar a API utilize o [Postman](https://www.getpostman.com).
 [O que é uma API?](https://www.youtube.com/watch?v=vGuqKIRWosk)
 
 [O que são Endpoints?](https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api/86402).
+
 [O que é o HTTP:// ?](https://www.youtube.com/watch?v=hwttZtWkXTk).
 
 [O que é Node?](https://www.youtube.com/watch?v=Oc71YSSA8Tk)
