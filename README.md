@@ -17,8 +17,6 @@ Abra o Terminal/CMD, vá no diretório onde baixou os arquivos `cd ProjetoRPG/Ap
 
 No terminal do Linux ou CMD digite os seguintes comandos: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
 
-
-
 Para não precisar ficar atualizando a api vamos utilizar o [Nodemon](https://nodemon.io/).
 Instalar o Nodemon: `npm install -g nodemon`.
 
@@ -33,6 +31,7 @@ Testar a API utilize o [Postman](https://www.getpostman.com).
 [O que é uma API?](https://www.youtube.com/watch?v=vGuqKIRWosk)
 
 [O que são Endpoints?](https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api/86402).
+[O que é o HTTP:// ?](https://www.youtube.com/watch?v=hwttZtWkXTk).
 
 [O que é Node?](https://www.youtube.com/watch?v=Oc71YSSA8Tk)
 
