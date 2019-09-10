@@ -24,6 +24,8 @@ Para rodar a api digite no terminal: `npm run dev`.
 
 No banco vamo usar o [Sqlite](https://www.sqlite.org/index.html).
 
+Documentação biblioteca pra [usar o Sqlite](https://jayralencar.com.br/usando-sqlite-e-node-js/).
+
 Documentação [Express](https://expressjs.com/).
 
 Testar a API utilize o [Postman](https://www.getpostman.com).
