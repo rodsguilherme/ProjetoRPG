@@ -2,27 +2,24 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const database = require('./database/ConnectDB')
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
+const api = express();
+api.use(cors());
+api.use(bodyParser.urlencoded({ extended: false }));
+api.use(bodyParser.json());
 
 // =============== Importação dos controllers ====================
 
-
-
+require('./Controllers/UserController')(api);
 
 
 // ===============================================================
 
-app.get('/', function (req, res) {
-  res.send('Projeto de RPG');
-});
+
 
 const porta = 3000;
-app.listen(porta, ()  => {
+api.listen(porta, ()  => {
   console.log(`Rodando na porta ${porta}!`);
 })
 

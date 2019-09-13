@@ -1,17 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const sqlite3 = require('sqlite3')
+ 
+const database = require("../database/ConnectDB")
 
-<<<<<<< HEAD
-=======
-const database = require('../database/bancoDeDados.js');
 
-router.get('./', (request, response) => {
-    if (request.body.nome && request.body.email && request.body.senha) {
-        let select = sqlite.run(`SELECT nome from Usuario where nome = Upper(${request.body.nome})`);
-        response.status(200).send(select);
+router.get('/', (request, response) => {
+    database.serialize(() => {
+        database.all('SELECT username FROM Usuario', (err, row) => {
+            if (!err)
+                response.status(200).send({ Row:row })
+            else
+                response.status(400).send({ Erro: err.message })
 
-    }
-    else
-        response.status(404).send();
+        })
+    })
 })
->>>>>>> f5cbb7f6510cfc4e6b5bcd99e85f59143ba17809
+
+
+module.exports = (api) => api.use('/api/User', router)
