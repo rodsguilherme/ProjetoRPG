@@ -11,7 +11,7 @@ api.use(bodyParser.json());
 
 // =============== Importação dos controllers ====================
 
-require('./Controllers/UserController')(api);
+require('./Controllers/userController')(api);
 
 
 // ===============================================================
