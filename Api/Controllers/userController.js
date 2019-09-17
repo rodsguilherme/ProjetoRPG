@@ -6,6 +6,7 @@ const md5 = require('md5');
 // Importa o banco de dados
 const database = require("../database/ConnectDB")
 
+// Insere os usuarios
 
 router.post('/insertUser', (request, response) => {
     let username = request.body.username
@@ -66,7 +67,7 @@ router.put('/:id', (request, response) => {
 
             })
         })
-    } 
+    }
     else {
         response.status(400).send('Preencha corretamente os campos!!')
     }
@@ -76,9 +77,10 @@ router.put('/:id', (request, response) => {
 
 
 // Retorna todos os usuarios cadastrados
-router.get('/getUser', (request, response) => {
+router.get('/getUsers', (request, response) => {
     database.serialize(() => {
-        database.all('SELECT username FROM Usuario', (err, row) => {
+        let select = 'SELECT username FROM Usuario'
+        database.all(select, (err, row) => {
             if (!err)
                 response.status(200).send({ Row: row })
             else
@@ -88,5 +90,23 @@ router.get('/getUser', (request, response) => {
     })
 })
 
+router.get('/:id', (request, response) => {
+    let id = request.params.id
+    database.serialize(() => {
+        let select = 'SELECT username FROM Usuario where id = ?'
+        database.all(select, [id], (err, row) => {
+            if (err) {
+                response.status(400).send({ Erro: err })
+            }
+            else if (row.length > 0) {
+                response.status(200).send({ Resultado: row })
+            }
+            else {
+                response.status(404).send('Usuário não existe')
+            }
+
+        })
+    })
+})
 
 module.exports = (api) => api.use('/api/User', router)
