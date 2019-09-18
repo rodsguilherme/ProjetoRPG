@@ -7,7 +7,7 @@ const md5 = require('md5')
 let database = new sqlite3.Database('database/Rpg.db')
 
 database.serialize(() => {
-    database.run(`CREATE TABLE if not exists Usuario (
+    database.run(`CREATE TABLE if not exists User (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password TEXT NOT NULL

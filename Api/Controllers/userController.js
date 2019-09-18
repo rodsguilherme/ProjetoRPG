@@ -1,29 +1,29 @@
 const express = require('express');
 const router = express.Router();
 
+const expressJwt = require('express-jwt')
 const md5 = require('md5');
 
 // Importa o banco de dados
 const database = require("../database/ConnectDB")
 
 // Insere os usuarios
-
-router.post('/insertUser', (request, response) => {
-    let username = request.body.username
-    let password = request.body.password
+router.post('/', (request, response) => {
+    const username = request.body.username
+    const password = request.body.password
 
     if (!username && !password) {
         response.status(400).send('Preencha os campos corretamente!')
     }
     else {
         database.serialize(() => {
-            database.all('SELECT username from Usuario where username = ?', [username], (erro, row) => {
+            database.all('SELECT username from User where username = ?', [username], (erro, row) => {
                 if (row.length > 0)
-                    response.status(404).send({ Erro: 'Usuário já existe!' })
+                    response.status(400).send('Usuário já existe!')
                 else {
-                    let insert = 'INSERT INTO Usuario (username, password) VALUES (?,?)'
+                    const insert = 'INSERT INTO User (username, password) VALUES (?,?)'
 
-                    database.run(insert, [username, md5("password")], (err, row) => {
+                    database.run(insert, [username, md5(password)], (err, row) => {
                         if (err)
                             response.status(400).send({ Erro: err.message })
                         else
@@ -40,21 +40,21 @@ router.post('/insertUser', (request, response) => {
 
 // Atualiza os usuarios 
 router.put('/:id', (request, response) => {
-    let id = request.params.id
-    let username = request.body.username
+    const id = request.params.id
+    const username = request.body.username
     if (username) {
         database.serialize(() => {
-            database.all('SELECT id FROM Usuario where id = ?', [id], (err, rows) => {
+            database.all('SELECT id FROM User where id = ?', [id], (err, rows) => {
                 if (rows.length === 0) {
                     response.status(404).send('Usuário não existe!')
                 }
                 else
-                    database.all('SELECT username FROM Usuario where username = ?', [username], (err, row) => {
+                    database.all('SELECT username FROM User where username = ?', [username], (err, row) => {
                         if (row.length > 0) {
                             response.status(404).send('Nome de usuáirio já cadastrado!')
                         }
                         else {
-                            database.run('UPDATE Usuario set username = ? where id = ?', [username, id], (err) => {
+                            database.run('UPDATE User set username = ? where id = ?', [username, id], (err) => {
                                 if (!err) {
                                     response.status(200).send('Usuário alterado com sucesso!')
                                 }
@@ -73,17 +73,17 @@ router.put('/:id', (request, response) => {
     }
 })
 
-// DELETA USUARIO POR ID
+// DELETA Usuario POR ID
 router.delete('/:id', (request, response) => {
-    let id = request.params.id
+    const id = request.params.id
     database.serialize(() => {
-        let deleteSql = 'DELETE FROM Usuario WHERE id = ?'
+        const deleteSql = 'DELETE FROM User WHERE id = ?'
         database.run(deleteSql, [id], (err) => {
             if (err) {
                 response.status(400).send({ Erro: err })
             }
             else {
-                response.status(200).send('Usuario deletado com sucesso!')
+                response.status(200).send('User deletado com sucesso!')
             }
         })
     })
@@ -92,9 +92,9 @@ router.delete('/:id', (request, response) => {
 
 
 // Retorna todos os usuarios cadastrados
-router.get('/getUsers', (request, response) => {
+router.get('/', expressJwt({secret: 'supersecretpass'}),(request, response) => {
     database.serialize(() => {
-        let select = 'SELECT id, username, password FROM Usuario'
+        const select = 'SELECT id, username, password FROM User'
         database.all(select, (err, row) => {
             if (!err)
                 response.status(200).send({ Row: row })
@@ -106,9 +106,9 @@ router.get('/getUsers', (request, response) => {
 })
 
 router.get('/:id', (request, response) => {
-    let id = request.params.id
+    const id = request.params.id
     database.serialize(() => {
-        let select = 'SELECT username FROM Usuario where id = ?'
+        const select = 'SELECT username, password FROM User where id = ?'
         database.all(select, [id], (err, row) => {
             if (err) {
                 response.status(400).send({ Erro: err })
