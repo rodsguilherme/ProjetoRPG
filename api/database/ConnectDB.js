@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 
 const sqlite3 = require('sqlite3').verbose()
-const md5 = require('md5')
 
 let database = new sqlite3.Database('database/Rpg.db')
 

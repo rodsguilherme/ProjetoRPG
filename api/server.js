@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt')
 
 
-const jwtMW = exjwt({
+const jwtMidlleWare = exjwt({
   secret : 'supersecretpass'
 });
 
@@ -19,8 +19,8 @@ api.use(bodyParser.json());
 
 // =============== Importação dos controllers ====================
 
-require('./Controllers/userController')(api);
-require('./auth/userAuth')(api);
+require('./controllers/userController')(api);
+
 
 // ===============================================================
 
