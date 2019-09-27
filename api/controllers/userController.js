@@ -23,28 +23,28 @@ const database = require("../database/ConnectDB")
 router.post('/', (request, response) => {
     const { username, password } = request.body
 
-    if (!username && !password) {
-        response.status(400).send('Preencha os campos corretamente!')
-    }
-    else {
+    if (username && password ) {
         database.serialize(() => {
             const select = 'SELECT username FROM User WHERE username = ?'
             database.all(select, [username], (err, row) => {
                 if (row.length > 0)
-                    response.status(400).json({ sucess: false, err: 'Nome de usuário já existe!' })
+                    response.status(401).json({ sucess: false, err: 'Nome de usuário já existe!' })
                 else {
                     const insert = 'INSERT INTO User (username, password) VALUES (?,?)'
                     database.run(insert, [username, md5(password)], (err) => {
                         if (err)
-                            response.status(400).json({ sucess: false, err: err.message })
+                            response.status(400).json({ sucess: false, err: 'Não foi possivel faz o cadastro, por favor tente mais tarde!' })
                         else
-                            response.status(200).json({ sucess: 'Usuario criado com sucesso!', err: false })
+                            response.status(201).json({ sucess: 'Usuario criado com sucesso!', err: false })
                     })
                 }
             })
 
         })
     }
+    else 
+        response.status(400).json({ sucess: false, err: 'Preencha os campos corretamente!'})
+    
 
 })
 
@@ -59,7 +59,7 @@ router.post('/login', (request, response) => {
                     response.status(400).json({ sucess: false, err: err.message })
                 else if (row.length > 0) {
                     const token = jwt.sign({ id: row }, jwtSecret)
-                    response.status(200).json({ sucess: true, err: false, token })
+                    response.status(200).json({ sucess: 'Usuário conectado com sucesso!', err: false, token })
                 }
                 else
                     response.status(404).json({ sucess: false, err: 'Usuário ou senha está incorreta!' })
@@ -110,17 +110,21 @@ router.put('/:id', jwtMiddleWare, (request, response) => {
 // DELETA Usuario POR ID
 router.delete('/:id', jwtMiddleWare, (request, response) => {
     const id = request.params.id
-    database.serialize(() => {
-        const deleteSql = 'DELETE FROM User WHERE id = ?'
-        database.run(deleteSql, [id], (err) => {
-            if (err) {
-                response.status(400).json({ sucess: false, err: err.message })
-            }
-            else {
-                response.status(200).json({ sucess: 'User deletado com sucesso!', err: false })
-            }
+    if (id && id !== 0) {
+        database.serialize(() => {
+            const deleteSql = 'DELETE FROM User WHERE id = ?'
+            database.run(deleteSql, [id], (err) => {
+                if (err) {
+                    response.status(400).json({ sucess: false, err: err.message })
+                }
+                else {
+                    response.status(200).json({ sucess: 'User deletado com sucesso!', err: false })
+                }
+            })
         })
-    })
+    }
+    else
+        response.status(404).json({ sucess: false, err: "Id informado não existe" })
 })
 
 

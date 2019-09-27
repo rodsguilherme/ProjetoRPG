@@ -24,10 +24,9 @@ const classes = {
 }
 
 const expertises = {
-    acrobatics,
-    intimidation,
-    athletics
-
+    acrobatics: false,
+    intimidation: false,
+    athletics: false
 }
 
 const attributes = {
@@ -40,35 +39,8 @@ const attributes = {
 }
 
 router.post('/', jwtMiddleWare, (request, response) => {
-    const { racesSelected, classes, expertises} = request.body
-    if (racesSelected) {
-        if (racesSelected === races.human) {
-            attributes.strength = 1
-            attributes.dexterity = 1
-            attributes.constution = 1
-            attributes.winsdom = 1
-            attributes.intelligence = 1
-            attributes.charisma = 1
-            if (classes === classes.warrior) {
-                classes.warrior.hp
-            }
-            else if (classes === classes.mage) {
-                classes.mage.hp
-            }
-            else if (classes === classes.rogue) {
-                classes.rogue.hp
-                
-            }
-        }
-        else if (racesSelected === races.dwarf) {
-            response.json({ selected: races.dwarf.bonus, err: false })
-        }
-        else if (racesSelected === races.elf) {
-            response.json({ selected: races.elf.bonus, err: false })
-        }
-    }
-    else
-        response.status(400).json({ sucess: false, err: 'Escolha uma raça!' })
+
+
 })
 
 module.exports = (api) => api.use('/api/card', router)

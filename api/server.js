@@ -20,6 +20,7 @@ api.use(bodyParser.json());
 // =============== Importação dos controllers ====================
 
 require('./controllers/userController')(api);
+require('./controllers/cardController')(api);
 
 
 // ===============================================================
@@ -27,7 +28,7 @@ require('./controllers/userController')(api);
 
 const porta = 3000;
 api.listen(porta, ()  => {
-  console.log(`Rodando na porta ${porta}!`);
+  console.log(`A aplicação está rodando aqui: http://localhost:${porta} !`);
 });
 
 

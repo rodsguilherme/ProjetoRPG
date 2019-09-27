@@ -1,51 +1,91 @@
 <template>
-  <div class="md-layout md-alignment-center" style="padding-top: 12vh">
-    <div class="md-layout-item md-size-25">
-      <div class="md-layout-item">
-        <md-field>
-          <label for="username">Username</label>
-          <md-input v-model="username" id="username" type="text"></md-input>
-        </md-field>
-      </div>
-      <div class="md-layout-item">
-        <md-field>
-          <label for="password">Password</label>
-          <md-input v-model="password" id="password" type="password"></md-input>
-        </md-field>
-      </div>
+  <v-row>
+    <v-col cols="12">
+      <v-card width="28vw" height="70vh" class="mx-auto" elevation="20" color="#4A148C">
+        <v-row>
+          <v-col cols="12">
+            <h1 class="text-center white--text">Login</h1>   
+          </v-col>
+     
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+             <v-divider></v-divider>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="10" offset="1">
+            <v-text-field dark class="camposDeTexto" v-model="username" label="Usuário" type="text" clearable
+           ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="10" offset="1">
+            <v-text-field dark  class="camposDeTexto" v-model="password" label="Senha" type="password" clearable
+             >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="10" offset="1" >
+            <v-btn  @click="entrar" block raised>Entrar</v-btn>    
+          </v-col>
+           <v-col cols="10" raised offset="1">
+             <v-btn block outlined dark to="/register">Cadastrar</v-btn>
+          </v-col>
+        </v-row>
 
-      <div class="md-layout">
-        <div class="md-layout-item"></div>
-        <md-button class="md-dense md-raised md-accent" @click="entrar" id="loginButton">Entrar</md-button>
-        <md-button class="md-dense md-raised md-accent" id="loginButton">
-          <router-link to="/register" style="color: white; text-decoration: none;">Cadastrar</router-link>
-        </md-button>
-      </div>
-    </div>
-  </div>
+      <v-snackbar v-model="snackbar" :timeout="timeout" dark bottom>
+         {{ errorMessage }}
+      <v-btn
+        dark
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+      </v-snackbar>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
-
 <script>
+import axios from "axios";
+
 export default {
   name: "login",
   data: () => ({
-    username: "guilherme",
-    password: "1234"
+    username: "",
+    password: "",
+    errorMessage: "",
+    snackbar: false,
+    timeout: 6000,
   }),
-
   methods: {
-    entrar() {
-      if (this.username === "guilherme" && this.password === "1234") {
-        this.connected = true;
-      } else this.connected = false;
-    }
-  }
+   entrar(username, password) {
+     axios 
+      .post("http://localhost:3000/api/user/login", {
+        username: this.username,
+        password: this.password
+      })
+      .catch(e => {
+        this.errorMessage = e.response.data.err
+        this.snackbar = true    
+      })
+      .then(r => {
+        this.errorMessage = r.data.sucess
+        this.snackbar = true
+      })
+      
+   }
+  },
 };
 </script>
 
-<style  lang="scss" scoped>
-#loginButton:hover {
-  background-color: #cf000f;
+<style scoped>
+
+.camposDeTexto {
+  color: #fff !important;
 }
 </style>
