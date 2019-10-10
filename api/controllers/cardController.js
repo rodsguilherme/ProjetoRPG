@@ -1,15 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const jwt = require('jsonwebtoken')
-const expressJwt = require('express-jwt')
-
-const jwtSecret = 'supersecretpass'
-const jwtMiddleWare = expressJwt({ secret: 'supersecretpass' })
-
-const database = require('../database/ConnectDB')
-
-
 const races = {
     elf: { bonus: 2 },
     human: { bonus: 1 },
@@ -23,12 +14,7 @@ const classes = {
     rogue: { hp: 8 }
 }
 
-const expertises = {
-    acrobatics: false,
-    intimidation: false,
-    athletics: false
-}
-
+/*
 const attributes = {
     strength: 0,
     dexterity: 0,
@@ -37,9 +23,41 @@ const attributes = {
     intelligence: 0,
     charisma: 0
 }
+*/
 
-router.post('/', jwtMiddleWare, (request, response) => {
+router.post('/', (request, response) => {
+    const { attributes, races, classes, data } = request.body
+    if (data.name && data.alignment && data.age) {
 
+        if (races == "dwarf") {
+            attributes.constitution += 2
+        }
+
+        if (races == "elf") {
+            attributes.dexterity += 2
+        }
+
+        if (races == "human") {
+            attributes = Object.entries(attributes)
+                .map(atr => { atr[1]++; return atr })
+                .reduce((obj, [k, v]) => ({ ...obj, [k]: v }), {});
+        }
+
+        if (classes == "warrior") {
+            classes.warrior.hp = 10
+        }
+        if (classes == "mage") {
+            classes.mage.hp = 6
+        }
+        if (classes == "rogue") {
+            classes.rogue.hp = 8
+        }
+
+
+    }
+    else {
+        response.status(400).json({ sucess: false, err: "Preencha os dados!" })
+    }
 
 })
 

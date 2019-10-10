@@ -6,18 +6,22 @@ Vue.config.productionTip = false
 
 import VueRouter from 'vue-router';
 
-import menu from './components/menu.vue'
-import login from './components/login.vue'
+
+import login from './components/login'
 import register from './components/register'
+import card from './components/card'
+
 
 const routes = [
-  { path: '/menu', component: menu },
   { path: '/login', component: login },
-  { path: '/register', component: register }
+  { path: '/register', component: register },
+  { path: '/card', component: card }
 ]
 
 Vue.use(VueRouter)
 Vue.use(vuetify)
+
+
 const router = new VueRouter({
   routes,
   mode: 'history'

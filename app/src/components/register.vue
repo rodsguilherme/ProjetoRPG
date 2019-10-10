@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col>
-      <v-card class="mx-auto" width="28vw" height="70vh" elevation="20" color="#4A148C">
+      <v-card class="mx-auto" width="28vw" height="70vh" elevation="10" color="#4A148C">
         <v-row>
           <v-col cols="12">
             <h1 class="text-center white--text">Cadastro</h1>
@@ -48,7 +48,7 @@
         </v-row>
 
         <v-snackbar v-model="snackbar" :timeout="timeout" dark bottom>
-          {{ errorMessage }}
+          {{ message }}
           <v-btn dark text @click="snackbar = false">Close</v-btn>
         </v-snackbar>
       </v-card>
@@ -65,7 +65,7 @@ export default {
     password: "",
     snackbar: false,
     timeout: 6000,
-    errorMessage: ''
+    message: ''
   }),
   methods: {
     cadastrar(username, password) {
@@ -75,11 +75,11 @@ export default {
           password: this.password
         })
         .catch(e => {
-          this.errorMessage = e.response.data.err;
+          this.message = e.response.data.err;
           this.snackbar = true;
         })
         .then(r => {
-            this.errorMessage = r.data.sucess;
+            this.message = r.data.sucess;
             this.snackbar = true;
         })
     }

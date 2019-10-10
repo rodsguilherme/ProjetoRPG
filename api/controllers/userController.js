@@ -71,7 +71,9 @@ router.post('/login', (request, response) => {
         response.status(400).json({ sucess: false, err: 'Preencha os campos corretamente!' })
 })
 
-
+router.get('/logout', jwtMiddleWare, (request, response) => {
+    response.status(200).json({sucess: false, token: null})
+})
 // Edita dados usuario
 router.put('/:id', jwtMiddleWare, (request, response) => {
     const id = request.params.id
