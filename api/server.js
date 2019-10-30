@@ -6,14 +6,15 @@ const koaBody = require('koa-body');
 const api = new koa();
 
 api.use(cors({
-    origin: '*',
-    allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
-    exposeHeaders: ['X-Request-Id']
-  }));
+  origin: '*',
+  allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  exposeHeaders: ['X-Request-Id']
+}));
 api.use(koaBody())
 
 api.use(mount(require('./controllers/userController')))
 api.use(mount(require('./controllers/cardController')))
+api.use(mount(require('./controllers/loginController')))
 
 const router = new Router();
 
