@@ -1,34 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const exjwt = require('express-jwt')
+const koa = require('koa');
+const cors = require('@koa/cors')
+const Router = require('koa-router');
+const mount = require('koa-mount')
+const koaBody = require('koa-body');
+const api = new koa();
+
+api.use(cors({
+    origin: '*',
+    allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
+    exposeHeaders: ['X-Request-Id']
+  }));
+api.use(koaBody())
+
+api.use(mount(require('./controllers/userController')))
+api.use(mount(require('./controllers/cardController')))
+
+const router = new Router();
 
 
-const jwtMidlleWare = exjwt({
-  secret : 'supersecretpass'
-});
+
+api.use(router.routes())
+api.use(router.allowedMethods())
 
 
-const api = express();
-api.use(cors());
-api.use(bodyParser.urlencoded({ extended: false }));
-api.use(bodyParser.json());
-
-
-
-// =============== Importação dos controllers ====================
-
-require('./controllers/userController')(api);
-require('./controllers/cardController')(api);
-
-
-// ===============================================================
-
-
-const porta = 3000;
-api.listen(porta, ()  => {
-  console.log(`A aplicação está rodando aqui: http://localhost:${porta} !`);
-});
-
-
+const port = 3000
+api.listen(port, (() => console.log(`Running at ${port}`)))
