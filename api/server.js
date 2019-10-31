@@ -3,6 +3,11 @@ const cors = require('@koa/cors')
 const Router = require('koa-router');
 const mount = require('koa-mount')
 const koaBody = require('koa-body');
+const respond = require('koa-respond')
+const jwt = require('koa-jwt')
+const jwtMiddleware = require('./middlewares/jwtMiddleware')
+
+
 const api = new koa();
 
 api.use(cors({
@@ -10,16 +15,26 @@ api.use(cors({
   allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
   exposeHeaders: ['X-Request-Id']
 }));
-api.use(koaBody())
+api.use(koaBody(({ multipart: true })))
+
 
 api.use(mount(require('./controllers/userController')))
 api.use(mount(require('./controllers/cardController')))
 api.use(mount(require('./controllers/loginController')))
 
+api.use(jwt({
+  secret: 'supersecret',
+  jwtMiddleware
+}).unless({
+  path: [
+    '/v1/login',
+    'v1/users/signup'
+  ]
+}))
+
 const router = new Router();
 
-
-
+api.use(respond())
 api.use(router.routes())
 api.use(router.allowedMethods())
 

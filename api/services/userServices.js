@@ -24,19 +24,18 @@ const FieldsAreValid = user => {
 const getAllUsers = async () => {
     return await database.select('idUser', 'username').into('User')
 }
-
 const compareUser = async user => {
     const { username, password } = user
 
-    if (!username || !password) {
+    if (!password || !username) {
         return false
     }
 
-    const users = await database.where({username}).select('password').from('User')
-    if (users < 0) {
+    const users = await database.where({ username }).select('password').from('User')
+    if (users.length <= 0) {
         return false
     }
-    const passwordChecked = await compareHash(password, users[0].password)
+    const passwordChecked = compareHash(password, users[0].password)
     if (!passwordChecked) {
         return false
     }
@@ -48,8 +47,12 @@ const getUserByName = async username => {
 
 }
 
+const getUserById = async idUser => {
+    return await database.where({ idUser }).select('idUser', 'username').from('User')
+}
+
 const login = async user => {
     return await compareUser(user)
 }
 
-module.exports = { createUser, getAllUsers, compareUser, getUserByName, login }
+module.exports = { createUser, getAllUsers, compareUser, getUserByName, login, getUserById }
