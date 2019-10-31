@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 const secret = 'supersecret';
 
 const generateToken = idUser => {
-    return jwt.sign({ idUser }, secret)
+    return jwt.sign({ id: idUser}, secret)
 }
 
 

@@ -1,6 +1,7 @@
 import { generateHash, compareHash } from '../services/criptografyService'
 
 import database from '../database/connect'
+import { createContext } from 'vm'
 
 const createUser = async user => {
     const { username, password } = user
@@ -42,7 +43,7 @@ const compareUser = async user => {
     return true
 }
 
-const getUserByName = async username => {
+const getUserByName = async (username) => {
     return await database.where({ username }).select('idUser').from('User')
 
 }
@@ -51,8 +52,22 @@ const getUserById = async idUser => {
     return await database.where({ idUser }).select('idUser', 'username').from('User')
 }
 
+const updateUser = async user => {
+    const { username, id } = user
+
+    if (!username) {
+        throw ("Preencha os campos.")
+    }
+    const usernameExists = await getUserByName(username)
+    if (!usernameExists.length > 0) {
+        throw ("Nome já existe")
+    }
+    return await database('User').where({ idUser: id.idUser }).update({ username })
+
+}
+
 const login = async user => {
     return await compareUser(user)
 }
 
-module.exports = { createUser, getAllUsers, compareUser, getUserByName, login, getUserById }
+module.exports = { createUser, getAllUsers, compareUser, getUserByName, login, getUserById, updateUser }
