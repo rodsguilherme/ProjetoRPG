@@ -59,7 +59,7 @@ const updateUser = async user => {
         throw ("Preencha os campos.")
     }
     const usernameExists = await getUserByName(username)
-    if (!usernameExists.length > 0) {
+    if (usernameExists.length > 0) {
         throw ("Nome já existe")
     }
     return await database('User').where({ idUser: id.idUser }).update({ username })
