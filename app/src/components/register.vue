@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="mt-5">
+  <v-container fluid class="mt-12">
     <v-row>
       <v-col cols="12">
         <v-card width="30vw" height="75vh" class="mx-auto" elevation="10" dark>

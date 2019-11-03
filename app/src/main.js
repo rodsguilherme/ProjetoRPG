@@ -12,6 +12,7 @@ import login from './components/login'
 import register from './components/register'
 import home from './components/home'
 import menuComponent from './components/menuComponent'
+//import racesComponent from './components/racesComponent'
 
 
 const routes = [
