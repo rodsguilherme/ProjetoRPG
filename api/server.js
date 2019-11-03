@@ -5,7 +5,7 @@ const mount = require('koa-mount')
 const koaBody = require('koa-body');
 const respond = require('koa-respond')
 const jwt = require('koa-jwt')
-const jwtMiddleware = require('./middlewares/jwtMiddleware')
+const jwtMiddleware = require('./middleware/jwtMiddleware')
 
 
 const api = new koa();
@@ -21,6 +21,7 @@ api.use(koaBody(({ multipart: true })))
 api.use(mount(require('./controllers/userController')))
 api.use(mount(require('./controllers/cardController')))
 api.use(mount(require('./controllers/loginController')))
+api.use(mount(require('./controllers/cardController')))
 
 api.use(jwt({
   secret: 'supersecret',

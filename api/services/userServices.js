@@ -1,25 +1,25 @@
 import { generateHash, compareHash } from '../services/criptografyService'
 
 import database from '../database/connect'
-import { createContext } from 'vm'
+
 
 const createUser = async user => {
     const { username, password } = user
 
-    if (!FieldsAreValid(user)) {
-        throw "Usuário ou senha incorretos."
+    if (!username || !password) {
+        throw "Preencha os campos"
     }
+    await usernameIsValid(username)
     const passwordHashed = generateHash(password)
     await database.insert({ username, password: passwordHashed }).into('User')
 
 }
-const FieldsAreValid = user => {
-    const { username, password } = user;
-
-    if (!username || !password) {
-        return false
+const usernameIsValid = async username => {
+    const user = await getUserByName(username)
+    if (user.length > 0) {
+        throw ("Nome de usuário em uso")
     }
-    return true
+
 }
 
 const getAllUsers = async () => {
@@ -37,10 +37,8 @@ const compareUser = async user => {
         return false
     }
     const passwordChecked = compareHash(password, users[0].password)
-    if (!passwordChecked) {
-        return false
-    }
-    return true
+
+    return passwordChecked
 }
 
 const getUserByName = async (username) => {
@@ -63,11 +61,10 @@ const updateUser = async user => {
         throw ("Nome já existe")
     }
     return await database('User').where({ idUser: id.idUser }).update({ username })
-
 }
 
 const login = async user => {
     return await compareUser(user)
 }
 
-module.exports = { createUser, getAllUsers, compareUser, getUserByName, login, getUserById, updateUser }
+module.exports = { createUser, getAllUsers, getUserByName, login, getUserById, updateUser }

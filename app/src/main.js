@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-free/css/all.css'
 import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
@@ -9,13 +10,15 @@ import VueRouter from 'vue-router';
 
 import login from './components/login'
 import register from './components/register'
-import card from './components/card'
+import home from './components/home'
+import menuComponent from './components/menuComponent'
 
 
 const routes = [
-  { path: '/login', component: login },
-  { path: '/register', component: register },
-  { path: '/card', component: card }
+  { path: '/login', component: login, name: 'login' },
+  { path: '/register', component: register, name: 'register' },
+  { path: '/home', component: home, name: 'home' },
+  { path: '/menu', component: menuComponent, name: 'menu' }
 ]
 
 Vue.use(VueRouter)

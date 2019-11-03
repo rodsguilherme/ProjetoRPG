@@ -16,12 +16,12 @@ router.post('/login', async ctx => {
     if(connected) {
         const userId = await getUserByName(user.username)
         const token = generateToken(userId)
-        ctx.body = {token} 
+        ctx.body = {connected: 'Conectado com sucesso', token} 
         ctx.status = 200
     }
     else {
         ctx.body = "Não foi possivel conectar."
-        ctx.status = 401
+        ctx.status = 400
     }
     
 })

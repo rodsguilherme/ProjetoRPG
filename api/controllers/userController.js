@@ -4,7 +4,7 @@ import Router from 'koa-router';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
 
-const jwt = require('../middlewares/jwtMiddleware')
+const jwt = require('../middleware/jwtMiddleware')
 
 import { createUser, getAllUsers, getUserById, updateUser } from '../services/userServices'
 
@@ -30,7 +30,7 @@ router.post('/users/signup', async ctx => {
         ctx.body = "Usuário cadastrado com sucesso."
         ctx.status = 201
     } catch (error) {
-        ctx.body = "Ocorreu algum erro ao cadastrar."
+        ctx.body = error
         ctx.status = 400
     }
 })
