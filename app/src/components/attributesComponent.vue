@@ -6,6 +6,7 @@
           <v-select
             label="Dexterity"
             v-model="form.dexterity"
+            color="blue" 
             :rules="[v => !!v || 'Item is required']"
             :items="items"
             required
@@ -15,6 +16,7 @@
           <v-select
             label="Constitution"
             v-model="form.constitution"
+            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
             required
@@ -24,6 +26,7 @@
           <v-select
             label="Winsdow"
             v-model="form.winsdow"
+            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
             required
@@ -33,6 +36,7 @@
           <v-select
             label="Intelligence"
             v-model="form.intelligence"
+            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
             required
@@ -41,14 +45,24 @@
         <v-col cols="3">
           <v-select
             label="Charisma"
+            color="blue" 
             :items="items"
             v-model="form.charisma"
             :rules="[v => !!v || 'Item is required']"
             required
           ></v-select>
         </v-col>
+        <v-col cols="3">
+          <v-select
+            label="Strength"
+            :items="items"
+            color="blue" 
+            v-model="form.strength"
+            :rules="[v => !!v || 'Item is required']"
+            required
+          ></v-select>
+        </v-col>
         <v-col cols="3" offset="1">
-          {{form.options}}
           <v-radio-group v-model="form.options" :rules="[v => !!v || 'Item is required']" row>
             <v-radio value="rogue" label="Rogue"></v-radio>
             <v-radio value="mage" label="Mage"></v-radio>
@@ -58,66 +72,8 @@
       <v-row>
         <v-col cols="12" offset="5">
           <v-card-actions>
-            <v-dialog v-model="dialog" persistent max-width="600px">
-              <template v-slot:activator="{ on }">
-                <v-btn :disabled="!valid" v-on="on">Confirm</v-btn>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">Attributes</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Your dexterity"
-                          :value="form.charisma"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Your constitution"
-                          :value="form.constitution"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Your winsdow" :value="form.winsdow" readonly></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Your intelligence"
-                          :value="form.intelligence"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Your charisma"
-                          :value="form.charisma"
-                          readonly
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field label="Your Kind" :value="form.options" readonly required></v-text-field>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" text @click="getAttribute">Save</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-btn text class="blue--text" @click="resetForm">Reset</v-btn>
+            <v-btn color="blue" dark  :disabled="!valid" @click="getAttribute">Continue</v-btn>
+            <v-btn text class="blue--text"  @click="resetForm">Reset</v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -137,6 +93,7 @@ export default {
       winsdow: "",
       constitution: "",
       dexterity: "",
+      strength: "",
       options: ""
     },
 
