@@ -1,10 +1,6 @@
 <template>
   <v-app>
     <menuComponent></menuComponent>
-
-    <v-btn style="margin-bottom: 30vh" class="blue" dark fab absolute bottom right to="home">
-      <v-icon>mdi-file-document-box</v-icon>
-    </v-btn>
     <v-container fluid>
       <router-view></router-view>
     </v-container>
@@ -28,9 +24,15 @@ export default {
     //home
 
     //footerComponent
+  },
+  computed: {
+
   }
 };
 </script>
 <style >
-
+*{
+  margin: 0;
+  padding: 0
+}
 </style>

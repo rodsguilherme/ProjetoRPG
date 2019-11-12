@@ -12,7 +12,7 @@ router.post('/card/create', jwt, async ctx => {
         race: body.race,
         kind: body.kind,
         dexterity: body.dexterity,
-        constitution: body.dexterity,
+        constitution: body.constitution,
         winsdow: body.winsdow,
         intelligence: body.intelligence,
         charisma: body.charisma,

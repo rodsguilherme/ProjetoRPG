@@ -15,15 +15,17 @@
 
       <v-stepper-items>
         <v-stepper-content step="1">
-          <v-card class="mb-12 mt-1" color="grey lighten-1" height="450px">
+          <v-card class="mb-12 mt-1" height="300px">
             <racesComponent @emit-click="getRace"></racesComponent>
           </v-card>
 
-          <v-btn color="blue" dark @click="e1 = 2">Continue</v-btn>
+          <v-btn color="blue" :disabled="!raceSelected" dark @click="e1 = 2">Continue</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="2">
-          <v-card class="mb-12"  color="grey lighten-1" height="450px"></v-card>
+          <v-card class="mb-12" height="300px">
+            <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
+          </v-card>
 
           <v-btn color="blue" dark @click="e1 = 3">Continue</v-btn>
 
@@ -31,7 +33,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="3">
-          <v-card class="mb-12" color="grey lighten-1" height="450px"></v-card>
+          <v-card class="mb-12" height="300px"></v-card>
           <v-btn color="blue" dark @click="e1 = 1">Continue</v-btn>
 
           <v-btn color="blue" text @click="e1 = 1">Cancel</v-btn>
@@ -55,10 +57,12 @@
 
 <script>
 import racesComponent from "./racesComponent";
+import attributesComponent from "./attributesComponent";
 export default {
   name: "stepper",
   data: () => ({
     e1: 0,
+    selected: false,
     message: "",
     timeout: 2000,
     snackbar: false,
@@ -91,15 +95,33 @@ export default {
     ]
   }),
   components: {
-    racesComponent
+    racesComponent,
+    attributesComponent
   },
   methods: {
     getRace(index) {
       this.snackbar = true;
+      this.selected = true;
       this.raceSelected = this.races[index].name;
       this.message = this.raceSelected;
+    },
+    getAttributes(form) {
+      alert(Object.values(form));
     }
-  },
-  
+  }
+  /* ,
+  computed: {
+    formIsValid() {
+      return (
+        this.form.charisma &&
+        this.form.intelligence &&
+        this.form.dexterity &&
+        this.form.constitution &&
+        this.form.winsdow &&
+        this.form.private 
+      );
+  }
+  }
+  */
 };
 </script>
