@@ -26,12 +26,16 @@
           <v-card class="mb-12" height="300px">
             <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
           </v-card>
-
-          <v-btn color="blue" dark @click="createCard">Continue</v-btn>
-
           <v-btn color="blue" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
+        <v-stepper-content step="3">
+          <v-card class="mb-12" height="300px">
+            <v-text-field label="Your charisma" :value="charismaToSave" readonly required></v-text-field>
+          </v-card>
+          <v-btn color="blue" text @click="createCard">Continuar</v-btn>
+          <v-btn color="blue" text @click="e1 = 1">Voltar</v-btn>
+        </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
     <v-row>
@@ -52,6 +56,7 @@
 <script>
 import racesComponent from "./racesComponent";
 import attributesComponent from "./attributesComponent";
+
 export default {
   name: "stepper",
   data: () => ({
@@ -87,14 +92,14 @@ export default {
         name: "Mage"
       }
     ],
-     form: {
-      charisma: "",
-      intelligence: "",
-      winsdow: "",
-      constitution: "",
-      dexterity: "",
-       options: ""
-    }
+  
+      charismaToSave: "",
+      intelligenceToSave: "",
+      winsdowToSave: "",
+      constitutionToSave: "",
+      dexterityToSave: "",
+      optionsToSave: { hp: "" }
+    
   }),
   components: {
     racesComponent,
@@ -108,11 +113,25 @@ export default {
       this.message = this.raceSelected;
     },
     getAttributes(form) {
-     console.log(form)
+      this.e1 = 3;
+      this.$emit("emit-attribute", form);
+      this.charismaToSave = form.charisma;
+      this.intelligenceToSave = form.intelligence;
+      this.dexterityToSave = form.dexterity;
+      this.winsdowToSave = form.winsdow;
+      this.constitutionToSave = form.constitution;
+      this.optionsToSave = form.options;
+      console.log(this.charismaToSave)
     },
-    createCard(){
-
+    createCard() {
+      if (this.raceSelected == "Elf") {
+        this.dexterityToSave += 2;
+      }
+      if (this.optionsToSave == "mage") {
+        this.optionsToSave.hp = 6;
+      }
     }
-  }
+  },
+  computed: {}
 };
 </script>

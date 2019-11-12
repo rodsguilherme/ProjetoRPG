@@ -8,7 +8,7 @@
         v-slot:default="{ active, toggle }"
       >
         <v-card class="ma-4 blue--text text--darken-4" :id="race.id" height="300" width="250" @click="raceSelected(i)">
-          <img :src="race.url" width="100%" height="110%" />
+          <img :src="race.url" width="100%" height="100%" />
         </v-card>
       </v-slide-item>
     </v-slide-group>

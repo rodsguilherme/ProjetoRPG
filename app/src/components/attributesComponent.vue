@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
     <v-form ref="form" v-model="valid" @click.prevent="submit">
-      {{form}}
       <v-row class="mx-auto">
         <v-col cols="3">
           <v-select
@@ -114,7 +113,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-                  <v-btn color="blue darken-1" text @click="getAtt">Save</v-btn>
+                  <v-btn color="blue darken-1" text @click="getAttribute">Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -140,6 +139,7 @@ export default {
       dexterity: "",
       options: ""
     },
+
     valid: false,
     items: [
       1,
@@ -168,12 +168,9 @@ export default {
     resetForm() {
       this.$refs.form.reset();
     },
-    getAtt() {
+    getAttribute() {
       this.dialog = false;
-      this.valid = false;
-      console.log(this.form)
       this.$emit("emit-click-attribute", this.form);
-      // this.$refs.form.reset();
     }
   }
 };
