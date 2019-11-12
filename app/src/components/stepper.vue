@@ -27,17 +27,11 @@
             <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
           </v-card>
 
-          <v-btn color="blue" dark @click="e1 = 3">Continue</v-btn>
+          <v-btn color="blue" dark @click="createCard">Continue</v-btn>
 
           <v-btn color="blue" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3">
-          <v-card class="mb-12" height="300px"></v-card>
-          <v-btn color="blue" dark @click="e1 = 1">Continue</v-btn>
-
-          <v-btn color="blue" text @click="e1 = 1">Cancel</v-btn>
-        </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
     <v-row>
@@ -92,7 +86,15 @@ export default {
           "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
         name: "Mage"
       }
-    ]
+    ],
+     form: {
+      charisma: "",
+      intelligence: "",
+      winsdow: "",
+      constitution: "",
+      dexterity: "",
+       options: ""
+    }
   }),
   components: {
     racesComponent,
@@ -106,22 +108,11 @@ export default {
       this.message = this.raceSelected;
     },
     getAttributes(form) {
-      alert(Object.values(form));
+     console.log(form)
+    },
+    createCard(){
+
     }
   }
-  /* ,
-  computed: {
-    formIsValid() {
-      return (
-        this.form.charisma &&
-        this.form.intelligence &&
-        this.form.dexterity &&
-        this.form.constitution &&
-        this.form.winsdow &&
-        this.form.private 
-      );
-  }
-  }
-  */
 };
 </script>
