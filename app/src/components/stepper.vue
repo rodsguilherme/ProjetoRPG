@@ -2,6 +2,7 @@
   <v-container fluid class="mt-12">
     <v-stepper v-model="e1">
       <v-stepper-header>
+
         <v-stepper-step :complete="e1 > 1" step="1">Set your name</v-stepper-step>
 
         <v-divider></v-divider>
@@ -19,7 +20,7 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <v-card class="mb-12" height="300px">
-            <namePlayer :disabled="!nameToSave" @get-player="getPlayer"></namePlayer>
+            <namePlayer :disabled="!valid" @setStatus="setStatus" @get-player="getPlayer"></namePlayer>
           </v-card>
         </v-stepper-content>
 
@@ -43,17 +44,11 @@
           <v-card class="mb-12" height="300px">
             <v-row>
               <v-col cols="12" sm="6" md="4" lg="2">
-                <v-text-field label="Charisma" :value="charismaToSave" prefix="+" readonly required></v-text-field>
+                <v-text-field label="Charisma" :value="charismaToSave" readonly required></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6" md="4" lg="2">
-                <v-text-field
-                  label="Intelligence"
-                  :value="intelligenceToSave"
-                  prefix="+"
-                  readonly
-                  required
-                ></v-text-field>
+                <v-text-field label="Intelligence" :value="intelligenceToSave" readonly required></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6" md="4" lg="2">
@@ -61,21 +56,20 @@
                   label="Dexterity"
                   color="blue"
                   :value="dexterityToSave"
-                  prefix="+"
                   readonly
                   required
                 ></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6" md="4" lg="2">
-                <v-text-field label="Winsdow" :value="winsdowToSave" prefix="+" readonly required></v-text-field>
+                <v-text-field label="Winsdow" :value="winsdowToSave" readonly required></v-text-field>
               </v-col>
 
               <v-col cols="12" sm="6" md="4" lg="2">
-                <v-text-field label="Strength" :value="strengthToSave" prefix="+" readonly required></v-text-field>
+                <v-text-field label="Strength" :value="strengthToSave" readonly required></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4" lg="2">
-                <v-text-field label="HP" :value="hp" prefix="+" readonly required></v-text-field>
+                <v-text-field label="HP" :value="hp" readonly required></v-text-field>
               </v-col>
             </v-row>
           </v-card>
@@ -112,8 +106,8 @@ export default {
     timeout: 2000,
     snackbar: false,
     raceSelected: null,
-    nameToSave: '',
-    vacationToSave: '',
+    nameToSave: "",
+    vacationToSave: "",
     racesToSave: [
       {
         id: 1,
@@ -147,7 +141,8 @@ export default {
     dexterityToSave: "",
     strengthToSave: "",
     optionsToSave: "",
-    hp: 0
+    hp: 0,
+    valid: false
   }),
   components: {
     racesComponent,
@@ -155,11 +150,11 @@ export default {
     namePlayer
   },
   methods: {
-    getPlayer(user){
-      this.nameToSave = user.name
-      this.vacationToSave = user.vacationToSave
-      this.e1 = 2
-      console.log(user.name)
+    getPlayer(user) {
+      this.nameToSave = user.name;
+      this.vacationToSave = user.vacationToSave;
+      this.e1 = 2;
+      console.log(this.nameToSave);
     },
     getRace(index) {
       this.snackbar = true;
@@ -185,8 +180,10 @@ export default {
         this.hp = 6;
       }
     },
-    createCard() {}
-  },
-  computed: {}
+    createCard() {},
+    setStatus(status) {
+      console.log(status)
+    }
+  }
 };
 </script>

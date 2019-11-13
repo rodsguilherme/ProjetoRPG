@@ -6,7 +6,7 @@
       <v-toolbar-items>
         <v-btn text :class="colorMenu" to="home">HOME</v-btn>
         <v-btn text :class="colorMenu" to="login">SIGN IN</v-btn>
-        <v-btn text :class="colorMenu" to="register">SING UP</v-btn>
+        <v-btn text :class="colorMenu" to="register">SIGn UP</v-btn>
       </v-toolbar-items>  
     </v-app-bar>
   </v-container>
