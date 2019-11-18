@@ -29,7 +29,8 @@ api.use(jwt({
 }).unless({
   path: [
     '/v1/login',
-    'v1/users/signup'
+    'v1/users/signup',
+    '/v1/card/create'
   ]
 }))
 

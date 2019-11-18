@@ -6,7 +6,7 @@
           <v-text-field label="Name" :rules="rules" v-model="user.name" clearable></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="12">
-           <v-select label="Vocation" :items="vocation" v-model="user.vocation"></v-select>
+           <v-select label="Vocation" :items="alignment" v-model="user.alignment"></v-select>
         </v-col>
       </v-row>
       <v-row>
@@ -22,10 +22,10 @@
 export default {
   name: "namePlayer",
   data: () => ({
-     vocation: ['neutro', 'bad', 'good'],
+     alignment: ['neutro', 'bad', 'good'],
     user: {
       name: "",
-      vocation: ['neutro', 'bad', 'good']
+      alignment: ['neutro', 'bad', 'good']
     },
     valid: false,
     rules: [value => !!value || "Required."]

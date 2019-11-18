@@ -13,13 +13,15 @@ import register from './components/register'
 import home from './components/home'
 import menuComponent from './components/menuComponent'
 //import racesComponent from './components/racesComponent'
+import cards from './components/cards'
 
 
 const routes = [
   { path: '/login', component: login, name: 'login' },
   { path: '/register', component: register, name: 'register' },
   { path: '/', component: home, name: 'home' },
-  { path: '/menu', component: menuComponent, name: 'menu' }
+  { path: '/menu', component: menuComponent, name: 'menu' },
+  { path: '/cards', component: cards, name: 'cards' }
 ]
 
 Vue.use(VueRouter)
