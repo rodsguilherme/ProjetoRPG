@@ -90,4 +90,14 @@ export default {
   width: 15vw;
   border: 8px solid #D1C4E9
 }
+
+.card:focus{
+  border: 8px solid #D1C4E9
+}
+.card:hover{
+  border: 8px solid #D1C4E9
+}
+.card {
+  background-color: #D1C4E9
+}
 </style>
