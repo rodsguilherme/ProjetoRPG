@@ -16,21 +16,22 @@
         <v-stepper-step :complete="e1 > 4" step="4" :color="colorLabel">Card Preview</v-stepper-step>
       </v-stepper-header>
 
-      <v-stepper-items>
-        <v-stepper-content step="1">
+      <v-stepper-items style="padding: 10vh">
+        <v-stepper-content step="1"  style="padding: 13vh">
           <namePlayer @get-player="getPlayer"></namePlayer>
         </v-stepper-content>
 
         <v-stepper-content step="2">
+      
           <racesComponent @emit-click="getRace"></racesComponent>
-
-          <v-btn color="deep-purple ligthen-4" dark :disabled="!raceSelected" @click="e1 = 3">Continue</v-btn>
+          
+          <v-btn color="deep-purple ligthen-4" style="margin: 40px" dark :disabled="!raceSelected" @click="e1 = 3">Continue</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
-          <v-btn :color="colorButton" text @click="e1 = 2">Voltar</v-btn>
+          <v-btn :color="colorButton"  style="margin: 5vh" text @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4">
@@ -82,9 +83,9 @@
     <v-row>
       <v-col>
         <div class="text-center">
-          <v-snackbar v-model="snackbar" class="red--text darken-4" :timeout="timeout">
+          <v-snackbar v-model="snackbar" class="white--text" :timeout="timeout">
             Selected {{ message }}
-            <v-btn dark text @click="snackbar = false" class="red--text darken-4">Close</v-btn>
+            <v-btn dark text @click="snackbar = false"  class="white--text">Close</v-btn>
           </v-snackbar>
         </div>
       </v-col>
@@ -116,25 +117,49 @@ export default {
         id: 1,
         url:
           "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/outlander_orig.jpg",
-        name: "Warrior"
+        name: "Elf"
       },
       {
         id: 2,
         url:
           "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/dimitri_orig.jpg",
-        name: "Elf"
+        name: "Orc"
       },
       {
         id: 3,
         url:
           "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/mistrider_orig.jpg",
-        name: "Rogue"
+        name: "Human"
       },
       {
-        id: 4,
+        id: 5,
         url:
           "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Mage"
+        name: "Dwarf"
+      },
+      {
+        id: 5,
+        url:
+          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
+        name: "Dwarf"
+      },
+      {
+        id: 6,
+        url:
+          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
+        name: "Dwarf"
+      },
+      {
+        id: 7,
+        url:
+          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
+        name: "Dwarf"
+      },
+      {
+        id: 8,
+        url:
+          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
+        name: "Dwarf"
       }
     ],
     charismaToSave: "",
@@ -157,7 +182,6 @@ export default {
       this.nameToSave = user.name;
       this.vocationToSave = user.vocation;
       this.e1 = 2;
-      console.log(this.nameToSave);
     },
     getRace(index) {
       this.snackbar = true;

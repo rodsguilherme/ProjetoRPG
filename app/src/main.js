@@ -18,7 +18,7 @@ import menuComponent from './components/menuComponent'
 const routes = [
   { path: '/login', component: login, name: 'login' },
   { path: '/register', component: register, name: 'register' },
-  { path: '/home', component: home, name: 'home' },
+  { path: '/', component: home, name: 'home' },
   { path: '/menu', component: menuComponent, name: 'menu' }
 ]
 
