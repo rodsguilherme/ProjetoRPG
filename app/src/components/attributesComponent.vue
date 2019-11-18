@@ -72,8 +72,8 @@
       <v-row>
         <v-col cols="12" offset="5">
           <v-card-actions>
-            <v-btn color="red darken-4" dark :disabled="!valid" @click="getAttribute">Continue</v-btn>
-            <v-btn text class="red--text darken-4" @click="resetForm">Reset</v-btn>
+            <v-btn color="deep-purple" dark :disabled="!valid" @click="getAttribute">Continue</v-btn>
+            <v-btn text class="deep-purple" @click="resetForm">Reset</v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
@@ -87,7 +87,7 @@ export default {
   name: "attributes",
   data: () => ({
     dialog: false,
-    colorSelects: 'red darken-4',
+    colorSelects: 'deep-purple',
     form: {
       charisma: "",
       intelligence: "",

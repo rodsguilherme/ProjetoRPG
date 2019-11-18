@@ -6,12 +6,12 @@
           <v-text-field label="Name" :rules="rules" v-model="user.name" clearable></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="12">
-           <v-select label="Vacation" :items="user.vocation"></v-select>
+           <v-select label="Vacation" :items="vocation" v-model="user.vocation"></v-select>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-btn block="" class="red darken-4" dark :disabled="!valid" @click="getPlayer">Continue</v-btn>
+          <v-btn block class="deep-purple lighten-2 " dark :disabled="!valid" @click="getPlayer">Continue</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -22,7 +22,7 @@
 export default {
   name: "namePlayer",
   data: () => ({
-   
+     vocation: ['neutro', 'bad', 'good'],
     user: {
       name: "",
       vocation: ['neutro', 'bad', 'good']

@@ -2,18 +2,18 @@
   <v-container fluid class="mt-12">
     <v-stepper v-model="e1" dark style="backgroundColor: #212121">
       <v-stepper-header>
-        <v-stepper-step :complete="e1 > 1" step="1" color="red darken-4">Set your name</v-stepper-step>
+        <v-stepper-step :complete="e1 > 1" step="1" :color="colorLabel">Set your name</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 2" step="2" color="red darken-4">Choose your race</v-stepper-step>
+        <v-stepper-step :complete="e1 > 2" step="2" :color="colorLabel">Choose your race</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 3" step="3" color="red darken-4">Set attributes</v-stepper-step>
+        <v-stepper-step :complete="e1 > 3" step="3" :color="colorLabel">Set attributes</v-stepper-step>
 
         <v-divider></v-divider>
-        <v-stepper-step :complete="e1 > 4" step="4" color="red darken-4">Card Preview</v-stepper-step>
+        <v-stepper-step :complete="e1 > 4" step="4" :color="colorLabel">Card Preview</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
@@ -24,7 +24,7 @@
         <v-stepper-content step="2">
           <racesComponent @emit-click="getRace"></racesComponent>
 
-          <v-btn color="red darken-4" dark :disabled="!raceSelected" @click="e1 = 3">Continue</v-btn>
+          <v-btn color="deep-purple ligthen-4" dark :disabled="!raceSelected" @click="e1 = 3">Continue</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
@@ -36,6 +36,13 @@
         <v-stepper-content step="4">
           <v-card class="mx-auto mb-12" elevation="15" height="300px" width="50vw" style="backgroundColor: #212121" dark>
             <v-row class="mx-auto">
+               <v-col cols="12" sm="6" md="4" lg="4">
+                <v-text-field label="Name" :value="nameToSave" readonly required></v-text-field>
+              </v-col>
+               <v-col cols="12" sm="6" md="4" lg="4">
+                <v-text-field label="Vocation" :value="vocationToSave" readonly required></v-text-field>
+              </v-col>
+
               <v-col cols="12" sm="6" md="4" lg="4">
                 <v-text-field label="Charisma" :value="charismaToSave" readonly required></v-text-field>
               </v-col>
@@ -47,7 +54,6 @@
               <v-col cols="12" sm="6" md="4" lg="4">
                 <v-text-field
                   label="Dexterity"
-                  color="blue"
                   :value="dexterityToSave"
                   readonly
                   required
@@ -68,7 +74,7 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-btn color="red darken-4" dark @click="createCard">Save</v-btn>
+          <v-btn color="deep-purple ligthen-4" dark @click="createCard">Save</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
       </v-stepper-items>
@@ -100,10 +106,11 @@ export default {
     message: "",
     timeout: 2000,
     snackbar: false,
-    colorButton: "red--text darken-4",
+    colorButton: "deep-purple lighten-2 ",
+    colorLabel: "deep-purple lighten-2 ",
     raceSelected: null,
     nameToSave: "",
-    vacationToSave: "",
+    vocationToSave: "",
     racesToSave: [
       {
         id: 1,
@@ -148,7 +155,7 @@ export default {
   methods: {
     getPlayer(user) {
       this.nameToSave = user.name;
-      this.vacationToSave = user.vacationToSave;
+      this.vocationToSave = user.vocation;
       this.e1 = 2;
       console.log(this.nameToSave);
     },

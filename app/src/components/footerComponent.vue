@@ -1,7 +1,7 @@
 <template>
   <v-footer dark padless fixed>
     <v-card class="flex" flat tile>
-      <v-card-title class="blue">
+      <v-card-title class="deep-purple lighten-1">
         <strong class="subheading">Alguma sugestão? Entre em contato com a gente!</strong>
 
         <v-spacer></v-spacer>

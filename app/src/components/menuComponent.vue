@@ -19,7 +19,7 @@ export default {
   name: "componentMenu",
   data: () => ({
     title: "GENERATE CARD",
-    colorMenu: "red--text "
+    colorMenu: "deep-purple--text text--lighten-1"
   })
 };
 </script>
