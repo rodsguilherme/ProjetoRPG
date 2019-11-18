@@ -1,68 +1,68 @@
 <template>
-  <v-container fluid>
+  <v-card dark class="mx-auto" elevation="15" style="backgroundColor: #212121" width="70vw">
     <v-form ref="form" v-model="valid" @click.prevent="submit">
       <v-row class="mx-auto">
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Dexterity"
             v-model="form.dexterity"
-            color="blue" 
             :rules="[v => !!v || 'Item is required']"
             :items="items"
             required
+            :color="colorSelects"
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Constitution"
             v-model="form.constitution"
-            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
+             :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Winsdow"
             v-model="form.winsdow"
-            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
+             :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Intelligence"
             v-model="form.intelligence"
-            color="blue" 
             :items="items"
             :rules="[v => !!v || 'Item is required']"
+             :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Charisma"
-            color="blue" 
             :items="items"
             v-model="form.charisma"
             :rules="[v => !!v || 'Item is required']"
+             :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="4">
           <v-select
             label="Strength"
             :items="items"
-            color="blue" 
             v-model="form.strength"
             :rules="[v => !!v || 'Item is required']"
+             :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="3" offset="1">
+        <v-col cols="4" offset="1">
           <v-radio-group v-model="form.options" :rules="[v => !!v || 'Item is required']" row>
             <v-radio value="rogue" label="Rogue"></v-radio>
             <v-radio value="mage" label="Mage"></v-radio>
@@ -72,13 +72,13 @@
       <v-row>
         <v-col cols="12" offset="5">
           <v-card-actions>
-            <v-btn color="blue" dark  :disabled="!valid" @click="getAttribute">Continue</v-btn>
-            <v-btn text class="blue--text"  @click="resetForm">Reset</v-btn>
+            <v-btn color="red darken-4" dark :disabled="!valid" @click="getAttribute">Continue</v-btn>
+            <v-btn text class="red--text darken-4" @click="resetForm">Reset</v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
     </v-form>
-  </v-container>
+  </v-card>
 </template>
 
 
@@ -87,6 +87,7 @@ export default {
   name: "attributes",
   data: () => ({
     dialog: false,
+    colorSelects: 'red darken-4',
     form: {
       charisma: "",
       intelligence: "",
