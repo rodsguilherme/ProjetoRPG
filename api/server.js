@@ -22,6 +22,7 @@ api.use(mount(require('./controllers/userController')))
 api.use(mount(require('./controllers/cardController')))
 api.use(mount(require('./controllers/loginController')))
 api.use(mount(require('./controllers/cardController')))
+api.use(mount(require('./controllers/raceController')))
 
 api.use(jwt({
   secret: 'supersecret',
@@ -30,7 +31,8 @@ api.use(jwt({
   path: [
     '/v1/login',
     'v1/users/signup',
-    '/v1/card/create'
+    '/v1/card/create',
+    '/v1/races'
   ]
 }))
 

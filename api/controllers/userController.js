@@ -6,7 +6,7 @@ const api = new koa()
 
 const jwt = require('../middleware/jwtMiddleware')
 
-import { createUser, getAllUsers, getUserById, updateUser } from '../services/userServices'
+import { createUser, getAllUsers, getUserById } from '../services/userServices'
 
 router.get('/users', jwt, async (ctx) => {
     const users = await getAllUsers()
@@ -23,6 +23,7 @@ router.get('/users', jwt, async (ctx) => {
 router.post('/users/signup', async ctx => {
     const user = {
         username: ctx.request.body.username,
+        email: ctx.request.body.email,
         password: ctx.request.body.password
     }
     try {
@@ -30,6 +31,7 @@ router.post('/users/signup', async ctx => {
         ctx.body = "Usuário cadastrado com sucesso."
         ctx.status = 201
     } catch (error) {
+        console.log(error)
         ctx.body = error
         ctx.status = 400
     }
@@ -47,21 +49,6 @@ router.get('/users/:id', jwt, async (ctx) => {
     else {
         ctx.body = "Erro ao retornar o usuário."
         ctx.status = 404
-    }
-})
-
-router.put('/users/update', jwt, async ctx => {
-    const user = {
-        username: ctx.request.body.username,
-        id: ctx.state.user.id[0]
-    }
-    try {
-        await updateUser(user)
-        ctx.body = "Nome mudado com sucesso!"
-        ctx.status = 200
-    } catch (error) {
-        ctx.body = "Não foi possivel mudar de nome, tente novamente."
-        ctx.status = 400
     }
 })
 

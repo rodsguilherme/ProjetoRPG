@@ -8,5 +8,6 @@ const database = require('knex')({
     },
     useNullAsDefault: true
 
-})
+});
+
 module.exports = database

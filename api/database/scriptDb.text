@@ -1,0 +1,36 @@
+create table User (
+idUser integer primary key autoincrement,
+username text not null,
+email text unique not null,
+password integer
+);
+
+create table Race (
+idRace integer primary key autoincrement,
+races text
+);
+
+create table Kind (
+idKind integer primary key autoincrement,
+rogue text,
+mage text,
+warrior text
+);
+
+create table Card (
+idCard integer primary key autoincrement,
+idUser integer not null,
+idRace integer not null,
+idKind integer not null,
+name text not null,
+alignment text not null,
+dexterity integer not null,
+constitution integer not null,
+winsdom integer not null,
+intelligence integer not null,
+charisma integer not null,
+strength integer not null,
+foreign key(idRace) references Race(idRace),
+foreign key(idUser) references User(idUser),
+foreign key(idKind) references Kind(idKind)
+)
