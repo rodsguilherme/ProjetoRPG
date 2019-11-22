@@ -21,7 +21,7 @@
           <namePlayer @get-player="getPlayer"></namePlayer>
         </v-stepper-content>
 
-        <v-stepper-content step="2">
+        <v-stepper-content step="2" width="10vw">
           <racesComponent @emit-click="getRace"></racesComponent>
 
           <v-btn
@@ -85,12 +85,13 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-btn color="deep-purple ligthen-4" :loading="loading" dark @click="createCard">Save
+          <v-btn color="deep-purple ligthen-4" :loading="loading" dark @click="createCard">
+            Save
             <template v-slot:loader>
-        <span class="custom-loader">
-          <v-icon light>cached</v-icon>
-        </span>
-      </template>
+              <span class="custom-loader">
+                <v-icon light>cached</v-icon>
+              </span>
+            </template>
           </v-btn>
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
@@ -124,63 +125,13 @@ export default {
     message: "",
     timeout: 2000,
     snackbar: false,
-     loader: null,
-        loading: false,
+    loader: null,
+    loading: false,
     colorButton: "deep-purple lighten-2 ",
     colorLabel: "deep-purple lighten-2 ",
-    raceSelected: null,
     nameToSave: "",
     alignmentToSave: "",
-    racesToSave: [
-      {
-        id: 1,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/outlander_orig.jpg",
-        name: "Elf"
-      },
-      {
-        id: 2,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/dimitri_orig.jpg",
-        name: "Orc"
-      },
-      {
-        id: 3,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/mistrider_orig.jpg",
-        name: "Human"
-      },
-      {
-        id: 5,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Dwarf"
-      },
-      {
-        id: 5,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Dwarf"
-      },
-      {
-        id: 6,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Dwarf"
-      },
-      {
-        id: 7,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Dwarf"
-      },
-      {
-        id: 8,
-        url:
-          "https://www.sketchgoblin.co.nz/uploads/1/1/6/7/116709803/eiland_orig.jpg",
-        name: "Dwarf"
-      }
-    ],
+
     charismaToSave: "",
     intelligenceToSave: "",
     winsdowToSave: "",
@@ -202,11 +153,12 @@ export default {
       this.alignmentToSave = user.alignment;
       this.e1 = 2;
     },
-    getRace(index) {
+    getRace(race) {
       this.snackbar = true;
       this.selected = true;
-      this.raceSelected = this.racesToSave[index].name;
-      this.message = this.raceSelected;
+      this.idRaceSelected = race.idRace;
+      console.log(this.idRaceSelected)
+      this.message = race.races;
     },
     getAttributes(form) {
       this.e1 = 4;
@@ -219,7 +171,7 @@ export default {
       this.strengthToSave = form.strength;
       this.optionsToSave = form.options;
 
-      if (this.raceSelected == "Elf") {
+      if (this.raceSelected == 1) {
         this.dexterityToSave += 2;
       }
       if (this.optionsToSave == "mage") {
@@ -227,10 +179,11 @@ export default {
       }
     },
     createCard() {
+      this.loading = true;
       Axios.post("http://localhost:3000/v1/card/create", {
         name: this.nameToSave,
         alignment: this.alignmentToSave,
-        race: this.raceSelected,
+        race: this.idRaceSelected,
         kind: this.optionsToSave,
         charisma: this.charismaToSave,
         intelligence: this.intelligenceToSave,
@@ -239,62 +192,61 @@ export default {
         constitution: this.constitutionToSave,
         strength: this.strengthToSave
       })
-      .catch(error => alert(error.data))
-      .then(res => alert(res.data))
-      this.loader = 'loading'
-
-  
-     
+        .catch(e => {
+          console.log(e);
+        })
+        .then(res => alert(res.data))
+        .finally(() => (this.loading = false));
     }
   },
-    watch: {
-      loader () {
-        const l = this.loader
-        this[l] = !this[l]
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
 
-        setTimeout(() => (this[l] = false), 3000)
+      setTimeout(() => (this[l] = false), 3000);
 
-        this.loader = null
-      },
+      this.loader = null;
     }
+  }
 };
 </script>
 
 <style scoped>
 .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
   }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
   }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
