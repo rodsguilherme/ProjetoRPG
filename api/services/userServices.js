@@ -10,7 +10,7 @@ const createUser = async user => {
         throw "Preencha os campos"
     }
     const emailChecked = await emailIsValid(email)
-   
+
     if (!emailChecked) {
         throw "Email incorreto ou já existe."
     }
@@ -26,7 +26,7 @@ const emailIsValid = async email => {
         return false
     }
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-   
+
     return emailRegex.test(String(email).toLowerCase())
 
 }
@@ -34,25 +34,27 @@ const emailIsValid = async email => {
 const getAllUsers = async () => {
     return await database.select('idUser', 'username').into('User')
 }
+const emailExists = async email => {
+    const emails = await database.where({ email }).select('email').from('User')
+    if (emails.length == 0) {
+       return false
+    }
+    return true
+}
 const compareUser = async user => {
-    const { username, password, email } = user
+    const { password, email } = user
 
-    if (!password || !username) {
+    if (!password) {
         return false
     }
-
+    const emailIsValid = await emailExists(email)
+    if (!emailIsValid) {
+        return false
+    }
     const users = await database.where({ email }).select('password').from('User')
-    if (users.length == 0) {
-        return false
-    }
     const passwordChecked = compareHash(password, users[0].password)
 
     return passwordChecked
-}
-
-const getUserByName = async (username) => {
-    return await database.where({ username }).select('idUser').from('User')
-
 }
 
 const getUserById = async idUser => {
@@ -63,4 +65,4 @@ const login = async user => {
     return await compareUser(user)
 }
 
-module.exports = { createUser, getAllUsers, getUserByName, login, getUserById }
+module.exports = { createUser, getAllUsers, login, getUserById }

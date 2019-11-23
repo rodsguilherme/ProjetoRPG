@@ -1,6 +1,6 @@
 import koa from 'koa';
 import Router from 'koa-router';
-
+import nodemailer from 'nodemailer';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
 
@@ -27,6 +27,7 @@ router.post('/users/signup', async ctx => {
         password: ctx.request.body.password
     }
     try {
+        
         await createUser(user)
         ctx.body = "Usuário cadastrado com sucesso."
         ctx.status = 201

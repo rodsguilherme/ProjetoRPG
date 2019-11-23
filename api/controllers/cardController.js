@@ -26,13 +26,14 @@ router.post('/card/create', async ctx => {
     }
     try {
         await database.insert({
-            name: card.name, alignment: card.alignment, race: card.race, kind: card.kind,
+            idUser: 1, name: card.name, alignment: card.alignment, idRace: card.race, idKind: card.kind,
             charisma: card.intelligence, intelligence: card.intelligence, dexterity: card.dexterity, winsdow: card.winsdow,
             constitution: card.constitution, strength: card.strength
         }).into('Card')
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
     }catch(er) {
+        console.log(er)
         ctx.body = 'Erro ao criar o card'
         ctx.status = 400
     }
