@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="mt-12">
+  <v-container fluid>
     <v-stepper v-model="e1" dark style="backgroundColor: #212121">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1" :color="colorLabel">Set your name</v-stepper-step>
@@ -16,7 +16,7 @@
         <v-stepper-step :complete="e1 > 4" step="4" :color="colorLabel">Card Preview</v-stepper-step>
       </v-stepper-header>
 
-      <v-stepper-items style="padding: 10vh">
+      <v-stepper-items style="padding: 9vh">
         <v-stepper-content step="1" style="padding: 13vh">
           <namePlayer @get-player="getPlayer"></namePlayer>
         </v-stepper-content>
@@ -28,7 +28,7 @@
             color="deep-purple ligthen-4"
             style="margin: 40px"
             dark
-            :disabled="!raceSelected"
+            :disabled="!idRaceSelected"
             @click="e1 = 3"
           >Continue</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
@@ -85,11 +85,17 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-btn color="deep-purple ligthen-4" :loading="loading" dark @click="createCard">
+          <v-btn
+            color="deep-purple ligthen-4"
+            :disabled="!ok"
+            :loading="loading"
+            dark
+            @click="createCard"
+          >
             Save
             <template v-slot:loader>
               <span class="custom-loader">
-                <v-icon light>cached</v-icon>
+                <v-icon light>mdi-cached</v-icon>
               </span>
             </template>
           </v-btn>
@@ -121,7 +127,7 @@ export default {
   name: "stepper",
   data: () => ({
     e1: 0,
-    selected: false,
+    ok: true,
     message: "",
     timeout: 2000,
     snackbar: false,
@@ -131,14 +137,15 @@ export default {
     colorLabel: "deep-purple lighten-2 ",
     nameToSave: "",
     alignmentToSave: "",
-
+    raceSelected: "",
+    idRaceSelected: "",
     charismaToSave: "",
     intelligenceToSave: "",
     winsdowToSave: "",
     constitutionToSave: "",
     dexterityToSave: "",
     strengthToSave: "",
-    optionsToSave: "",
+    kindToSave: "",
     hp: 0,
     valid: false
   }),
@@ -155,9 +162,9 @@ export default {
     },
     getRace(race) {
       this.snackbar = true;
-      this.selected = true;
+      this.raceSelected = race.races;
       this.idRaceSelected = race.idRace;
-      console.log(this.idRaceSelected)
+      console.log(race.idRace);
       this.message = race.races;
     },
     getAttributes(form) {
@@ -169,12 +176,12 @@ export default {
       this.winsdowToSave = form.winsdow;
       this.constitutionToSave = form.constitution;
       this.strengthToSave = form.strength;
-      this.optionsToSave = form.options;
+      this.kindToSave = form.kind;
 
       if (this.raceSelected == 1) {
         this.dexterityToSave += 2;
       }
-      if (this.optionsToSave == "mage") {
+      if (this.optionsToSave == 1) {
         this.hp = 6;
       }
     },
@@ -184,7 +191,7 @@ export default {
         name: this.nameToSave,
         alignment: this.alignmentToSave,
         race: this.idRaceSelected,
-        kind: this.optionsToSave,
+        kind: this.kindToSave,
         charisma: this.charismaToSave,
         intelligence: this.intelligenceToSave,
         dexterity: this.dexterityToSave,
@@ -195,7 +202,10 @@ export default {
         .catch(e => {
           console.log(e);
         })
-        .then(res => alert(res.data))
+        .then(res => {
+          console.log(res.data);
+          this.ok = false;
+        })
         .finally(() => (this.loading = false));
     }
   },

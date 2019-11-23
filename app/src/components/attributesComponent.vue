@@ -64,8 +64,8 @@
         </v-col>
         <v-col cols="4" offset="1">
           <v-radio-group v-model="form.options" :rules="[v => !!v || 'Item is required']" row>
-            <v-radio value="rogue" label="Rogue"></v-radio>
-            <v-radio value="mage" label="Mage"></v-radio>
+            <v-radio value="2" label="Rogue"></v-radio>
+            <v-radio value="1" label="Mage"></v-radio>
           </v-radio-group>
         </v-col>
       </v-row>
@@ -95,7 +95,7 @@ export default {
       constitution: "",
       dexterity: "",
       strength: "",
-      options: ""
+      kind: ""
     },
 
     valid: false,
