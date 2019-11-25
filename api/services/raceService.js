@@ -5,4 +5,10 @@ const getAllRaces = async () => {
     
 }
 
-module.exports = {getAllRaces}
+
+const getRaceById = async idRace => {
+   const races = await database.where({idRace}).select('races', 'img').from('Race')
+   return races
+}
+
+module.exports = {getAllRaces, getRaceById}

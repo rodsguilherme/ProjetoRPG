@@ -32,7 +32,8 @@ api.use(jwt({
     '/v1/login',
     'v1/users/signup',
     '/v1/card/create',
-    '/v1/races'
+    '/v1/races',
+    '/v1/card/saves'
   ]
 }))
 

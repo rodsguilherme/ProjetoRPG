@@ -6,7 +6,8 @@ const router = new Router({
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
-import createCard from '../services/cardService'
+import {createCard, getCardByUser} from '../services/cardService'
+import { getRaceById} from '../services/raceService'
 
 router.post('/card/create', async ctx => {
     const { body } = ctx.request
@@ -20,7 +21,8 @@ router.post('/card/create', async ctx => {
         dexterity: body.dexterity,
         winsdow: body.winsdow,
         constitution: body.constitution,
-        strength: body.strength
+        strength: body.strength,
+        hp: body.hp
     }
     if (!card) {
         ctx.body = "Campos incorretos"
@@ -30,13 +32,22 @@ router.post('/card/create', async ctx => {
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
     }catch(err) {
-        console.log(err)
         ctx.body = 'Erro ao criar o card'
         ctx.status = 400
     }
 })
 
-
+router.get('/card/saves', async ctx => {
+    const cards = await getCardByUser()
+    if(cards.length > 0){
+        ctx.body = cards
+        ctx.status = 200
+    }
+    else {
+        ctx.body = 'Opa, parece que não cards salvos.'
+        ctx.status = 404
+    }
+})
 
 api.use(router.routes())
 module.exports = api

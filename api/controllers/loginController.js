@@ -4,26 +4,28 @@ import Router from 'koa-router';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
 import { generateToken } from '../services/authService'
-import { login, getUserByName } from '../services/userServices'
+import { login, getUserByEmail } from '../services/userServices'
 
 router.post('/login', async ctx => {
     const user = {
-        username: ctx.request.body.username,
+        email: ctx.request.body.email,
         password: ctx.request.body.password
     }
-    const connected = await login(user)
 
-    if(connected) {
-        const userId = await getUserByName(user.username)
+    try {
+        await login(user)
+        const userId = await getUserByEmail(user.email)
         const token = generateToken(userId)
-        ctx.body = {connected: 'Conectado com sucesso', token} 
+        ctx.body = { connected: 'Conectado com sucesso', token }
         ctx.status = 200
-    }
-    else {
-        ctx.body = "Não foi possivel conectar."
+
+    } catch (error) {
+        ctx.body = error
         ctx.status = 400
     }
-    
+
+
+
 })
 
 
