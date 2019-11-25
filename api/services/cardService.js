@@ -10,12 +10,17 @@ const createCard = async card => {
     }).into('Card')
 }
 
-const getCardByUser = async () => {
-    const cards = database.from('Card').innerJoin('Race', 'Card.idRace', 'Race.idRace')
-    .innerJoin('Kind', 'Card.idKind', 'Kind.idKind').orderBy('Race.idRace')
+const getCardByUser = async (idUser) => {
+    const cards = database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
+    .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({idUser})
     if(cards.length == 0) {
         throw "Opa, parece que ainda não tem cards salvos. :)"
     }
     return cards
 }
-module.exports = {createCard, getCardByUser}
+
+const getCardById = async idCard => {
+    const cards = database.where({idCard}).select('*');from('Card')
+    return cards
+}
+module.exports = {createCard, getCardByUser, getCardById}

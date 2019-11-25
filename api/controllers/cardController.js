@@ -6,8 +6,8 @@ const router = new Router({
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
-import {createCard, getCardByUser} from '../services/cardService'
-import { getRaceById} from '../services/raceService'
+import {createCard, getCardByUser, getCardById} from '../services/cardService'
+
 
 router.post('/card/create', async ctx => {
     const { body } = ctx.request
@@ -37,15 +37,34 @@ router.post('/card/create', async ctx => {
     }
 })
 
-router.get('/card/saves', async ctx => {
-    const cards = await getCardByUser()
+router.get('/card/saves/:idUser', async ctx => {
+    const idUser = ctx.params.idUser
+  
+  try {
+    const cards = await getCardByUser(idUser)
     if(cards.length > 0){
         ctx.body = cards
         ctx.status = 200
     }
-    else {
+  } catch (error) {
+    ctx.body = 'Opa, parece que não cards salvos.'
+    ctx.status = 404
+  }
+   
+})
+
+router.get('/card/saves/:idCard', async ctx => {
+    const idCard = ctx.params.idCard
+    try {
+        const cards = await getCardById(idCard)
+        if(cards.length > 0) {
+            ctx.body = cards
+        ctx.status = 200
+        }
+    } catch (error) {
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
+      
     }
 })
 

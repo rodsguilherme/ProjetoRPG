@@ -33,7 +33,8 @@ api.use(jwt({
     'v1/users/signup',
     '/v1/card/create',
     '/v1/races',
-    '/v1/card/saves'
+    '/v1/card/saves/:idRace/:idKind',
+    '/v1/card/saves/:idCard'
   ]
 }))
 
