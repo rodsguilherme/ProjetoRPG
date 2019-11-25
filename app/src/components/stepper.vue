@@ -107,7 +107,7 @@
       <v-col>
         <div class="text-center">
           <v-snackbar v-model="snackbar" class="white--text" :timeout="timeout">
-            Selected {{ message }}
+            {{ message }}
             <v-btn dark text @click="snackbar = false" class="white--text">Close</v-btn>
           </v-snackbar>
         </div>
@@ -164,7 +164,6 @@ export default {
       this.snackbar = true;
       this.raceSelected = race.races;
       this.idRaceSelected = race.idRace;
-      console.log(race.idRace);
       this.message = race.races;
     },
     getAttributes(form) {
@@ -190,8 +189,8 @@ export default {
       Axios.post("http://localhost:3000/v1/card/create", {
         name: this.nameToSave,
         alignment: this.alignmentToSave,
-        race: this.idRaceSelected,
-        kind: this.kindToSave,
+        idRace: this.idRaceSelected,
+        idKind: this.kindToSave,
         charisma: this.charismaToSave,
         intelligence: this.intelligenceToSave,
         dexterity: this.dexterityToSave,
@@ -200,13 +199,15 @@ export default {
         strength: this.strengthToSave
       })
         .catch(e => {
-          console.log(e);
+           this.snackbar = true
+           this.message = e.response.data
         })
         .then(res => {
-          console.log(res.data);
-          this.ok = false;
+          this.snackbar = true
+           this.ok = false;
+          this.message = res.data
         })
-        .finally(() => (this.loading = false));
+        .finally(() => {this.loading = false});
     }
   },
   watch: {

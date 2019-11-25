@@ -6,14 +6,15 @@ const router = new Router({
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
+import createCard from '../services/cardService'
 
 router.post('/card/create', async ctx => {
     const { body } = ctx.request
     const card = {
         name: body.name,
         alignment: body.alignment,
-        race: body.race,
-        kind: body.kind,
+        idRace: body.idRace,
+        idKind: body.idKind,
         charisma: body.charisma,
         intelligence: body.intelligence,
         dexterity: body.dexterity,
@@ -25,15 +26,11 @@ router.post('/card/create', async ctx => {
         ctx.body = "Campos incorretos"
     }
     try {
-        await database.insert({
-            idUser: 1, name: card.name, alignment: card.alignment, idRace: card.race, idKind: card.kind,
-            charisma: card.intelligence, intelligence: card.intelligence, dexterity: card.dexterity, winsdow: card.winsdow,
-            constitution: card.constitution, strength: card.strength
-        }).into('Card')
+        await createCard(card)
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
-    }catch(er) {
-        console.log(er)
+    }catch(err) {
+        console.log(err)
         ctx.body = 'Erro ao criar o card'
         ctx.status = 400
     }
