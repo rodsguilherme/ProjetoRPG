@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="mt-12">
-    <v-card width="30vw" height="75vh" class="mx-auto" elevation="10" dark>
+  <v-container fluid class="mt-8">
+    <v-card width="30vw" height="68vh" class="mx-auto" elevation="10" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Login</h1>
@@ -13,7 +13,7 @@
       </v-row>
       <v-row>
         <v-col cols="11" class="mx-auto">
-          <v-text-field label="Username" v-model="username" outlined clearable></v-text-field>
+          <v-text-field label="E-mail"  :rules="[rules.required, rules.email]" v-model="email" clearable></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -21,16 +21,16 @@
           <v-text-field
             label="Password"
             v-model="password"
-            outlined
+            :rules="[rules.required]"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
             @click:append="show1 = !show1"
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="pt-8">
         <v-col cols="11" class="mx-auto">
-          <v-btn block color="blue" depressed dark @click="entrar">Sign in</v-btn>
+          <v-btn block color="deep-purple lighten-2 " depressed dark @click="entrar">Sign in</v-btn>
         </v-col>
       </v-row>
       <v-row>
@@ -53,19 +53,26 @@ import axios from "axios";
 export default {
   name: "login",
   data: () => ({
-    username: null,
-    password: null,
+    email: '',
+    password: '',
     message: "",
     snackbar: false,
     timeout: 6000,
-    show1: false
+    show1: false,
+    rules: {
+       email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return  pattern.test(value) || 'E-mail inválido.'
+          },
+       required: value => !!value || 'Required.',
+    }
   }),
   methods: {
     entrar() {
       axios
 
         .post("http://localhost:3000/v1/login", {
-          username: this.username,
+          email: this.email,
           password: this.password
         })
         .then(r => {

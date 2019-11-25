@@ -3,7 +3,7 @@
     <menuComponent></menuComponent>
     <v-container fluid>
       <router-view></router-view>
-      <footerComponent></footerComponent>
+     
     </v-container>
 
   </v-app>
@@ -13,7 +13,7 @@
 //import login from './components/login'
 import menuComponent from "./components/menuComponent";
 //import home from "./components/home";
-import footerComponent from './components/footerComponent'
+//import /footerComponent from './components/footerComponent'
 
 export default {
   name: "App",
@@ -26,7 +26,7 @@ export default {
     menuComponent,
     //home
 
-    footerComponent
+   // footerComponent
   },
   computed: {
 

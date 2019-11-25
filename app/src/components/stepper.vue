@@ -49,38 +49,38 @@
             dark
           >
             <v-row class="mx-auto">
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Name" :value="nameToSave" readonly required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Vocation" :value="alignmentToSave" readonly required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Race" :value="raceSelected" readonly required></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Charisma" :value="charismaToSave" readonly required></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Intelligence" :value="intelligenceToSave" readonly required></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Dexterity" :value="dexterityToSave" readonly required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Winsdow" :value="winsdowToSave" readonly required></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Strength" :value="strengthToSave" readonly required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="4" lg="4">
+              <v-col cols="12" sm="3" md="4" lg="3">
                 <v-text-field label="Constitution" :value="constitutionToSave" readonly required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3" lg="4">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="HP" :value="hp" readonly required></v-text-field>
               </v-col>
             </v-row>
@@ -196,7 +196,8 @@ export default {
         dexterity: this.dexterityToSave,
         winsdow: this.winsdowToSave,
         constitution: this.constitutionToSave,
-        strength: this.strengthToSave
+        strength: this.strengthToSave,
+        hp: this.hp
       })
         .catch(e => {
            this.snackbar = true
