@@ -20,7 +20,8 @@ const getCardByUser = async (idUser) => {
 }
 
 const getCardById = async idCard => {
-    const cards = database.where({idCard}).select('*');from('Card')
+    const cards = database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
+    .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Card.idCard`).where({idCard})
     return cards
 }
 module.exports = {createCard, getCardByUser, getCardById}

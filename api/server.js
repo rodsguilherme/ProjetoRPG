@@ -34,7 +34,7 @@ api.use(jwt({
     '/v1/card/create',
     '/v1/races',
     '/v1/card/saves/:idRace/:idKind',
-    '/v1/card/saves/:idCard'
+    '/v1/card/saveCard/:idCard'
   ]
 }))
 

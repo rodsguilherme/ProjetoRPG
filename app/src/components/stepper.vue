@@ -16,8 +16,8 @@
         <v-stepper-step :complete="e1 > 4" step="4" :color="colorLabel">Card Preview</v-stepper-step>
       </v-stepper-header>
 
-      <v-stepper-items style="padding: 9vh">
-        <v-stepper-content step="1" style="padding: 13vh">
+      <v-stepper-items style="padding: 10vh;">
+        <v-stepper-content step="1" style="padding: 19vh">
           <namePlayer @get-player="getPlayer"></namePlayer>
         </v-stepper-content>
 
@@ -34,12 +34,12 @@
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3">
+        <v-stepper-content step="3"  style="padding: 10vh">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
           <v-btn :color="colorButton" style="margin: 5vh" text @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="4">
+        <v-stepper-content step="4" style="padding: 8vh">
           <v-card
             class="mx-auto mb-12"
             elevation="15"

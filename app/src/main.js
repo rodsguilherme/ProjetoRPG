@@ -21,7 +21,7 @@ const routes = [
   { path: '/register', component: register, name: 'register' },
   { path: '/', component: home, name: 'home' },
   { path: '/menu', component: menuComponent, name: 'menu' },
-  { path: '/cards', component: cards, name: 'cards' }
+  { path: '/inventory', component: cards, name: 'inventory' }
 ]
 
 Vue.use(VueRouter)

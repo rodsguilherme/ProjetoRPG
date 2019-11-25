@@ -53,8 +53,9 @@ router.get('/card/saves/:idUser', async ctx => {
    
 })
 
-router.get('/card/saves/:idCard', async ctx => {
+router.get('/card/saveCard/:idCard', async ctx => {
     const idCard = ctx.params.idCard
+    
     try {
         const cards = await getCardById(idCard)
         if(cards.length > 0) {
@@ -62,6 +63,7 @@ router.get('/card/saves/:idCard', async ctx => {
         ctx.status = 200
         }
     } catch (error) {
+        console.log(error)
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
       

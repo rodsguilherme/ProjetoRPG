@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn text :class="colorMenu" to="/">HOME</v-btn>
-        <v-btn text :class="colorMenu" to="cards">CARDS</v-btn>
+        <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
         <v-btn text :class="colorMenu" to="login">SIGN IN</v-btn>
         <v-btn text :class="colorMenu" to="register">SIGn UP</v-btn>
       </v-toolbar-items>
