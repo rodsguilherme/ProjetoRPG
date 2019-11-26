@@ -12,7 +12,7 @@ const createCard = async card => {
 
 const getCardByUser = async (idUser) => {
     const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
-        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({ idUser })
+        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({ idUser }).andWhere('deleted', 0)
     if (cards.length == 0) {
         throw "Opa, parece que ainda não tem cards salvos. :)"
     }
@@ -26,6 +26,6 @@ const getCardById = async idCard => {
 }
 
 const deleteCardbyId = async idCard => {
-   return await database('Card').update('deleted', 1).where('deleted', 0).andWhere({idCard})
+   return await database('Card').update('deleted', 1).where({idCard}).andWhere('deleted', 0)
 }
 module.exports = { createCard, getCardByUser, getCardById, deleteCardbyId }

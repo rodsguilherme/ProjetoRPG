@@ -76,8 +76,9 @@ router.delete('/card/delete/:idCard', async ctx => {
     try {
         await deleteCardbyId(idCard)
         ctx.body = "Ficha deletada."
-        ctx,status = 200
+        ctx.status = 200
     } catch (error) {
+        console.log(error)
         ctx.body = "Erro ao deletar a ficha."
         ctx.status = 400
     }
