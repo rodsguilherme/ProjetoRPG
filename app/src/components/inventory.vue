@@ -11,7 +11,7 @@
                   {{card.name}}
                 </h4>
               </v-card-title>
-              <v-menu bottom offset-y>
+              <v-menu bottom  origin="center center" transition="scale-transition">
                 <v-list>
                   <v-list-item class="pr-6 pl-6" @click="showDetails(card)">
                     <v-list-item-title class="deep-purple--text text--lighten-1">Details</v-list-item-title>
