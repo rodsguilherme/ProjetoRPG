@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="3" v-for="(card, i) in cards" :key="i">
-        <v-card id="card" class="card mx-auto" max-width="390" max-height="500">
+        <v-card id="card" class="card mx-auto mt-7" max-width="390" max-height="700" height="470">
           <v-row align="center" justify="center">
             <v-card-title>
               <h4 class="subtitle-1">
@@ -11,18 +11,14 @@
               </h4>
             </v-card-title>
           </v-row>
-
-          <v-img max-width="390" max-height="270" :src="card.img"></v-img>
-
-          <v-divider></v-divider>
+          <v-img max-width="390" max-height="360" :src="card.img"></v-img>
           <v-row align="center" justify="center">
-            <v-card-title>
+            <v-card-title class="pr-10">
               <h4 class="subtitle-1">
                 <span class="subtitle-1 deep-purple--text">Race:</span>
                 {{card.races}}
               </h4>
             </v-card-title>
-
             <v-card-title>
               <h4 class="subtitle-1">
                 <span class="subtitle-1 deep-purple--text">Kind:</span>
@@ -30,9 +26,7 @@
               </h4>
             </v-card-title>
           </v-row>
-
-          <v-divider></v-divider>
-          <v-card-actions>
+          <v-card-actions class="pt-3">
             <v-row align="center" justify="center">
               <v-col cols="12">
                 <v-btn
@@ -47,7 +41,7 @@
             </v-row>
           </v-card-actions>
         </v-card>
-        <v-row justify="center">
+       
           <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card dark>
               <v-toolbar class="deep-purple lighten-1">
@@ -95,8 +89,8 @@
                         <v-col lg="12">
                           <h1 class="title">Data</h1>
                           <v-divider inset></v-divider>
-                           <v-row>
-                            <v-text-field  class="pr-3" dense value="Name" solo readonly></v-text-field>
+                          <v-row>
+                            <v-text-field class="pr-3" dense value="Name" solo readonly></v-text-field>
                             <v-text-field value="Nome do jogador" solo dense readonly></v-text-field>
                           </v-row>
                           <v-row>
@@ -112,7 +106,7 @@
                             <v-text-field :value="cardSelected.races" solo dense readonly></v-text-field>
                           </v-row>
                           <v-row>
-                            <v-text-field class="pr-3" value="Kind" solo  dense readonly></v-text-field>
+                            <v-text-field class="pr-3" value="Kind" solo dense readonly></v-text-field>
                             <v-text-field :value="cardSelected.kinds" solo dense readonly></v-text-field>
                           </v-row>
                           <v-row>
@@ -127,7 +121,7 @@
               </v-row>
             </v-card>
           </v-dialog>
-        </v-row>
+    
       </v-col>
     </v-row>
   </v-container>
@@ -173,10 +167,11 @@ export default {
 </script>
 
 <style scoped>
-body {
+* {
   margin: 0;
   padding: 0;
 }
+
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;

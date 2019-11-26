@@ -6,7 +6,7 @@ const router = new Router({
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
-import {createCard, getCardByUser, getCardById} from '../services/cardService'
+import {createCard, getCardByUser, getCardById, deleteCardbyId} from '../services/cardService'
 
 
 router.post('/card/create', async ctx => {
@@ -67,6 +67,19 @@ router.get('/card/saveCard/:idCard', async ctx => {
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
       
+    }
+})
+
+router.delete('/card/delete/:idCard', async ctx => {
+    const idCard = ctx.params.idCard
+
+    try {
+        await deleteCardbyId(idCard)
+        ctx.body = "Ficha deletada."
+        ctx,status = 200
+    } catch (error) {
+        ctx.body = "Erro ao deletar a ficha."
+        ctx.status = 400
     }
 })
 

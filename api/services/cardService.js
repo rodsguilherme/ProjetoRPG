@@ -11,17 +11,21 @@ const createCard = async card => {
 }
 
 const getCardByUser = async (idUser) => {
-    const cards = database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
-    .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({idUser})
-    if(cards.length == 0) {
+    const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
+        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({ idUser })
+    if (cards.length == 0) {
         throw "Opa, parece que ainda não tem cards salvos. :)"
     }
     return cards
 }
 
 const getCardById = async idCard => {
-    const cards = database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
-    .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Card.idCard`).where({idCard})
+    const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
+        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Card.idCard`).where({ idCard })
     return cards
 }
-module.exports = {createCard, getCardByUser, getCardById}
+
+const deleteCardbyId = async idCard => {
+   return await database('Card').update('deleted', 1).where('deleted', 0).andWhere({idCard})
+}
+module.exports = { createCard, getCardByUser, getCardById, deleteCardbyId }

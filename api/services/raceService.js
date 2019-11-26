@@ -5,7 +5,6 @@ const getAllRaces = async () => {
     
 }
 
-
 const getRaceById = async idRace => {
    const races = await database.where({idRace}).select('races', 'img').from('Race')
    return races
