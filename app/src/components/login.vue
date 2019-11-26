@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-8">
-    <v-card max-width="41vw"  max-height="105vh"  class="mx-auto" elevation="20" dark>
+    <v-card max-width="26vw"  max-height="115vh" height="60vh"  class="mx-auto" elevation="20" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Login</h1>
@@ -30,7 +30,7 @@
       </v-row>
       <v-row class="pt-8">
         <v-col cols="11" class="mx-auto">
-          <v-btn block color="deep-purple lighten-2 " depressed dark @click="entrar">Sign in</v-btn>
+          <v-btn block color="deep-purple lighten-2 " depressed dark @click="entrar">Login</v-btn>
         </v-col>
       </v-row>
       <v-row>

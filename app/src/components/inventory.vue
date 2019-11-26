@@ -4,16 +4,29 @@
       <v-row>
         <v-col cols="3" v-for="(card, i) in cards" :key="i">
           <v-card id="card" class="card mx-auto mt-7" max-width="390" max-height="700" height="470">
-            <v-row align="center" justify="center">
-              <v-card-title>
-                <h4 class="subtitle-1">
+            <v-row>
+              <v-menu bottom offset-y absolute >
+                <template v-slot:activator="{ on }">
+                  <v-icon v-on="on">mdi-dots-vertical</v-icon>
+                </template>
+                <v-col col="12" offset="1">
+                  <v-list>
+                    <v-list-item class="pr-6 pl-6" @click="showDetails(card)">
+                      <v-list-item-title class="deep-purple--text text--lighten-1">Details</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-col>
+              </v-menu>
+
+              <v-card-title class="mx-auto">
+                <h4 class="subtitle-1 pb-3 pt-3">
                   <span class="subtitle-1 deep-purple--text">Persona:</span>
                   {{card.name}}
                 </h4>
               </v-card-title>
             </v-row>
             <v-img max-width="390" max-height="360" :src="card.img"></v-img>
-            <v-row align="center" justify="center">
+            <v-row align="center" justify="center" class="pt-3">
               <v-card-title class="pr-10">
                 <h4 class="subtitle-1">
                   <span class="subtitle-1 deep-purple--text">Race:</span>
@@ -27,20 +40,6 @@
                 </h4>
               </v-card-title>
             </v-row>
-            <v-card-actions class="pt-3">
-              <v-row align="center" justify="center">
-                <v-col cols="12">
-                  <v-btn
-                    block
-                    outlined
-                    :loading="loading && i==index"
-                    class="white--text"
-                    color="purple darken-2"
-                    @click="showDetails(card); index = i; dialog =true"
-                  >Details</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -142,6 +141,7 @@ export default {
   data: () => ({
     cards: [],
     races: [],
+    drawer: null,
     cardSelected: [],
     dialog: false,
     loading: false,

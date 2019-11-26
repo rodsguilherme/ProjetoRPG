@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="mt-8">
-    <v-card max-width="41vw" max-height="105vh" class="mx-auto" elevation="10" dark>
+  <v-container fluid class="mt-12">
+    <v-card max-width="30vw" max-height="115vh" height="70vh" class="mx-auto" elevation="10" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Register</h1>
@@ -36,14 +36,14 @@
       </v-row>
       
       <v-row class="pt-12">
-        <v-col cols="11" class="mx-auto">
+        <v-col cols="10" class="mx-auto">
           <v-btn block color="deep-purple lighten-2"  :loading="loading"
-      :disabled="loading" depressed dark @click="cadastrar">Sign up</v-btn>
+      :disabled="loading"  dark @click="cadastrar">Sign up</v-btn>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="11" class="mx-auto">
-          <v-btn block dark depressed outlined to="login">Sign in</v-btn>
+        <v-col cols="10" class="mx-auto">
+          <v-btn block dark  outlined to="login">Login</v-btn>
         </v-col>
       </v-row>
     </v-card>
