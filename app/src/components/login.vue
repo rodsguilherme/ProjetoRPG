@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-8">
-    <v-card width="30vw" height="68vh" class="mx-auto" elevation="10" dark>
+    <v-card max-width="41vw"  max-height="105vh"  class="mx-auto" elevation="20" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Login</h1>

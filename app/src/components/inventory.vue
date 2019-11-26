@@ -2,25 +2,27 @@
   <v-container fluid>
     <v-row>
       <v-col cols="3" v-for="(card, i) in cards" :key="i">
-        <v-card id="card" class="card mx-auto" max-width="360" max-height="700">
+        <v-card id="card" class="card mx-auto" max-width="390" max-height="500">
           <v-row align="center" justify="center">
             <v-card-title>
-            <h4 class="subtitle-1">
-             <span class="subtitle-1 deep-purple--text">Personagem:</span> 
+              <h4 class="subtitle-1">
+                <span class="subtitle-1 deep-purple--text">Persona:</span>
                 {{card.name}}
               </h4>
             </v-card-title>
           </v-row>
-          <v-img width="360" height="400" :src="card.img"></v-img>
+
+          <v-img max-width="390" max-height="270" :src="card.img"></v-img>
+
           <v-divider></v-divider>
           <v-row align="center" justify="center">
-            <v-card-title >
+            <v-card-title>
               <h4 class="subtitle-1">
                 <span class="subtitle-1 deep-purple--text">Race:</span>
                 {{card.races}}
               </h4>
             </v-card-title>
-        
+
             <v-card-title>
               <h4 class="subtitle-1">
                 <span class="subtitle-1 deep-purple--text">Kind:</span>
@@ -56,48 +58,69 @@
                   <v-toolbar-title class="text-center">Card</v-toolbar-title>
                 </v-row>
               </v-toolbar>
-              <v-row justify="center" align="center" class="mt-10">
-                <v-card elevaiton="20" width="80vh" height="73vh">
+              <v-row justify="center" align="center" class="mt-5">
+                <v-card elevation="20" max-width="500vw" width="75vw" max-height="85vh">
                   <v-row class="mx-auto">
-                    <v-col col="6" lg="6">
+                    <v-row class="mx-auto">
+                      <v-col lg="6">
+                        <h1 class="title">Attributes</h1>
+                        <v-divider inset></v-divider>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Charisma" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.charisma" solo readonly></v-text-field>
+                        </v-row>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Constitution" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.constitution" solo readonly></v-text-field>
+                        </v-row>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Dexterity" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.dexterity" solo readonly></v-text-field>
+                        </v-row>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Intelligence" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.intelligence" solo readonly></v-text-field>
+                        </v-row>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Strength" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.strength" solo readonly></v-text-field>
+                        </v-row>
+                        <v-row>
+                          <v-text-field class="pr-3" value="Winsdow" solo readonly></v-text-field>
+                          <v-text-field :value="cardSelected.winsdow" solo readonly></v-text-field>
+                        </v-row>
+                      </v-col>
+                      <div class="mx-2"></div>
                       <v-row class="mx-auto">
-                        <v-col>
-                          <h1 class="title">Attributes</h1>
+                        <v-col lg="12">
+                          <h1 class="title">Data</h1>
                           <v-divider inset></v-divider>
+                           <v-row>
+                            <v-text-field  class="pr-3" dense value="Name" solo readonly></v-text-field>
+                            <v-text-field value="Nome do jogador" solo dense readonly></v-text-field>
+                          </v-row>
+                          <v-row>
+                            <v-text-field class="pr-3" value="Persona" dense solo readonly></v-text-field>
+                            <v-text-field :value="cardSelected.name" solo dense readonly></v-text-field>
+                          </v-row>
+                          <v-row>
+                            <v-text-field class="pr-3" value="Alignment" dense solo readonly></v-text-field>
+                            <v-text-field :value="cardSelected.alignment" dense solo readonly></v-text-field>
+                          </v-row>
+                          <v-row>
+                            <v-text-field class="pr-3" value="Race" solo dense readonly></v-text-field>
+                            <v-text-field :value="cardSelected.races" solo dense readonly></v-text-field>
+                          </v-row>
+                          <v-row>
+                            <v-text-field class="pr-3" value="Kind" solo  dense readonly></v-text-field>
+                            <v-text-field :value="cardSelected.kinds" solo dense readonly></v-text-field>
+                          </v-row>
+                          <v-row>
+                            <v-text-field class="pr-3" value="Health Points" solo dense readonly></v-text-field>
+                            <v-text-field :value="cardSelected.hp" solo dense readonly></v-text-field>
+                          </v-row>
                         </v-col>
                       </v-row>
-                      <v-text-field :value="cardSelected.charisma" label="Charisma" readonly></v-text-field>
-
-                      <v-text-field
-                        :value="cardSelected.constitution"
-                        label="Constitution"
-                        readonly
-                      ></v-text-field>
-
-                      <v-text-field :value="cardSelected.dexterity" label="Dexterity" readonly></v-text-field>
-                      <v-text-field
-                        :value="cardSelected.intelligence"
-                        label="Intelligence"
-                        readonly
-                      ></v-text-field>
-                      <v-text-field :value="cardSelected.strength" label="Strength" readonly></v-text-field>
-                      <v-text-field :value="cardSelected.winsdow" label="Winsdow" readonly></v-text-field>
-                    </v-col>
-
-                    <v-row class="mx-auto">
-                      <v-col col="6" lg="12">
-                        <v-row class="mx-auto">
-                          <v-col>
-                            <h1 class="title">Data</h1>
-                            <v-divider inset></v-divider>
-                          </v-col>
-                        </v-row>
-                        <v-text-field :value="cardSelected.name" label="Name" readonly></v-text-field>
-                        <v-text-field :value="cardSelected.alignment" label="Alignment" readonly></v-text-field>
-                        <v-text-field :value="cardSelected.races" label="Race" readonly></v-text-field>
-                        <v-text-field :value="cardSelected.kinds" label="Kind" readonly></v-text-field>
-                        <v-text-field :value="cardSelected.hp" label="Health Points" readonly></v-text-field>
-                      </v-col>
                     </v-row>
                   </v-row>
                 </v-card>
