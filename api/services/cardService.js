@@ -12,7 +12,7 @@ const createCard = async card => {
 
 const getCardByUser = async (idUser) => {
     const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
-        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({ idUser }).andWhere('deleted', 0)
+        .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Race.idRace`).where({idUser}).andWhere('deleted', 0)
     if (cards.length == 0) {
         throw "Opa, parece que ainda não tem cards salvos. :)"
     }

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid>{{idUser}}
     <div v-if="show">
       <v-layout fill-height wrap>
       <v-row>
@@ -152,13 +152,24 @@ export default {
     messagePrepare: "",
     snackbar: false,
     idCardSelected: "",
-    show: true
+    show: true,
+    idUser: '',
+    id: '',
+  
   }),
   mounted() {
+  function render () {
+      axios
+    .get('http://localhost:3000/v1/user', { headers: {token: localStorage.getItem('user_token')} })
+    .then(res => { this.idUser = res.data.id})
+    .finally(() => this.id = this.idUser)
+   console.log(this.id)
     axios
-      .get("http://localhost:3000/v1/card/saves/1")
+      .get(`http://localhost:3000/v1/card/saves/${this.id}`)
       .catch(e => console.log(e))
       .then(res => (this.cards = res.data));
+    }
+    render()
   },
   methods: {
     showDetails(card) {

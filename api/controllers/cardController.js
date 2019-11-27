@@ -6,7 +6,7 @@ const router = new Router({
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
-import {createCard, getCardByUser, getCardById, deleteCardbyId} from '../services/cardService'
+import { createCard, getCardByUser, getCardById, deleteCardbyId } from '../services/cardService'
 
 
 router.post('/card/create', async ctx => {
@@ -31,7 +31,7 @@ router.post('/card/create', async ctx => {
         await createCard(card)
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
-    }catch(err) {
+    } catch (err) {
         ctx.body = 'Erro ao criar o card'
         ctx.status = 400
     }
@@ -39,34 +39,36 @@ router.post('/card/create', async ctx => {
 
 router.get('/card/saves/:idUser', async ctx => {
     const idUser = ctx.params.idUser
-  
-  try {
-    const cards = await getCardByUser(idUser)
-    if(cards.length > 0){
-        ctx.body = cards
-        ctx.status = 200
+
+    try {
+        const cards = await getCardByUser(idUser)
+        if (cards.length > 0) {
+            ctx.body = cards
+            ctx.status = 200
+        }
+    } catch (error) {
+        console.log(error);
+        
+        ctx.body = 'Opa, parece que não cards salvos.'
+        ctx.status = 404
     }
-  } catch (error) {
-    ctx.body = 'Opa, parece que não cards salvos.'
-    ctx.status = 404
-  }
-   
+
 })
 
 router.get('/card/saveCard/:idCard', async ctx => {
     const idCard = ctx.params.idCard
-    
+
     try {
         const cards = await getCardById(idCard)
-        if(cards.length > 0) {
+        if (cards.length > 0) {
             ctx.body = cards
-        ctx.status = 200
+            ctx.status = 200
         }
     } catch (error) {
         console.log(error)
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
-      
+
     }
 })
 
