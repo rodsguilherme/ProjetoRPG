@@ -118,11 +118,11 @@
                   </v-row>
                 </v-row>
               </v-row>
+              <v-btn fab right absolute bottom small @click="deletar">
+                <v-icon class="deep-purple--text text--lighten-1">mdi-delete</v-icon>
+              </v-btn>
             </v-card>
           </v-row>
-          <v-btn fab right absolute bottom small @click="deletar">
-            <v-icon class="deep-purple--text text--lighten-1">mdi-delete</v-icon>
-          </v-btn>
         </v-card>
       </v-dialog>
     </div>
@@ -178,23 +178,21 @@ export default {
     },
     deletar() {
       this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-        axios
-          .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`)
-          .catch(e => (this.messagePrepare = e.response.data))
-          .then(res => (this.messagePrepare = res.data))
-          .finally(() => {
-            this.snackbar = true;
-            this.message = this.messagePrepare;
-            this.dialog = false;
-          });
-        this.$nextTick(() => {
-          axios
-            .get("http://localhost:3000/v1/card/saves/1")
-            .catch(e => console.log(e))
-            .then(res => (this.cards = res.data));
+      axios
+        .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`)
+        .catch(e => (this.messagePrepare = e.response.data))
+        .then(res => (this.messagePrepare = res.data))
+        .finally(() => {
+          this.snackbar = true;
+          this.message = this.messagePrepare;
+          this.dialog = false;
         });
+      this.$nextTick().then(() => {
+        axios
+          .get("http://localhost:3000/v1/card/saves/1")
+          .catch(e => console.log(e))
+          .then(res => (this.cards = res.data));
+        this.show = true;
       });
     }
   }
