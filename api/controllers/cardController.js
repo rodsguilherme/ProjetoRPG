@@ -7,7 +7,7 @@ const router = new Router({
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
 import {createCard, getCardByUser, getCardById, deleteCardbyId} from '../services/cardService'
-
+import getAllKinds from '../services/kindService'
 
 router.post('/card/create', async ctx => {
     const { body } = ctx.request
@@ -22,7 +22,7 @@ router.post('/card/create', async ctx => {
         winsdow: body.winsdow,
         constitution: body.constitution,
         strength: body.strength,
-        hp: body.hp
+        hp: body.hp,
     }
     if (!card) {
         ctx.body = "Campos incorretos"
@@ -67,6 +67,21 @@ router.get('/card/saveCard/:idCard', async ctx => {
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
       
+    }
+})
+
+
+router.get('/card/kind', async ctx => {
+    try {
+        const kinds = await getAllKinds()
+        if (kinds.length > 0) {
+            ctx.body = kinds
+            ctx.status = 200
+    }
+    } catch (error) {
+        console.log(error)
+        ctx.body = "Erro ao buscar as classes."
+        ctx.status = 400
     }
 })
 

@@ -6,7 +6,7 @@ const createCard = async card => {
 
     await database.insert({
         idUser: 1, name, alignment, idRace, idKind, charisma, intelligence,
-        dexterity, winsdow, constitution, strength, hp
+        dexterity, winsdow, constitution, strength, hp, deleted: 0
     }).into('Card')
 }
 
