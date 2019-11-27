@@ -1,7 +1,7 @@
 <template>
   <v-card width="35vw" elevation="15" height="10%" class="mx-auto" style="backgroundColor: #212121" dark>
     <v-form ref="form" v-model="valid">
-      <v-row class="mx-auto">
+      <v-row class="mx-auto">{{user.alignment}}
         <v-col cols="12" sm="6" md="3" lg="12">
           <v-text-field label="Name" :rules="rules" v-model="user.name" clearable></v-text-field>
         </v-col>
@@ -22,10 +22,10 @@
 export default {
   name: "namePlayer",
   data: () => ({
-     alignment: ['neutro', 'bad', 'good'],
+     alignment: ['neutral', 'bad', 'good'],
     user: {
       name: "",
-      alignment: ['neutro', 'bad', 'good']
+      alignment: ''
     },
     valid: false,
     rules: [value => !!value || "Required."]
