@@ -6,7 +6,7 @@
           <v-text-field label="Name" :rules="rules" v-model="user.name" clearable></v-text-field>
         </v-col>
         <v-col cols="12" sm="6" md="3" lg="12">
-           <v-select label="Vocation" :items="alignment" v-model="user.alignment"></v-select>
+           <v-select label="Alignment" :items="alignment" v-model="user.alignment"></v-select>
         </v-col>
       </v-row>
       <v-row>

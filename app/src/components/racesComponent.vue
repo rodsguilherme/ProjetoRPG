@@ -36,7 +36,7 @@ export default {
   mounted (){
     axios 
     .get('http://localhost:3000/v1/races')
-    .then(res => this.races = res.data)
+    .then(res => this.races = res.data);
   }
 };
 </script> 

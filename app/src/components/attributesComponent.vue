@@ -1,6 +1,6 @@
 <template>
   <v-card dark class="mx-auto" elevation="15" style="backgroundColor: #212121" width="70vw">
-    <v-form ref="form" v-model="valid" @click.prevent="submit">
+    <v-form v-model="valid" @click.prevent="submit">
       <v-row class="mx-auto">
         <v-col cols="4">
           <v-select
@@ -18,7 +18,7 @@
             v-model="form.constitution"
             :items="items"
             :rules="[v => !!v || 'Item is required']"
-             :color="colorSelects"
+            :color="colorSelects"
             required
           ></v-select>
         </v-col>
@@ -28,7 +28,7 @@
             v-model="form.winsdow"
             :items="items"
             :rules="[v => !!v || 'Item is required']"
-             :color="colorSelects"
+            :color="colorSelects"
             required
           ></v-select>
         </v-col>
@@ -38,7 +38,7 @@
             v-model="form.intelligence"
             :items="items"
             :rules="[v => !!v || 'Item is required']"
-             :color="colorSelects"
+            :color="colorSelects"
             required
           ></v-select>
         </v-col>
@@ -48,7 +48,7 @@
             :items="items"
             v-model="form.charisma"
             :rules="[v => !!v || 'Item is required']"
-             :color="colorSelects"
+            :color="colorSelects"
             required
           ></v-select>
         </v-col>
@@ -58,14 +58,14 @@
             :items="items"
             v-model="form.strength"
             :rules="[v => !!v || 'Item is required']"
-             :color="colorSelects"
+            :color="colorSelects"
             required
           ></v-select>
         </v-col>
-        <v-col cols="4" offset="1">
-          <v-radio-group v-model="form.options" :rules="[v => !!v || 'Item is required']" row>
-            <v-radio value="2" label="Rogue"></v-radio>
-            <v-radio value="1" label="Mage"></v-radio>
+
+        <v-col cols="1" v-for="(kind, i) in kinds" :key="i" class="px-12">
+          <v-radio-group v-model="form.kind" :rules="[v => !!v || 'Item is required']" row>
+            <v-radio :value="kind.idKind" :label="kind.kinds"></v-radio>
           </v-radio-group>
         </v-col>
       </v-row>
@@ -83,11 +83,12 @@
 
 
 <script>
+import axios from "axios";
 export default {
   name: "attributes",
   data: () => ({
     dialog: false,
-    colorSelects: 'deep-purple',
+    colorSelects: "deep-purple",
     form: {
       charisma: "",
       intelligence: "",
@@ -97,7 +98,7 @@ export default {
       strength: "",
       kind: ""
     },
-
+    kinds: [],
     valid: false,
     items: [
       1,
@@ -130,6 +131,14 @@ export default {
       this.dialog = false;
       this.$emit("emit-click-attribute", this.form);
     }
+  },
+  mounted() {
+    axios
+      .get("http://localhost:3000/v1/card/kind")
+
+      .then(res => {
+        this.kinds = res.data;
+      });
   }
 };
 </script>

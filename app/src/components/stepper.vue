@@ -53,7 +53,7 @@
                 <v-text-field label="Name" :value="nameToSave" readonly required></v-text-field>
               </v-col>
               <v-col cols="12" sm="3" md="3" lg="3">
-                <v-text-field label="Vocation" :value="alignmentToSave" readonly required></v-text-field>
+                <v-text-field label="Alignment" :value="alignmentToSave" readonly required></v-text-field>
               </v-col>
               <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Race" :value="raceSelected" readonly required></v-text-field>
@@ -220,7 +220,7 @@ export default {
 
       this.loader = null;
     }
-  }
+  },
 };
 </script>
 
