@@ -1,9 +1,10 @@
 <template>
   <v-container fluid>
     <div v-if="show">
+      <v-layout fill-height wrap>
       <v-row>
-        <v-col cols="3" v-for="(card, i) in cards" :key="i">
-          <v-card id="card" class="card mx-auto mt-7" max-width="390" max-height="700" height="470">
+        <v-col sm="6" md="7" lg="3"  v-for="(card, i) in cards" :key="i">
+          <v-card id="card" class="card mx-auto mt-10" max-width="320" max-height="700" height="470">
             <v-row>
               <v-card-title class="mx-auto">
                 <h4 class="subtitle-1 pb-3 pt-3">
@@ -11,7 +12,7 @@
                   {{card.name}}
                 </h4>
               </v-card-title>
-              <v-menu bottom  origin="center center" transition="scale-transition">
+              <v-menu bottom  offset-y transition="scale-transition">
                 <v-list>
                   <v-list-item class="pr-6 pl-6" @click="showDetails(card)">
                     <v-list-item-title class="deep-purple--text text--lighten-1">Details</v-list-item-title>
@@ -123,11 +124,14 @@
           </v-row>
         </v-card>
       </v-dialog>
-      <v-snackbar v-model="snackbar">
+     
+      </v-layout>
+
+    </div>
+     <v-snackbar v-model="snackbar">
         {{ message }}
         <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
       </v-snackbar>
-    </div>
   </v-container>
 </template>
 

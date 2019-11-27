@@ -7,7 +7,6 @@ const database = require('knex')({
         filename: dir
     },
     useNullAsDefault: true
-
 });
 
 module.exports = database
