@@ -1,13 +1,11 @@
 import koa from 'koa'
 import Router from 'koa-router'
-import database from '../database/connect'
 const router = new Router({
     prefix: '/v1'
 })
 const jwt = require('../middleware/jwtMiddleware')
 const api = new koa()
 import {createCard, getCardByUser, getCardById, deleteCardbyId} from '../services/cardService'
-import getAllKinds from '../services/kindService'
 
 router.post('/card/create', async ctx => {
     const { body } = ctx.request
@@ -70,20 +68,6 @@ router.get('/card/saveCard/:idCard', async ctx => {
     }
 })
 
-
-router.get('/card/kind', async ctx => {
-    try {
-        const kinds = await getAllKinds()
-        if (kinds.length > 0) {
-            ctx.body = kinds
-            ctx.status = 200
-    }
-    } catch (error) {
-        console.log(error)
-        ctx.body = "Erro ao buscar as classes."
-        ctx.status = 400
-    }
-})
 
 router.delete('/card/delete/:idCard', async ctx => {
     const idCard = ctx.params.idCard

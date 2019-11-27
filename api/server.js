@@ -23,6 +23,7 @@ api.use(mount(require('./controllers/cardController')))
 api.use(mount(require('./controllers/loginController')))
 api.use(mount(require('./controllers/cardController')))
 api.use(mount(require('./controllers/raceController')))
+api.use(mount(require('./controllers/kindController')))
 
 api.use(jwt({
   secret: 'supersecret',
