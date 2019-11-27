@@ -1,46 +1,46 @@
 <template>
   <v-container fluid>
     <div v-if="show">
-      <v-layout fill-height wrap>
-      <v-row>
-        <v-col sm="6" md="7" lg="3"  v-for="(card, i) in cards" :key="i">
-          <v-card id="card" class="card mx-auto mt-10" max-width="320" max-height="700" height="470">
-            <v-row>
-              <v-card-title class="mx-auto">
-                <h4 class="subtitle-1 pb-3 pt-3">
-                  <span class="subtitle-1 deep-purple--text">Persona:</span>
-                  {{card.name}}
-                </h4>
-              </v-card-title>
-              <v-menu bottom  offset-y transition="scale-transition">
-                <v-list>
-                  <v-list-item class="pr-6 pl-6" @click="showDetails(card)">
-                    <v-list-item-title class="deep-purple--text text--lighten-1">Details</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-                <template v-slot:activator="{ on }">
-                  <v-icon v-on="on" class="deep-purple--text text--lighten-1 pr-2">mdi-dots-vertical</v-icon>
-                </template>
-              </v-menu>
-            </v-row>
-            <v-img max-width="390" max-height="360" :src="card.img"></v-img>
-            <v-row align="center" justify="center" class="pt-3">
-              <v-card-title class="pr-10">
-                <h4 class="subtitle-1">
-                  <span class="subtitle-1 deep-purple--text">Race:</span>
-                  {{card.races}}
-                </h4>
-              </v-card-title>
-              <v-card-title>
-                <h4 class="subtitle-1">
-                  <span class="subtitle-1 deep-purple--text">Kind:</span>
-                  {{card.kinds}}
-                </h4>
-              </v-card-title>
-            </v-row>
-          </v-card>
-        </v-col>
+      <v-row class="fill-height" align="center" justify="center">
+        <template v-for="(card, i) in cards">
+          <v-col :key="i" md="4" lg="3" class="mt-10">
+            <v-card
+              id="card"
+              max-width="320"
+              max-height="700"
+              height="470"
+              @click="showDetails(card)"
+            >
+              <v-row>
+                <v-card-title class="mx-auto">
+                  <h4 class="subtitle-1 pb-3 pt-3">
+                    <span class="subtitle-1 deep-purple--text">Persona:</span>
+                    {{card.name}}
+                  </h4>
+                </v-card-title>
+              </v-row>
+
+              <v-img max-width="320" max-height="360" :src="card.img"></v-img>
+
+              <v-row align="center" justify="center" class="pt-3">
+                <v-card-title class="pr-10">
+                  <h4 class="subtitle-1">
+                    <span class="subtitle-1 deep-purple--text">Race:</span>
+                    {{card.races}}
+                  </h4>
+                </v-card-title>
+                <v-card-title>
+                  <h4 class="subtitle-1">
+                    <span class="subtitle-1 deep-purple--text">Kind:</span>
+                    {{card.kinds}}
+                  </h4>
+                </v-card-title>
+              </v-row>
+            </v-card>
+          </v-col>
+        </template>
       </v-row>
+
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card dark>
           <v-toolbar class="deep-purple lighten-1" dense>
@@ -51,6 +51,7 @@
               <v-toolbar-title class="text-center">Card</v-toolbar-title>
             </v-row>
           </v-toolbar>
+
           <v-row justify="center" align="center" class="pt-12">
             <v-card elevation="20" max-width="500vw" width="80vw" max-height="85vh">
               <v-row class="mx-6">
@@ -117,21 +118,18 @@
                   </v-row>
                 </v-row>
               </v-row>
-              <v-btn fab right absolute bottom small @click="deletar">
-                <v-icon class="deep-purple--text text--lighten-1">mdi-delete</v-icon>
-              </v-btn>
             </v-card>
           </v-row>
+          <v-btn fab right absolute bottom small @click="deletar">
+            <v-icon class="deep-purple--text text--lighten-1">mdi-delete</v-icon>
+          </v-btn>
         </v-card>
       </v-dialog>
-     
-      </v-layout>
-
     </div>
-     <v-snackbar v-model="snackbar">
-        {{ message }}
-        <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
-      </v-snackbar>
+    <v-snackbar v-model="snackbar">
+      {{ message }}
+      <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -141,6 +139,7 @@ export default {
   name: "inventory",
   data: () => ({
     cards: [],
+    card: "hover mx-auto pt-12",
     races: [],
     drawer: null,
     cardSelected: [],
@@ -207,7 +206,10 @@ export default {
   margin: 0;
   padding: 0;
 }
-
+#card:hover {
+  border-top: 4px solid #7e57c2;
+  border-bottom: 4px solid #7e57c2;
+}
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;
