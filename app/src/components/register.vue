@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="mt-12">
-    <v-card max-width="30vw" max-height="115vh" height="70vh" class="mx-auto" elevation="10" dark>
+  <v-container gutter class="mt-12">
+    <v-card  max-width="500px"  min-height="565px"  class="mx-auto" elevation="10" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Register</h1>

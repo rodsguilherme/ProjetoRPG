@@ -31,12 +31,12 @@
             :disabled="!idRaceSelected"
             @click="e1 = 3"
           >Continue</v-btn>
-          <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
+          <v-btn :color="colorButton" text  @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3"  style="padding: 10vh">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
-          <v-btn :color="colorButton" style="margin: 5vh" text @click="e1 = 2">Voltar</v-btn>
+          <v-btn color="deep-purple ligthen-4" style="margin: 5vh"  @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 8vh">

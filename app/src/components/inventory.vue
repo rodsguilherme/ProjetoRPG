@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
-    {{idUser}}
+  
     <div v-if="show">
-      <v-row class="fill-height" align="center" justify="center">
+      <v-row class="pl-12 pt-12 ml-12" >
         <template v-for="(card, i) in cards">
-          <v-col :key="i" md="4" lg="3" class="mt-10">
+          <v-col :key="i" md="4" lg="3" class="mx-auto pt-12">
             <v-card
               id="card"
               max-width="320"
@@ -159,9 +159,7 @@ export default {
   }),
   mounted() {
    
-    if(typeof( localStorage.getItem("user_token")) == undefined) {
-      this.$router.push('/')
-    }
+    
     axios
       .get("http://localhost:3000/v1/user", {
         headers: {
@@ -178,9 +176,16 @@ export default {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`
             }
           })
-          .catch(e => console.log(e))
+          .catch(e => console.log(e.data))
           .then(res => (this.cards = res.data));
       });
+     
+  },
+  created() {
+    if(!localStorage.getItem('user_token')){
+       window.alert('Conecte-se para ver seu inventario.')
+       this.$router.push('/')
+     }
      
   },
   methods: {
@@ -193,7 +198,6 @@ export default {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`
         }
       })
-        .catch(e => console.log(e))
         .then(res => {
           res.data.cards.forEach(el => {
             this.cardSelected = el;
@@ -226,7 +230,6 @@ export default {
       this.$nextTick().then(() => {
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`)
-          .catch(e => console.log(e))
           .then(res => (this.cards = res.data));
         this.show = true;
       });

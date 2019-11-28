@@ -3,7 +3,7 @@
    
       <menuComponent v-if="!connected"></menuComponent>
     <menuCompLogged v-else></menuCompLogged>
-    <v-container>
+    <v-container fluid class="pt-12">
       <router-view></router-view>
     </v-container>
    
@@ -33,17 +33,21 @@ export default {
     this.$eventHub.$on('logged', this.logged)
     this.$eventHub.$on('logout', this.logout)
      
-  }, methods: {
+  },
+  beforeDestroy(){
+    this.$eventHub.$off('logged')
+  },
+  methods: {
     logged(){
       this.connected = true
     },
     logout(){
+      this.$eventHub.$emit('logout-off')
+      this.$router.push('/')
+      localStorage.clear()
       this.connected = false
     }
-  },
-  beforeDestroy() {
-    this. this.$eventHub.$off('logged', this.logged)
-  },
+  }
   
 };
 </script>
