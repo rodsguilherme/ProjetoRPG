@@ -63,7 +63,6 @@ router.get('/card/getCard/:idCard', jwt, async ctx => {
             ctx.status = 200
         }
     } catch (error) {
-        console.log(error)
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
 

@@ -7,8 +7,8 @@ const api = new koa()
 const jwt = require('../middleware/jwtMiddleware')
 
 
-
-import { createUser, getAllUsers, getUserById } from '../services/userServices'
+import { generateToken } from '../services/authService'
+import { createUser, getAllUsers, getUserById, login, getUserByEmail } from '../services/userServices'
 
 router.get('/users', jwt, async (ctx) => {
     const users = await getAllUsers()
@@ -28,12 +28,16 @@ router.post('/users/signup', async ctx => {
         email: ctx.request.body.email,
         password: ctx.request.body.password
     }
+
     try {
 
         await createUser(user)
-        ctx.body = "Usuário cadastrado com sucesso."
+        const userCredencials = await getUserByEmail(user.email)
+        const token = generateToken(userCredencials[0].idUser, userCredencials[0].username)
+        ctx.body = { message: "Usuário cadastrado com sucesso.", token}
         ctx.status = 201
     } catch (error) {
+        console.log(error)
         ctx.body = error
         ctx.status = 400
     }
