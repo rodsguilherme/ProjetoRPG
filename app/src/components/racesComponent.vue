@@ -1,11 +1,11 @@
 <template>
-  <v-sheet class="mx-auto" max-width="100%" mx-height="130%">
+  <v-sheet class="mx-auto" max-width="100%" min-height="70vh">
     <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
       <v-slide-item v-for="(race, i) in races" :key="i">
         <v-card
           class="ma-4 blue--text text--darken-4 card"
           elevation="15"
-          height="38vh"
+          height="58vh"
           width="15vw"
           @click="raceSelected(race)"
         >
@@ -43,7 +43,7 @@ export default {
 
 <style scoped>
 .card img:hover {
-  height: 38vh;
+  height: 60vh;
   width: 15vw;
 }
 
