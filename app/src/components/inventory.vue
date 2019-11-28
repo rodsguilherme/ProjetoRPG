@@ -205,8 +205,8 @@ export default {
   padding: 0;
 }
 #card:hover {
-  border-top: 4px solid #7e57c2;
-  border-bottom: 4px solid #7e57c2;
+  border-top: 0.9vh solid #7e57c2;
+  border-bottom: 0.9vh solid #7e57c2;
 }
 .custom-loader {
   animation: loader 1s infinite;
