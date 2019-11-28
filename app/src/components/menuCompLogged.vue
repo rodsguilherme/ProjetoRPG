@@ -20,7 +20,7 @@ export default {
   name: "componentMenulogged",
   data: () => ({
     title: "GENERATE CARD",
-    colorMenu: "deep-purple--text text--lighten-1"
+    colorMenu: "deep-purple--text text--lighten-2"
   }),
   methods: {
       logout() {

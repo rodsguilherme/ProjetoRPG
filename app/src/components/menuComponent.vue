@@ -5,9 +5,9 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn text :class="colorMenu" to="/">HOME</v-btn>
-        <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
+        <v-btn text :class="colorMenu" to="inventory" @click="userIsConnected">INVENTORY</v-btn>
         <v-btn text :class="colorMenu" to="login">login</v-btn>
-        <v-btn text :class="colorMenu" to="register">SIGn UP</v-btn>
+        <v-btn text :class="colorMenu" to="register">SIGN UP</v-btn>
       </v-toolbar-items>
     </v-app-bar>
   </v-container>
@@ -20,8 +20,13 @@ export default {
   name: "componentMenu",
   data: () => ({
     title: "GENERATE CARD",
-    colorMenu: "deep-purple--text text--lighten-1"
-  })
+    colorMenu: "deep-purple--text text--lighten-2"
+  }),
+  methods: {
+    userIsConnected() {
+       this.$eventHub.$emit('userIsValid')
+    }
+  }
 };
 </script>
 

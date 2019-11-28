@@ -30,7 +30,7 @@
       </v-row>
       <v-row class="pt-12">
         <v-col cols="11" class="mx-auto">
-          <v-btn block color="deep-purple lighten-2 " depressed dark @click="entrar">Login</v-btn>
+          <v-btn block color="deep-purple lighten-2" depressed dark @click="entrar">Login</v-btn>
         </v-col>
       </v-row>
       <v-row>

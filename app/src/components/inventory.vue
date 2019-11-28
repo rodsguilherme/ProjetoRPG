@@ -1,8 +1,7 @@
 <template>
   <v-container fluid>
-  
     <div v-if="show">
-      <v-row class="pl-12 pt-12 ml-12" >
+      <v-row class="pl-12 pt-12 ml-12">
         <template v-for="(card, i) in cards">
           <v-col :key="i" md="4" lg="3" class="mx-auto pt-12">
             <v-card
@@ -44,7 +43,7 @@
 
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
         <v-card dark>
-          <v-toolbar class="deep-purple lighten-1" dense>
+          <v-toolbar class="deep-purple lighten-2" dense>
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -120,7 +119,7 @@
                 </v-row>
               </v-row>
               <v-btn fab right absolute bottom small @click="deletar">
-                <v-icon class="deep-purple--text text--lighten-1">mdi-delete</v-icon>
+                <v-icon class="deep-purple--text text--lighten-2">mdi-delete</v-icon>
               </v-btn>
             </v-card>
           </v-row>
@@ -155,56 +154,60 @@ export default {
     show: true,
     idUser: "",
     id: "",
-    username: ''
+    username: ""
   }),
   mounted() {
-   
-    
     axios
       .get("http://localhost:3000/v1/user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`
         }
       })
-      .catch(e => console.log(e.data))
+      .catch(e => {
+        if (!e.data) {
+          console.log("Não teve erro");
+        } else {
+          console.log(e.data);
+        }
+      })
       .then(res => {
         this.idUser = res.data.idUser;
-       
+
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`
             }
           })
-          .catch(e => console.log(e.data))
+          .catch(e => {
+            if(e) this.$router.push("/notFound");
+          })
           .then(res => (this.cards = res.data));
       });
-     
   },
   created() {
-    if(!localStorage.getItem('user_token')){
-       window.alert('Conecte-se para ver seu inventario.')
-       this.$router.push('/')
-     }
-     
+    if (!localStorage.getItem("user_token")) {
+      this.$eventHub.$on("userIsValid", this.userIsValid);
+      this.$router.push("/");
+    }
   },
   methods: {
+    userIsValid() {
+      alert("Você precisa estar conectado para ver seu inventario.");
+    },
     showDetails(card) {
-     
       this.loading = true;
       axios
-        .get(`http://localhost:3000/v1/card/getCard/${card.idCard}`,  {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`
-        }
-      })
+        .get(`http://localhost:3000/v1/card/getCard/${card.idCard}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          }
+        })
         .then(res => {
           res.data.cards.forEach(el => {
             this.cardSelected = el;
             this.idCardSelected = el.idCard;
-            console.log(el)
-          })
-         
+          });
         })
         .finally(() => {
           this.loading = false;
@@ -214,12 +217,11 @@ export default {
     deletar() {
       this.show = false;
       axios
-        .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`, 
-         {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`
-        }
-      })
+        .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          }
+        })
         .catch(e => (this.messagePrepare = e.response.data))
         .then(res => (this.messagePrepare = res.data))
         .finally(() => {
@@ -229,7 +231,9 @@ export default {
         });
       this.$nextTick().then(() => {
         axios
-          .get(`http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`)
+          .get(
+            `http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`
+          )
           .then(res => (this.cards = res.data));
         this.show = true;
       });
