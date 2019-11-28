@@ -6,6 +6,7 @@ import database from '../database/connect'
 const createUser = async user => {
     const { username, password, email } = user
     const emailValidate = await emailExists(email)
+    console.log(emailValidate)
     if(!emailValidate) {
         throw "E-mail já existe."
     }
@@ -22,10 +23,10 @@ const createUser = async user => {
     await database.insert({ username, email, password: passwordHashed }).into('User')
 
 }
-const  emailExists = async email => {
+const emailExists = async email => {
     const emailMatched = await database.where({ email }).select('email').from('User')
-
-    if (emailMatched.length == 0) {
+ 
+    if (emailMatched.length > 0) {
         return false
     }
    return true
@@ -46,7 +47,7 @@ const compareUser = async user => {
         throw "Senha inválida"
     }
     const emailIsValid = await emailExists(email)
-    if (!emailIsValid) {
+    if (emailIsValid) {
         throw "E-mail não existe"
     }
     const users = await database.where({ email }).select('password').from('User')
