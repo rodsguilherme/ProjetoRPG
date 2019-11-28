@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken'
 
 const secret = 'supersecret';
 
-const generateToken = idUser => {
-    return jwt.sign({ id: idUser}, secret)
+const generateToken = (idUser, username) => {
+    return jwt.sign({ idUser, username}, secret)
 }
 
 

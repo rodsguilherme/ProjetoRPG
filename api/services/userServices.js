@@ -62,7 +62,7 @@ const getUserById = async idUser => {
 }
 
 const getUserByEmail = async email => {
-    return await database.where({email}).select('idUser').from('User')
+    return await database.where({email}).select('idUser', 'username').from('User')
 }
 
 const login = async user => {

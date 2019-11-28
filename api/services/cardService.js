@@ -19,8 +19,8 @@ const getCardByUser = async (idUser) => {
     return cards
 }
 
-const getCardById = async idCard => {
-    const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`)
+const getCardById = async (idCard, idUser) => {
+    const cards = await database.from('Card').innerJoin('Race', `Card.idRace`, `Race.idRace`).innerJoin('User', 'Card.idUser', 'User.idUser')
         .innerJoin('Kind', `Card.idKind`, `Kind.idKind`).orderBy(`Card.idCard`).where({ idCard })
     return cards
 }

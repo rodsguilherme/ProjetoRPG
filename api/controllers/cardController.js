@@ -35,7 +35,7 @@ router.post('/card/create', async ctx => {
     }
 })
 
-router.get('/card/saves/:idUser', async ctx => {
+router.get('/card/saves/:idUser', jwt, async ctx => {
     const idUser = ctx.params.idUser
 
     try {
@@ -53,11 +53,11 @@ router.get('/card/saves/:idUser', async ctx => {
 
 })
 
-router.get('/card/saveCard/:idCard', async ctx => {
-    const idCard = ctx.params.idCard
-
+router.get('/card/getCard/:idCard', jwt, async ctx => {
+    const idCard = ctx.params.idCard    
+    const idUser = ctx.state.user.idUser
     try {
-        const cards = await getCardById(idCard)
+        const cards = await getCardById(idCard, idUser)
         if (cards.length > 0) {
             ctx.body = cards
             ctx.status = 200

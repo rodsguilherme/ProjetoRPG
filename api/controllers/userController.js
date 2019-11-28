@@ -4,13 +4,13 @@ import nodemailer from 'nodemailer';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
 
-const jwtMiddleware = require('../middleware/jwtMiddleware')
-import jwt from 'jsonwebtoken'
+const jwt = require('../middleware/jwtMiddleware')
+
 
 
 import { createUser, getAllUsers, getUserById } from '../services/userServices'
 
-router.get('/users', jwtMiddleware, async (ctx) => {
+router.get('/users', jwt, async (ctx) => {
     const users = await getAllUsers()
     if (users !== 0) {
         ctx.body = users
@@ -29,7 +29,7 @@ router.post('/users/signup', async ctx => {
         password: ctx.request.body.password
     }
     try {
-        
+
         await createUser(user)
         ctx.body = "Usuário cadastrado com sucesso."
         ctx.status = 201
@@ -54,19 +54,16 @@ router.get('/users/:id', async (ctx) => {
     }
 })
 
-router.get('/user',  async ctx => {
-    let token = ctx.request.headers.token
-    
-   try {
-    const decoded = jwt.verify(token, 'supersecret')
-    ctx.body ={id: decoded.id[0].idUser }
-    ctx.status = 200
-   } catch (error) {
-       ctx.body = "Token is null"
-       ctx.status = 404
-   }
-  
-   
+router.get('/user', jwt, async ctx => {
+    const userLogged = ctx.state
+    try {
+        ctx.body = userLogged 
+        ctx.status = 200
+    } catch (error) {
+        console.log(error)
+        ctx.body = "Token is null"
+        ctx.status = 404
+    }
 })
 
 api.use(router.routes())

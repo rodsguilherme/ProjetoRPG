@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid>{{idUser}}
+  <v-container fluid>
+    {{idUser}}
     <div v-if="show">
       <v-row class="fill-height" align="center" justify="center">
         <template v-for="(card, i) in cards">
@@ -92,7 +93,7 @@
                       <v-divider inset></v-divider>
                       <v-row>
                         <v-text-field class="pr-3" value="Name" solo readonly></v-text-field>
-                        <v-text-field value="Nome do jogador" solo readonly></v-text-field>
+                        <v-text-field :value="cardSelected.username" solo readonly></v-text-field>
                       </v-row>
                       <v-row>
                         <v-text-field class="pr-3" value="Persona" solo readonly></v-text-field>
@@ -152,29 +153,41 @@ export default {
     snackbar: false,
     idCardSelected: "",
     show: true,
-    idUser: '',
-    id: '',
-  
+    idUser: "",
+    id: ""
   }),
   mounted() {
-  function render () {
-      axios
-    .get('http://localhost:3000/v1/user', { headers: {token: localStorage.getItem('user_token')} })
-    .then(res => { this.idUser = res.data.id})
-    .finally(() => this.id = this.idUser)
-   console.log(this.id)
     axios
-      .get(`http://localhost:3000/v1/card/saves/${this.id}`)
+      .get("http://localhost:3000/v1/user", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`
+        }
+      })
       .catch(e => console.log(e))
-      .then(res => (this.cards = res.data));
-    }
-    render()
+      .then(res => {
+        this.idUser = res.data.user.idUser;
+      //  console.log(this.idUser)
+        axios
+          .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user_token")}`
+            }
+          })
+          .catch(e => console.log(e))
+          .then(res => (this.cards = res.data));
+      });
+      console.log(this.idUser)
   },
   methods: {
     showDetails(card) {
+      console.log(card)
       this.loading = true;
       axios
-        .get(`http://localhost:3000/v1/card/saveCard/${card.idCard}`)
+        .get(`http://localhost:3000/v1/card/getCard/${card.idCard}`,  {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`
+        }
+      })
         .catch(e => console.log(e))
         .then(res => {
           res.data.forEach(el => {
