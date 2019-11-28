@@ -30,13 +30,13 @@
             dark
             :disabled="!idRaceSelected"
             @click="e1 = 3"
-          >Continue</v-btn>
-          <v-btn :color="colorButton" text  @click="e1 = 1">Voltar</v-btn>
+          >Generate</v-btn>
+          <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3"  style="padding: 10vh">
+        <v-stepper-content step="3" style="padding: 10vh">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
-          <v-btn color="deep-purple ligthen-2" style="margin: 5vh"  @click="e1 = 2">Voltar</v-btn>
+          <v-btn color="deep-purple ligthen-2" style="margin: 5vh" @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 8vh">
@@ -85,13 +85,14 @@
               </v-col>
             </v-row>
           </v-card>
-         
+          <v-btn color="deep-purple ligthen-2" :loading="loading" dark @click="createCard">
+            Save
             <template v-slot:loader>
               <span class="custom-loader">
                 <v-icon light>mdi-cached</v-icon>
               </span>
             </template>
-     
+          </v-btn>
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
       </v-stepper-items>
@@ -179,29 +180,39 @@ export default {
     },
     createCard() {
       this.loading = true;
-      Axios.post("http://localhost:3000/v1/card/create", {
-        name: this.nameToSave,
-        alignment: this.alignmentToSave,
-        idRace: this.idRaceSelected,
-        idKind: this.kindToSave,
-        charisma: this.charismaToSave,
-        intelligence: this.intelligenceToSave,
-        dexterity: this.dexterityToSave,
-        winsdow: this.winsdowToSave,
-        constitution: this.constitutionToSave,
-        strength: this.strengthToSave,
-        hp: this.hp
-      })
+      Axios.post(
+        "http://localhost:3000/v1/card/createLogged",
+
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          },
+
+          name: this.nameToSave,
+          alignment: this.alignmentToSave,
+          idRace: this.idRaceSelected,
+          idKind: this.kindToSave,
+          charisma: this.charismaToSave,
+          intelligence: this.intelligenceToSave,
+          dexterity: this.dexterityToSave,
+          winsdow: this.winsdowToSave,
+          constitution: this.constitutionToSave,
+          strength: this.strengthToSave,
+          hp: this.hp
+        }
+      )
         .catch(e => {
-           this.snackbar = true
-           this.message = e.response.data
+          this.snackbar = true;
+          console.log(e.response);
         })
         .then(res => {
-          this.snackbar = true
-           this.ok = false;
-          this.message = res.data
+          this.snackbar = true;
+          this.ok = false;
+          console.log(res.data);
         })
-        .finally(() => {this.loading = false});
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   watch: {
@@ -213,7 +224,7 @@ export default {
 
       this.loader = null;
     }
-  },
+  }
 };
 </script>
 

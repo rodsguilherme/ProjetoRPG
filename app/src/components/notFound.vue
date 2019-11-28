@@ -1,12 +1,19 @@
 <template>
   <v-container fluid>
-    <v-card dark height="100vh">
-      <v-row justify="center" class="pt-12">
-        <v-card-title
-          class=" card deep-purple--text text--lighten-2"
-        >Opa, parece que você não tem cards salvos ainda :(</v-card-title>
-      </v-row>
-    </v-card>
+      <v-card  min-height="18vh" width="33vw" class="mx-auto" dark>
+        <v-row  class="mx-auto pt-12 mt-12" dense>
+          <v-card-title
+            class="display-1 font-weight-bold deep-purple--text text--lighten-2"
+          >Opa, parece que você ainda não tem cards salvos :(</v-card-title>
+        </v-row>
+       
+        <v-row class="mx-auto">
+           <v-spacer></v-spacer>
+      <v-card-actions >
+        <v-btn  text class="deep-purple lighten-2" to="/">Create</v-btn>
+      </v-card-actions>
+        </v-row>
+      </v-card>
   </v-container>
 </template>
 
@@ -18,6 +25,6 @@ export default {
 
 <style scoped>
 .card {
-  border-bottom: 1px solid #d1c4e9;
+  border-bottom: 1px solid #875fd181;
 }
 </style>

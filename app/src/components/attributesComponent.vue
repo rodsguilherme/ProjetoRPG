@@ -72,7 +72,7 @@
       <v-row>
         <v-col cols="12" offset="5">
           <v-card-actions>
-            <v-btn color="deep-purple lighten-1" dark :disabled="!valid" @click="getAttribute">Continue</v-btn>
+            <v-btn color="deep-purple lighten-1" dark :disabled="!valid" @click="getAttribute">Generate</v-btn>
             <v-btn text class="deep-purple lighten-1" @click="resetForm">Reset</v-btn>
           </v-card-actions>
         </v-col>

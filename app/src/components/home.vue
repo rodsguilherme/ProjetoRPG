@@ -1,18 +1,41 @@
 <template>
-  <stepper></stepper>
+  <stepper v-if="!connected"></stepper>
+  <stepperLogged v-else></stepperLogged>
 </template>
 
 <script>
 //import axios from "axios";
 import stepper from "./stepper";
+import stepperLogged from './stepperLogged'
 export default {
-  components: { stepper },
+  components: { stepper, stepperLogged },
   name: "card",
   data: () => ({
-    message: null,
-    active: null,
-    model: null
-  })
+    connected: false
+
+  }),
+  created() {
+    console.log(this.connected)
+    this.$eventHub.$on("logged", this.logged);
+    this.$eventHub.$on("logout", this.logout);
+    if(localStorage.getItem('user_token')) {
+      this.connected = true
+    }
+  },
+  beforeDestroy() {
+    this.$eventHub.$off("logged");
+  },
+
+  methods: {
+    logged() {
+      this.connected = true;
+    },
+    logout() {
+      this.connected = false;
+      localStorage.clear();
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 

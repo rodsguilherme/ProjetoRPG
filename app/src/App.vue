@@ -25,10 +25,14 @@ export default {
   created() {
     this.$eventHub.$on("logged", this.logged);
     this.$eventHub.$on("logout", this.logout);
+    if(localStorage.getItem('user_token')) {
+      this.connected = true
+    }
   },
   beforeDestroy() {
     this.$eventHub.$off("logged");
   },
+
   methods: {
     logged() {
       this.connected = true;

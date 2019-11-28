@@ -166,13 +166,11 @@ export default {
       .catch(e => {
         if (!e.data) {
           console.log("Não teve erro");
-        } else {
-          console.log(e.data);
         }
       })
       .then(res => {
         this.idUser = res.data.idUser;
-
+        console.log(this.idUser)
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
             headers: {
@@ -180,7 +178,9 @@ export default {
             }
           })
           .catch(e => {
-            if(e) this.$router.push("/notFound");
+          
+              console.log(e.response.data)
+          
           })
           .then(res => (this.cards = res.data));
       });
