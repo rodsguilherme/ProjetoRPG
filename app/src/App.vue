@@ -28,9 +28,7 @@ export default {
 
    // footerComponent
   },
-  computed: {
-
-  }
+  
 };
 </script>
 <style >

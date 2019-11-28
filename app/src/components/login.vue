@@ -75,10 +75,11 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(r => {
-          this.message = r.data.connected;
+        .then(res => {
+          this.message = res.data.connected;
           this.snackbar = true;
-          localStorage.setItem("token", r.data.token);
+          localStorage.setItem("user_token", res.data.token);
+         // this.$router.push('inventory')
         })
         .catch(e => {
           this.message = e.response.data;
