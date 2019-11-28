@@ -57,9 +57,9 @@ router.get('/card/getCard/:idCard', jwt, async ctx => {
     const idCard = ctx.params.idCard    
     const idUser = ctx.state.user.idUser
     try {
-        const cards = await getCardById(idCard, idUser)
+        const cards = await getCardById(idCard)
         if (cards.length > 0) {
-            ctx.body = cards
+            ctx.body = {cards, idUser }
             ctx.status = 200
         }
     } catch (error) {

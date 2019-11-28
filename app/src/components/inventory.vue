@@ -154,19 +154,24 @@ export default {
     idCardSelected: "",
     show: true,
     idUser: "",
-    id: ""
+    id: "",
+    username: ''
   }),
   mounted() {
+   
+    if(typeof( localStorage.getItem("user_token")) == undefined) {
+      this.$router.push('/')
+    }
     axios
       .get("http://localhost:3000/v1/user", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user_token")}`
         }
       })
-      .catch(e => console.log(e))
+      .catch(e => console.log(e.data))
       .then(res => {
-        this.idUser = res.data.user.idUser;
-      //  console.log(this.idUser)
+        this.idUser = res.data.idUser;
+       
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
             headers: {
@@ -176,11 +181,11 @@ export default {
           .catch(e => console.log(e))
           .then(res => (this.cards = res.data));
       });
-      console.log(this.idUser)
+     
   },
   methods: {
     showDetails(card) {
-      console.log(card)
+     
       this.loading = true;
       axios
         .get(`http://localhost:3000/v1/card/getCard/${card.idCard}`,  {
@@ -190,10 +195,12 @@ export default {
       })
         .catch(e => console.log(e))
         .then(res => {
-          res.data.forEach(el => {
+          res.data.cards.forEach(el => {
             this.cardSelected = el;
             this.idCardSelected = el.idCard;
-          });
+            console.log(el)
+          })
+         
         })
         .finally(() => {
           this.loading = false;
@@ -203,7 +210,12 @@ export default {
     deletar() {
       this.show = false;
       axios
-        .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`)
+        .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`, 
+         {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user_token")}`
+        }
+      })
         .catch(e => (this.messagePrepare = e.response.data))
         .then(res => (this.messagePrepare = res.data))
         .finally(() => {
@@ -213,7 +225,7 @@ export default {
         });
       this.$nextTick().then(() => {
         axios
-          .get("http://localhost:3000/v1/card/saves/1")
+          .get(`http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`)
           .catch(e => console.log(e))
           .then(res => (this.cards = res.data));
         this.show = true;

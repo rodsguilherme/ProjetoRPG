@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="mt-8">
-    <v-card max-width="26vw"  max-height="115vh" height="60vh"  class="mx-auto" elevation="20" dark>
+    <v-card max-width="28vw"  max-height="125vh" height="70vh"  class="mx-auto" elevation="20" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Login</h1>
@@ -79,7 +79,8 @@ export default {
           this.message = res.data.connected;
           this.snackbar = true;
           localStorage.setItem("user_token", res.data.token);
-         // this.$router.push('inventory')
+          this.$eventHub.$emit('logged')
+          this.$router.push('inventory')
         })
         .catch(e => {
           this.message = e.response.data;

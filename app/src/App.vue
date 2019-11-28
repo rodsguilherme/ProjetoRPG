@@ -1,32 +1,48 @@
 <template>
   <v-app>
-    <menuComponent></menuComponent>
-    <v-container fluid>
+   
+      <menuComponent v-if="!connected"></menuComponent>
+    <menuCompLogged v-else></menuCompLogged>
+    <v-container>
       <router-view></router-view>
-     
     </v-container>
-
+   
+   
+<div> {{connected}}</div>
   </v-app>
 </template>
 
 <script>
-//import login from './components/login'
+
+import menuCompLogged from './components/menuCompLogged'
 import menuComponent from "./components/menuComponent";
-//import home from "./components/home";
-//import /footerComponent from './components/footerComponent'
+
 
 export default {
   name: "App",
 
   data: () => ({
-    //
+    connected: false
   }),
   components: {
-    // login,
+    
     menuComponent,
-    //home
-
-   // footerComponent
+    menuCompLogged
+  },
+  created() {
+    this.$eventHub.$on('logged', this.logged)
+    this.$eventHub.$on('logout', this.logout)
+     
+  }, methods: {
+    logged(){
+      this.connected = true
+    },
+    logout(){
+      this.connected = false
+    }
+  },
+  beforeDestroy() {
+    this. this.$eventHub.$off('logged', this.logged)
   },
   
 };

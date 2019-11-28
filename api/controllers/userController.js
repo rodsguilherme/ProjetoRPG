@@ -55,7 +55,7 @@ router.get('/users/:id', async (ctx) => {
 })
 
 router.get('/user', jwt, async ctx => {
-    const userLogged = ctx.state
+    const userLogged = ctx.state.user
     try {
         ctx.body = userLogged 
         ctx.status = 200
