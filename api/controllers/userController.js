@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import nodemailer from 'nodemailer';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
-
+const multer = require('multer')
 const jwt = require('../middleware/jwtMiddleware')
 
 
@@ -22,13 +22,17 @@ router.get('/users', jwt, async (ctx) => {
     }
 });
 
-router.post('/users/signup', async ctx => {
+const upload = multer({
+    dest: './v1/users/singup'
+})
+router.post('/users/signup', upload.single('image') , async ctx => {
     const user = {
         username: ctx.request.body.username,
         email: ctx.request.body.email,
-        password: ctx.request.body.password
+        password: ctx.request.body.password,
+        image: ctx.request.image
     }
-
+    console.log(image)
     try {
 
         await createUser(user)

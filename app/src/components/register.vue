@@ -12,8 +12,18 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="11" class="mx-auto">
+        <v-col cols="6" class="mx-auto">
           <v-text-field label="Username" :rules="[rules.required]" v-model="username" clearable></v-text-field>
+        </v-col>
+        <v-col>
+          <v-file-input
+            label="Avatar"
+            accept
+            type="file"
+            @change="onSelect"
+            :rules="[rules.required]"
+            v-model="image"
+          ></v-file-input>
         </v-col>
       </v-row>
       <v-row>
@@ -68,6 +78,8 @@ export default {
   data: () => ({
     email: "",
     username: "",
+    image: [],
+    imagetoSave: "",
     loader: null,
     loading: false,
     password: "",
@@ -81,12 +93,18 @@ export default {
     }
   }),
   methods: {
+    onSelect() {
+      const file = this.$refs.file.files[0];
+      this.image = file;
+    },
     cadastrar() {
       this.loading = true;
+      const formData = new FormData();
+      formData.append('file', this.image)
       axios
-
         .post("http://localhost:3000/v1/users/signup", {
           username: this.username,
+          image: this.image,
           email: this.email,
           password: this.password
         })
