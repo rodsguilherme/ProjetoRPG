@@ -97,7 +97,7 @@ export default {
         .then(res => {
           console.log(res.data.message);
           localStorage.setItem("user_token", res.data.token);
-          this.$eventHub.$emit("logged");
+          this.$eventHub.$emit("logged-register");
           this.$router.push("inventory");
         })
         .finally(() => {

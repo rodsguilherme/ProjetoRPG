@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-      <v-card  min-height="18vh" width="33vw" class="mx-auto" dark>
+      <v-card  min-height="20vh" width="61vw" class="mx-auto" dark>
         <v-row  class="mx-auto pt-12 mt-12" dense>
           <v-card-title
             class="display-1 font-weight-bold deep-purple--text text--lighten-2"

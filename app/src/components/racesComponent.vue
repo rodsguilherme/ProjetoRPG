@@ -6,7 +6,7 @@
           class="ma-4 blue--text text--darken-4 card"
           elevation="15"
           height="58vh"
-          width="15vw"
+          width="20vw"
           @click="raceSelected(race)"
         >
           <img :src="race.img" width="100%" height="100%" />
@@ -43,15 +43,15 @@ export default {
 
 <style scoped>
 .card img:hover {
-  height: 60vh;
-  width: 15vw;
+  height: 58vh;
+  width: 20vw;
 }
 
 .card:focus {
-  border: 8px solid #d1c4e9;
+  border: 6px solid #d1c4e9;
 }
 .card:hover {
-  border: 8px solid #d1c4e9;
+  border: 6px solid #d1c4e9;
 }
 .card {
   background-color: #d1c4e9;

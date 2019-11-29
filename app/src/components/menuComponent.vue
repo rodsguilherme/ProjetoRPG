@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn text :class="colorMenu" to="/">HOME</v-btn>
-        <v-btn text :class="colorMenu" to="inventory" @click="userIsConnected">INVENTORY</v-btn>
+        <v-btn text :class="colorMenu" to="inventory" >INVENTORY</v-btn>
         <v-btn text :class="colorMenu" to="login">login</v-btn>
         <v-btn text :class="colorMenu" to="register">SIGN UP</v-btn>
       </v-toolbar-items>
@@ -21,16 +21,8 @@ export default {
   data: () => ({
     title: "GENERATE CARD",
     colorMenu: "deep-purple--text text--lighten-2"
-  }),
-  methods: {
-    userIsConnected() {
-      let token = localStorage.getItem('user_token')
-       if(!token){
-         alert('Você precisa entrar para ver seu inventario.')
-         this.$router.push('/')
-       }
-    }
-  }
+  })
+  
 };
 </script>
 

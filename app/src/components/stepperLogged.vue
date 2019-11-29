@@ -58,7 +58,9 @@
               <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Race" :value="raceSelected" readonly required></v-text-field>
               </v-col>
-
+                <v-col cols="12" sm="3" md="3" lg="3">
+                <v-text-field label="Kind" :value="kindToSave.kinds" readonly required></v-text-field>
+              </v-col>
               <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Charisma" :value="charismaToSave" readonly required></v-text-field>
               </v-col>
@@ -85,13 +87,9 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-btn color="deep-purple ligthen-2" :loading="loading" dark @click="createCard">
+          <v-btn color="deep-purple ligthen-2" dark @click="createCard">
             Save
-            <template v-slot:loader>
-              <span class="custom-loader">
-                <v-icon light>mdi-cached</v-icon>
-              </span>
-            </template>
+            
           </v-btn>
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
@@ -179,7 +177,7 @@ export default {
       }
     },
     createCard() {
-      this.loading = true;
+      
       Axios.post(
         "http://localhost:3000/v1/card/createLogged",
         {
@@ -207,12 +205,8 @@ export default {
         })
         .then(res => {
           this.snackbar = true;
-          this.ok = false;
-          console.log(res.data);
+          this.message = res.data;
         })
-        .finally(() => {
-          this.loading = false;
-        });
     }
   },
   watch: {

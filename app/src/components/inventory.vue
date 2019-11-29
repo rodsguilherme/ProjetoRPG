@@ -3,8 +3,8 @@
     <div v-if="show">
       <v-row>
         <template v-for="(card, i) in cards">
-          <v-col class="mt-5 pl-5 pr-5" :key="i"  cols="3">
-            <v-card id="card"  min-height="450px" @click="showDetails(card)" outlined>
+          <v-col class="mt-5 pl-5 pr-5" :key="i" cols="3">
+            <v-card id="card" min-height="450px" @click="showDetails(card)" outlined>
               <v-row>
                 <v-card-title class="mx-auto">
                   <h4 class="subtitle-1 pb-3 pt-3">
@@ -159,13 +159,15 @@ export default {
         }
       })
       .catch(e => {
-        if (!e.data) {
-          console.log("Não teve erro");
+        if (e.response.status == 401) {
+          this.$router.push("/");
+          alert("Você precisa se conectar para ver o inventario.");
         }
+        console.log(e.response.data);
       })
       .then(res => {
         this.idUser = res.data.idUser;
-       
+
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
             headers: {
@@ -173,6 +175,10 @@ export default {
             }
           })
           .catch(e => {
+            if (e.response.status == 404) {
+              this.$router.push("/notFound");
+            }
+
             console.log(e.response.data);
           })
           .then(res => (this.cards = res.data));
@@ -234,43 +240,11 @@ export default {
 }
 #card:hover {
   border-top: 0.5vh solid #7e57c2;
-  border-bottom: 0.5vh solid #7e57c2; 
+  border-bottom: 0.5vh solid #7e57c2;
 }
 
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 </style>

@@ -65,14 +65,27 @@
 
         <v-col cols="1" v-for="(kind, i) in kinds" :key="i" class="px-12">
           <v-radio-group v-model="form.kind" :rules="[v => !!v || 'Item is required']" row>
-            <v-radio :value="kind.idKind" :label="kind.kinds"></v-radio>
+            <v-radio :value="kind" :label="kind.kinds"></v-radio>
           </v-radio-group>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" offset="5">
           <v-card-actions>
-            <v-btn color="deep-purple lighten-1" dark :disabled="!valid" @click="getAttribute">Generate</v-btn>
+            <v-btn
+              color="deep-purple lighten-1"
+              :disabled="!valid"
+              dark
+              :loading="loading"
+              @click="getAttribute"
+            >
+              Generate
+              <template v-slot:loader>
+                <span class="custom-loader">
+                  <v-icon light>mdi-cached</v-icon>
+                </span>
+              </template>
+            </v-btn>
             <v-btn text class="deep-purple lighten-1" @click="resetForm">Reset</v-btn>
           </v-card-actions>
         </v-col>
@@ -96,8 +109,10 @@ export default {
       constitution: "",
       dexterity: "",
       strength: "",
-      kind: ""
+      kind: "",
+      loader: null
     },
+    loading: false,
     kinds: [],
     valid: false,
     items: [
@@ -127,9 +142,14 @@ export default {
     resetForm() {
       this.$refs.form.reset();
     },
+
     getAttribute() {
-      this.dialog = false;
-      this.$emit("emit-click-attribute", this.form);
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false
+        this.dialog = false;
+        this.$emit("emit-click-attribute", this.form);
+      }, 1000);
     }
   },
   mounted() {
@@ -144,4 +164,40 @@ export default {
 </script>
 
 <style scoped>
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
