@@ -24,7 +24,11 @@ export default {
   }),
   methods: {
     userIsConnected() {
-       this.$eventHub.$emit('userIsValid')
+      let token = localStorage.getItem('user_token')
+       if(!token){
+         alert('Você precisa entrar para ver seu inventario.')
+         this.$router.push('/')
+       }
     }
   }
 };

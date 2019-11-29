@@ -34,10 +34,10 @@ router.post('/users/signup', async ctx => {
         await createUser(user)
         const userCredencials = await getUserByEmail(user.email)
         const token = generateToken(userCredencials[0].idUser, userCredencials[0].username)
-        ctx.body = { message: "Usuário cadastrado com sucesso.", token}
+        ctx.body = { message: "Usuário cadastrado com sucesso.", token }
         ctx.status = 201
     } catch (error) {
-        console.log(error)
+
         ctx.body = error
         ctx.status = 400
     }
@@ -61,7 +61,7 @@ router.get('/users/:id', async (ctx) => {
 router.get('/user', jwt, async ctx => {
     const userLogged = ctx.state.user
     try {
-        ctx.body = userLogged 
+        ctx.body = userLogged
         ctx.status = 200
     } catch (error) {
         console.log(error)

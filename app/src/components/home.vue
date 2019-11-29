@@ -15,7 +15,6 @@ export default {
 
   }),
   created() {
-    console.log(this.connected)
     this.$eventHub.$on("logged", this.logged);
     this.$eventHub.$on("logout", this.logout);
     if(localStorage.getItem('user_token')) {

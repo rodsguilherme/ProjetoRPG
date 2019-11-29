@@ -1,16 +1,10 @@
 <template>
   <v-container fluid>
     <div v-if="show">
-      <v-row class="pl-12 pt-12 ml-12">
+      <v-row>
         <template v-for="(card, i) in cards">
-          <v-col :key="i" md="4" lg="3" class="mx-auto pt-12">
-            <v-card
-              id="card"
-              max-width="320"
-              max-height="700"
-              height="470"
-              @click="showDetails(card)"
-            >
+          <v-col class="mt-5 pl-5 pr-5" :key="i"  cols="3">
+            <v-card id="card"  min-height="450px" @click="showDetails(card)" outlined>
               <v-row>
                 <v-card-title class="mx-auto">
                   <h4 class="subtitle-1 pb-3 pt-3">
@@ -20,7 +14,7 @@
                 </v-card-title>
               </v-row>
 
-              <v-img max-width="320" max-height="360" :src="card.img"></v-img>
+              <v-img min-width="30px" max-height="340px" :src="card.img"></v-img>
 
               <v-row align="center" justify="center" class="pt-3">
                 <v-card-title class="pr-10">
@@ -157,10 +151,11 @@ export default {
     username: ""
   }),
   mounted() {
+    let token = localStorage.getItem("user_token");
     axios
       .get("http://localhost:3000/v1/user", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          Authorization: `Bearer ${token}`
         }
       })
       .catch(e => {
@@ -170,31 +165,20 @@ export default {
       })
       .then(res => {
         this.idUser = res.data.idUser;
-        console.log(this.idUser)
+       
         axios
           .get(`http://localhost:3000/v1/card/saves/${this.idUser}`, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("user_token")}`
+              Authorization: `Bearer ${token}`
             }
           })
           .catch(e => {
-          
-              console.log(e.response.data)
-          
+            console.log(e.response.data);
           })
           .then(res => (this.cards = res.data));
       });
   },
-  created() {
-    if (!localStorage.getItem("user_token")) {
-      this.$eventHub.$on("userIsValid", this.userIsValid);
-      this.$router.push("/");
-    }
-  },
   methods: {
-    userIsValid() {
-      alert("Você precisa estar conectado para ver seu inventario.");
-    },
     showDetails(card) {
       this.loading = true;
       axios
@@ -215,11 +199,12 @@ export default {
         });
     },
     deletar() {
+      let token = localStorage.getItem("user_token");
       this.show = false;
       axios
         .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+            Authorization: `Bearer ${token}`
           }
         })
         .catch(e => (this.messagePrepare = e.response.data))
@@ -248,9 +233,10 @@ export default {
   padding: 0;
 }
 #card:hover {
-  border-top: 0.9vh solid #7e57c2;
-  border-bottom: 0.9vh solid #7e57c2;
+  border-top: 0.5vh solid #7e57c2;
+  border-bottom: 0.5vh solid #7e57c2; 
 }
+
 .custom-loader {
   animation: loader 1s infinite;
   display: flex;

@@ -182,12 +182,7 @@ export default {
       this.loading = true;
       Axios.post(
         "http://localhost:3000/v1/card/createLogged",
-
         {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("user_token")}`
-          },
-
           name: this.nameToSave,
           alignment: this.alignmentToSave,
           idRace: this.idRaceSelected,
@@ -199,6 +194,11 @@ export default {
           constitution: this.constitutionToSave,
           strength: this.strengthToSave,
           hp: this.hp
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          }
         }
       )
         .catch(e => {

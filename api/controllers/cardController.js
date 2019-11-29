@@ -29,7 +29,7 @@ router.post('/card/createLogged', jwt, async ctx => {
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
     } catch (err) {
-        console.log(err)
+     
         ctx.body = 'Erro ao criar o card'
         ctx.status = 400
     }
@@ -66,7 +66,6 @@ router.post('/card/create', async ctx => {
 
 router.get('/card/saves/:idUser', jwt, async ctx => {
     const idUser = ctx.params.idUser
-    console.log(idUser)
     try {
         const cards = await getCardByUser(idUser)
         if (cards.length > 0) {
@@ -74,8 +73,6 @@ router.get('/card/saves/:idUser', jwt, async ctx => {
             ctx.status = 200
         }
     } catch (error) {
-        console.log(error);
-
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
     }
@@ -92,7 +89,7 @@ router.get('/card/getCard/:idCard', jwt, async ctx => {
             ctx.status = 200
         }
     } catch (error) {
-        console.log(error)
+       
         ctx.body = 'Opa, parece que não cards salvos.'
         ctx.status = 404
 
@@ -108,7 +105,7 @@ router.delete('/card/delete/:idCard', async ctx => {
         ctx.body = "Ficha deletada."
         ctx.status = 200
     } catch (error) {
-        console.log(error)
+ 
         ctx.body = "Erro ao deletar a ficha."
         ctx.status = 400
     }

@@ -2,7 +2,7 @@
   <v-app>
     <menuComponent v-if="!connected"></menuComponent>
     <menuCompLogged v-else></menuCompLogged>
-    <v-container fluid class="pt-12">
+    <v-container fluid class="pt-8">
       <router-view></router-view>
     </v-container>
   </v-app>
