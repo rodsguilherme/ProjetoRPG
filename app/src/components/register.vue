@@ -1,6 +1,6 @@
 <template>
-  <v-container gutter class="mt-12">
-    <v-card max-width="500px" min-height="565px" class="mx-auto" elevation="10" dark>
+  <v-container fluid>
+    <v-card width="40vw" min-height="90vh" class="mx-auto" elevation="10" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Register</h1>
@@ -12,22 +12,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="6" class="mx-auto">
+        <v-col cols="11" class="mx-auto" lg="11" md="11">
           <v-text-field label="Username" :rules="[rules.required]" v-model="username" clearable></v-text-field>
-        </v-col>
-        <v-col>
-          <v-file-input
-            label="Avatar"
-            accept
-            type="file"
-            @change="onSelect"
-            :rules="[rules.required]"
-            v-model="image"
-          ></v-file-input>
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="11" class="mx-auto">
+        <v-col cols="11" class="mx-auto" lg="11" md="11">
           <v-text-field
             label="E-mail"
             :rules="[rules.required, rules.email]"
@@ -37,7 +27,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="11" class="mx-auto">
+        <v-col cols="11" class="mx-auto" lg="11" md="11">
           <v-text-field
             label="Password"
             :rules="[rules.required, rules.min]"
@@ -48,9 +38,13 @@
           ></v-text-field>
         </v-col>
       </v-row>
-
-      <v-row class="pt-12">
-        <v-col cols="10" class="mx-auto">
+      <v-row>
+        <v-col cols="11" class="mx-auto" lg="11" md="11">
+          <v-file-input label="Imagem" accept="image/*" v-model="image"></v-file-input>
+        </v-col>
+      </v-row>
+      <v-row class="pt-10">
+        <v-col cols="11" class="mx-auto">
           <v-btn
             block
             color="deep-purple lighten-2"
@@ -62,7 +56,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="10" class="mx-auto">
+        <v-col cols="11" class="mx-auto">
           <v-btn block dark outlined to="login">Login</v-btn>
         </v-col>
       </v-row>
@@ -79,7 +73,7 @@ export default {
     email: "",
     username: "",
     image: [],
-    imagetoSave: "",
+    imageBase64: "",
     loader: null,
     loading: false,
     password: "",
@@ -89,28 +83,34 @@ export default {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return pattern.test(String(value).toLowerCase()) || "E-mail inválido.";
       },
-      min: value => value.length > 6 || "Minimu characters are 6 ",
+      min: value => value.length > 5 || "Minimu characters are 6 ",
       required: value => !!value || "Required."
     }
   }),
+  watch: {
+    image(val) {
+      var file = val;
+      var reader = new FileReader();
+      reader.onloadend = () => {
+        console.log("RESULT", reader.result);
+        this.imageBase64 = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  },
   methods: {
-    onSelect() {
-      const file = this.$refs.file.files[0];
-      this.image = file;
-    },
     cadastrar() {
       this.loading = true;
-      const formData = new FormData();
-      formData.append('file', this.image)
+
       axios
         .post("http://localhost:3000/v1/users/signup", {
           username: this.username,
-          image: this.image,
+          image: this.imageBase64,
           email: this.email,
           password: this.password
         })
         .catch(e => {
-          console.log(e.data);
+          this.message = e.response.data
           this.snackbar = true;
         })
         .then(res => {
@@ -131,4 +131,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

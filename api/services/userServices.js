@@ -4,17 +4,17 @@ import database from '../database/connect'
 
 
 const createUser = async user => {
-    const { username, password, email } = user
+    const { username, password, email, image} = user
     const emailValidate = await emailExists(email)
     if (!emailValidate) {
         throw "E-mail já existe."
     }
 
-    if (!username || !password) {
+    if (!username || !password || !image) {
         throw "Preencha os campos"
     }
-    if (password.length < 6) {
-        throw "Numero de caracteres é 6"
+    if (password.length < 5) {
+        throw "Numero minimo de caracteres é 6"
     }
     const emailChecked = await emailIsValid(email)
     if (!emailChecked) {
@@ -22,7 +22,7 @@ const createUser = async user => {
     }
 
     const passwordHashed = generateHash(password)
-    await database.insert({ username, email, password: passwordHashed }).into('User')
+    await database.insert({ username, email, password: passwordHashed, image }).into('User')
 
 }
 const emailExists = async email => {
@@ -61,7 +61,7 @@ const compareUser = async user => {
 }
 
 const getUserById = async idUser => {
-    return await database.where({ idUser }).select('idUser', 'username').from('User')
+    return await database.where({ idUser }).select('idUser', 'username','image').from('User')
 }
 
 const getUserByEmail = async email => {
