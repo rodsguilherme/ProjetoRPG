@@ -36,7 +36,7 @@
       </v-row>
 
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-card dark >
+        <v-card dark>
           <v-toolbar class="deep-purple lighten-2" dense>
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
@@ -48,9 +48,9 @@
 
           <v-row justify="center" align="center" class="pt-5">
             <v-card elevation="20" min-width="90vw" min-height="70vh">
-              <v-row class="mx-6 ">
+              <v-row class="mx-6">
                 <v-row class="mx-auto">
-                  <v-col md="6" lg="3">
+                  <v-col md="6" lg="6">
                     <h1 class="title">Attributes</h1>
                     <v-divider inset></v-divider>
                     <v-row>
@@ -214,20 +214,25 @@ export default {
           }
         })
         .catch(e => (this.messagePrepare = e.response.data))
-        .then(res => (this.messagePrepare = res.data))
+        .then(response => {
+          this.messagePrepare = response.data;
+          axios
+            .get(
+              `http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
+            )
+            .then(res => (this.cards = res.data));
+          this.show = true;
+        })
         .finally(() => {
           this.snackbar = true;
           this.message = this.messagePrepare;
           this.dialog = false;
         });
-      this.$nextTick().then(() => {
-        axios
-          .get(
-            `http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`
-          )
-          .then(res => (this.cards = res.data));
-        this.show = true;
-      });
     }
   }
 };
