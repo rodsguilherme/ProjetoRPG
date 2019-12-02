@@ -20,11 +20,17 @@
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
           <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
           <v-menu bottom offset-y dark class="ml-4">
-            <template v-slot:activator="{ on }">
+            <template v-if="imageExists" v-slot:activator="{ on }">
               <v-avatar style="cursor: pointer" v-on="on">
                 <v-img :src="user.image"></v-img>
               </v-avatar>
             </template>
+            <template v-else v-slot:activator="{ on }">
+              <v-avatar color="deep-purple lighten-2" style="cursor: pointer" v-on="on">
+                <span class="white--text headline">{{username}}</span>
+              </v-avatar>
+            </template>
+
             <v-list>
               <v-list-item @click="logout">
                 <v-list-item-title>Exit</v-list-item-title>
@@ -48,8 +54,10 @@ export default {
     colorMenu: "deep-purple--text text--lighten-2",
     connected: false,
     user: [],
+    username: "",
     drawer: null,
-    mini: true
+    mini: true,
+    imageExists: ""
   }),
   updated() {
     if (localStorage.getItem("user_token")) {
@@ -78,7 +86,15 @@ export default {
             }
           })
           .then(response => {
-            this.user = response.data[0];
+            if (!response.data[0].image) {
+              this.imageExists = false;
+              this.username = response.data[0].username
+                .substr(0, 1)
+                .toUpperCase();
+            } else {
+              this.imageExists = true;
+              this.user = response.data[0];
+            }
           });
       });
     this.$eventHub.$on("logged-register", this.register);
@@ -100,7 +116,15 @@ export default {
               }
             })
             .then(response => {
-              this.user = response.data[0];
+              if (!response.data[0].image) {
+                this.imageExists = false;
+                this.username = response.data[0].username
+                  .substr(0, 1)
+                  .toUpperCase();
+              } else {
+                this.imageExists = true;
+                this.user = response.data[0];
+              }
             });
         });
       this.connected = true;
@@ -109,6 +133,7 @@ export default {
       this.connected = true;
     },
     logout() {
+      this.username = "";
       this.connected = false;
       localStorage.clear();
       this.$router.push("/");

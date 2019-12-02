@@ -9,7 +9,7 @@
         <v-menu bottom offset-y dark>
           <template v-slot:activator="{ on }">
             <v-avatar class="mx-auto" v-on="on">
-              <v-img :src="user.image"></v-img>
+              <v-img src="a"></v-img>
             </v-avatar>
           </template>
           <v-list style="cursor: pointer">
@@ -50,9 +50,11 @@ export default {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`
             }
           })
+          .catch(e => console.log(e.response.data))
           .then(response => {
             this.user = response.data[0];
           });
+            console.log(this.user)
       });
   },
   methods: {
