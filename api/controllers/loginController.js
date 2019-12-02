@@ -21,7 +21,6 @@ router.post('/login', async ctx => {
         ctx.status = 200
 
     } catch (error) {
-        console.log(error)
         ctx.body = error
         ctx.status = 400
     }

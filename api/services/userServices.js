@@ -13,6 +13,9 @@ const createUser = async user => {
     if (!username || !password) {
         throw "Preencha os campos"
     }
+    if (password.length < 6) {
+        throw "Numero de caracteres é 6"
+    }
     const emailChecked = await emailIsValid(email)
     if (!emailChecked) {
         throw "E-mail inválido"

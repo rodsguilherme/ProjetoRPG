@@ -40,7 +40,7 @@
         <v-col cols="11" class="mx-auto">
           <v-text-field
             label="Password"
-            :rules="[rules.required]"
+            :rules="[rules.required, rules.min]"
             v-model="password"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
@@ -89,6 +89,7 @@ export default {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return pattern.test(String(value).toLowerCase()) || "E-mail inválido.";
       },
+      min: value => value.length > 6 || "Minimu characters are 6 ",
       required: value => !!value || "Required."
     }
   }),
