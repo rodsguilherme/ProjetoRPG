@@ -2,7 +2,7 @@
   <v-container fluid>
     <div v-if="!connected">
       <v-app-bar dark dense fixed width="100%" elevation="10">
-        <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
+        <v-toolbar-title :class="colorMenu">{{connected}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
@@ -14,7 +14,7 @@
     </div>
     <div v-else>
       <v-app-bar app clipped-left dark dense absolute elevation="10">
-        <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
+        <v-toolbar-title :class="colorMenu">{{connected}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
@@ -34,8 +34,7 @@
         </v-toolbar-items>
       </v-app-bar>
     </div>
-    <router-view></router-view>
-  </v-container>
+    </v-container>
 </template>
 
 
@@ -65,7 +64,8 @@ export default {
     } else {
       this.connected = false;
     }
-
+    this.$eventHub.$on('logged-register', this.register)
+     this.$eventHub.$on('login', this.logged)
     axios
       .get(`http://localhost:3000/v1/user`, {
         headers: {
@@ -85,6 +85,12 @@ export default {
       });
   },
   methods: {
+    logged(){
+      this.connected = true
+    },
+    register(){
+     this.connected = true
+    },
     logout() {
       this.connected = false;
       localStorage.clear();

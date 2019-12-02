@@ -117,7 +117,7 @@ export default {
           console.log(res.data.message);
           localStorage.setItem("user_token", res.data.token);
           this.$eventHub.$emit("logged-register");
-          this.$router.push("inventory");
+          this.$router.replace("inventory");
         })
         .finally(() => {
           this.loading = false;

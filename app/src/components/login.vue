@@ -84,8 +84,8 @@ export default {
           localStorage.setItem("user_token", res.data.token);
           this.message = res.data.connected;
           this.snackbar = true;
-          this.$eventHub.$emit("logged", true);
-          this.$router.push("inventory");
+          this.$eventHub.$emit("login");
+          this.$router.replace("inventory");
         })
         .catch(e => {
           this.message = e.response.data;

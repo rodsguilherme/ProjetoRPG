@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <menuComponent ></menuComponent>
+    <menuComponent></menuComponent>
+    <v-container fluid>
+      <v-row class="mt-8">
+        <router-view></router-view>
+      </v-row>
+    </v-container>
+
   </v-app>
 </template>
 
@@ -10,7 +16,6 @@ import menuComponent from "./components/menuComponent";
 export default {
   name: "App",
   data: () => ({
-    connected: false
   }),
   components: {
     menuComponent,
