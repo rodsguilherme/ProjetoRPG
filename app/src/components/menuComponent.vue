@@ -19,15 +19,15 @@
         <v-toolbar-items>
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
           <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
-          <v-menu bottom offset-y dark>
-            <template v-slot:activator="{ on }">
-              <v-avatar class="mx-auto" v-on="on">
+          <v-menu bottom offset-y dark class="ml-4">
+            <template  v-slot:activator="{ on }">
+              <v-avatar  style="cursor: pointer"  v-on="on">
                 <v-img :src="user.image"></v-img>
               </v-avatar>
             </template>
-            <v-list style="cursor: pointer">
+            <v-list >
               <v-list-item @click="logout">
-                <v-list-item-title>Logout</v-list-item-title>
+                <v-list-item-title>Exit</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
