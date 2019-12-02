@@ -2,7 +2,7 @@
   <v-app>
     <menuComponent></menuComponent>
     <v-container fluid>
-      <v-row class="mt-8">
+      <v-row class="mt-5">
         <router-view></router-view>
       </v-row>
     </v-container>
