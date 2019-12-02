@@ -85,6 +85,12 @@ export default {
               Authorization: `Bearer ${localStorage.getItem("user_token")}`
             }
           })
+          .catch(e => {
+            console.log(e.response.status);
+            if (e.response.status == 404) {
+              localStorage.clear();
+            }
+          })
           .then(response => {
             if (!response.data[0].image) {
               this.imageExists = false;
@@ -115,6 +121,11 @@ export default {
                 Authorization: `Bearer ${localStorage.getItem("user_token")}`
               }
             })
+            .catch(e => {
+              if (e.response.status == 404) {
+                this.$router.push("/");
+              }
+            })
             .then(response => {
               if (!response.data[0].image) {
                 this.imageExists = false;
@@ -130,6 +141,36 @@ export default {
       this.connected = true;
     },
     register() {
+      axios
+        .get(`http://localhost:3000/v1/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("user_token")}`
+          }
+        })
+        .then(res => {
+          axios
+            .get(`http://localhost:3000/v1/users/${res.data.idUser}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("user_token")}`
+              }
+            })
+            .catch(e => {
+              if (e.response.status == 404) {
+                this.$router.push("/");
+              }
+            })
+            .then(response => {
+              if (!response.data[0].image) {
+                this.imageExists = false;
+                this.username = response.data[0].username
+                  .substr(0, 1)
+                  .toUpperCase();
+              } else {
+                this.imageExists = true;
+                this.user = response.data[0];
+              }
+            });
+        });
       this.connected = true;
     },
     logout() {
