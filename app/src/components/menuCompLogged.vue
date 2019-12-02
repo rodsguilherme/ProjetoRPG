@@ -1,41 +1,25 @@
 <template>
   <v-container fluid>
-    <v-app-bar dark dense fixed width="100%" elevation="10">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar app clipped-left dark dense absolute elevation="10">
       <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
-
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn text :class="colorMenu" to="/">HOME</v-btn>
         <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
-        <v-btn text :class="colorMenu" @click="logout">LOGOUT</v-btn>
+        <v-menu bottom offset-y dark>
+          <template v-slot:activator="{ on }">
+            <v-avatar class="mx-auto" v-on="on">
+              <v-img :src="user.image"></v-img>
+            </v-avatar>
+          </template>
+          <v-list style="cursor: pointer">
+            <v-list-item @click="logout">
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar-items>
     </v-app-bar>
-
-    <v-navigation-drawer
-      :mini-variant.sync="mini"
-      mini-variant-width="95"
-      dark
-      v-model="drawer"
-      absolute
-      temporary
-    >
-      <v-list-item>
-        <v-list-item-avatar size="80">
-          <v-img :src="user.image"></v-img>
-        </v-list-item-avatar>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-content>
-            <v-list-item-title class="title">{{ user.username }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
   </v-container>
 </template>
 

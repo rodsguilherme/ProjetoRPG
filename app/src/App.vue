@@ -1,54 +1,21 @@
 <template>
   <v-app>
-    <menuComponent v-if="!connected"></menuComponent>
-    <menuCompLogged v-else></menuCompLogged>
-    <v-container fluid class="pt-8">
-      <router-view></router-view>
-    </v-container>
+    <menuComponent ></menuComponent>
   </v-app>
 </template>
 
 <script>
-import menuCompLogged from "./components/menuCompLogged";
-import menuComponent from "./components/menuComponent";
 
+import menuComponent from "./components/menuComponent";
 export default {
   name: "App",
-
   data: () => ({
     connected: false
   }),
   components: {
     menuComponent,
-    menuCompLogged
-  },
-  created() {
-    this.$eventHub.$on("logged", this.logged);
-    this.$eventHub.$on("logout", this.logout);
-    this.$eventHub.$on("logged-register", this.loggedRegister)
 
-    if(localStorage.getItem('user_token')) {
-      this.connected = true
-    }
   },
-  beforeDestroy() {
-    this.$eventHub.$off("logged");
-    this.$eventHub.$off("logged-register")
-  },
-
-  methods: {
-    logged() {
-      this.connected = true;
-    },
-    loggedRegister(){
-      this.connected = true
-    },
-    logout() {
-      this.connected = false;
-      localStorage.clear();
-      this.$router.push("/");
-    }
-  }
 };
 </script>
 <style >

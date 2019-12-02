@@ -1,6 +1,6 @@
 <template>
-  <v-container gutter class="mt-12">
-    <v-card max-width="500px"  min-height="565px"  class="mx-auto" elevation="20" dark>
+  <v-container gutter>
+    <v-card max-width="500px" min-height="565px" class="mx-auto" elevation="20" dark>
       <v-row>
         <v-col cols="12">
           <h1 class="text-center white--text">Login</h1>
@@ -13,7 +13,12 @@
       </v-row>
       <v-row>
         <v-col cols="11" class="mx-auto">
-          <v-text-field label="E-mail"  :rules="[rules.required, rules.email]" v-model="email" clearable></v-text-field>
+          <v-text-field
+            label="E-mail"
+            :rules="[rules.required, rules.email]"
+            v-model="email"
+            clearable
+          ></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -53,18 +58,18 @@ import axios from "axios";
 export default {
   name: "login",
   data: () => ({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     message: "",
     snackbar: false,
     timeout: 6000,
     show1: false,
     rules: {
-       email: value => {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return  pattern.test(value) || 'E-mail inválido.'
-          },
-       required: value => !!value || 'Required.',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "E-mail inválido.";
+      },
+      required: value => !!value || "Required."
     }
   }),
   methods: {
@@ -76,11 +81,11 @@ export default {
           password: this.password
         })
         .then(res => {
+          localStorage.setItem("user_token", res.data.token);
           this.message = res.data.connected;
           this.snackbar = true;
-          localStorage.setItem("user_token", res.data.token);
-          this.$eventHub.$emit('logged')
-          this.$router.push('inventory')
+          this.$eventHub.$emit("logged", true);
+          this.$router.push("inventory");
         })
         .catch(e => {
           this.message = e.response.data;
