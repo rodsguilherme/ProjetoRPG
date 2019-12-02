@@ -12,7 +12,7 @@
 
 <script>
 
-import menuComponent from "./components/menuComponent";
+import menuComponent from "./components/utils/menuComponent";
 export default {
   name: "App",
   data: () => ({

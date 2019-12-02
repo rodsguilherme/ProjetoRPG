@@ -1,13 +1,13 @@
 
 import login from '../components/authentication/login'
 import register from '../components/user/register'
-import home from '../components/home'
-import menuComponent from '../components/menuComponent'
+import home from '../components/utils/home'
+import menuComponent from '../components/utils/menuComponent'
 
 
 //import racesComponent from './components/racesComponent'
 import inventory from '../components/card/inventory'
-import notFound from '../components/notFound'
+import notFound from '../components/utils/notFound'
 
 
 

@@ -5,8 +5,8 @@
 
 <script>
 //import axios from "axios";
-import stepper from "./card/stepper";
-import stepperLogged from './card/stepperLogged'
+import stepper from "../card/stepper";
+import stepperLogged from '../card/stepperLogged'
 export default {
   components: { stepper, stepperLogged },
   name: "card",
