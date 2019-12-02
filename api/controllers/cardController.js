@@ -29,8 +29,8 @@ router.post('/card/createLogged', jwt, async ctx => {
         ctx.body = "Card criado com sucesso!"
         ctx.status = 201
     } catch (err) {
-     
-        ctx.body = 'Erro ao criar o card'
+     console.log(err)
+        ctx.body = 'Erro ao salvar o card'
         ctx.status = 400
     }
 })

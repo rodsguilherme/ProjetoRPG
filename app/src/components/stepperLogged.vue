@@ -30,7 +30,7 @@
             dark
             :disabled="!idRaceSelected"
             @click="e1 = 3"
-          >Generate</v-btn>
+          >Continue</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
@@ -43,7 +43,7 @@
           <v-card
             class="mx-auto mb-12"
             elevation="15"
-            height="40vh"
+            min-height="40vh"
             width="55vw"
             style="backgroundColor: #212121"
             dark
@@ -58,7 +58,7 @@
               <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Race" :value="raceSelected" readonly required></v-text-field>
               </v-col>
-                <v-col cols="12" sm="3" md="3" lg="3">
+              <v-col cols="12" sm="3" md="3" lg="3">
                 <v-text-field label="Kind" :value="kindToSave.kinds" readonly required></v-text-field>
               </v-col>
               <v-col cols="12" sm="3" md="3" lg="3">
@@ -87,10 +87,7 @@
               </v-col>
             </v-row>
           </v-card>
-          <v-btn color="deep-purple ligthen-2" dark @click="createCard">
-            Save
-            
-          </v-btn>
+          <v-btn color="deep-purple ligthen-2" dark @click="createCard">Save</v-btn>
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
       </v-stepper-items>
@@ -98,10 +95,15 @@
     <v-row>
       <v-col>
         <div class="text-center">
-          <v-snackbar v-model="snackbar" class="white--text" :timeout="timeout">
+          <v-snackbar  v-model="snackbar" class="white--text" :timeout="timeout">
             {{ message }}
             <v-btn dark text @click="snackbar = false" class="white--text">Close</v-btn>
           </v-snackbar>
+            <v-snackbar v-model="snackbarSave" class="white--text" :timeout="timeout">
+            {{messageSave}}
+            <v-btn dark text @click="snackbarSave = false" class="white--text">Close</v-btn>
+          </v-snackbar>
+         
         </div>
       </v-col>
     </v-row>
@@ -121,8 +123,10 @@ export default {
     e1: 0,
     ok: true,
     message: "",
+    snackbarSave: false,
     timeout: 2000,
     snackbar: false,
+    messageSave: "",
     loader: null,
     loading: false,
     colorButton: "deep-purple lighten-2 ",
@@ -177,14 +181,13 @@ export default {
       }
     },
     createCard() {
-      
       Axios.post(
         "http://localhost:3000/v1/card/createLogged",
         {
           name: this.nameToSave,
           alignment: this.alignmentToSave,
           idRace: this.idRaceSelected,
-          idKind: this.kindToSave,
+          idKind: this.kindToSave.idKind,
           charisma: this.charismaToSave,
           intelligence: this.intelligenceToSave,
           dexterity: this.dexterityToSave,
@@ -203,20 +206,10 @@ export default {
           this.snackbar = true;
           console.log(e.response);
         })
-        .then(res => {
-          this.snackbar = true;
-          this.message = res.data;
-        })
-    }
-  },
-  watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 3000);
-
-      this.loader = null;
+        .then(response => {
+          this.snackbarSave = true;
+          this.messageSave = response.data;
+        });
     }
   }
 };

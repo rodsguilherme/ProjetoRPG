@@ -1,10 +1,9 @@
 <template>
   <v-container fluid>
-    <div v-if="show">
       <v-row>
         <template v-for="(card, i) in cards">
-          <v-col class="mt-5 pl-5 pr-5" :key="i" cols="3">
-            <v-card id="card" min-height="450px" @click="showDetails(card)" outlined>
+          <v-col class="mt-5 pl-5 pr-5" :key="i" cols="12" lg="2" md="3">
+            <v-card id="card" min-height="450px" min-width="245px" @click="showDetails(card)" outlined>
               <v-row>
                 <v-card-title class="mx-auto">
                   <h4 class="subtitle-1 pb-3 pt-3">
@@ -14,7 +13,7 @@
                 </v-card-title>
               </v-row>
 
-              <v-img min-width="30px" max-height="340px" :src="card.img"></v-img>
+              <v-img min-width="50px" max-height="340px" :src="card.img"></v-img>
 
               <v-row align="center" justify="center" class="pt-3">
                 <v-card-title class="pr-10">
@@ -46,8 +45,8 @@
             </v-row>
           </v-toolbar>
 
-          <v-row justify="center" align="center" class="pt-5">
-            <v-card elevation="20" min-width="90vw" min-height="70vh">
+          <v-row justify="center" align="center" class="pt-6">
+            <v-card elevation="20" min-width="90vw" min-height="60vh">
               <v-row class="mx-6">
                 <v-row class="mx-auto">
                   <v-col md="6" lg="6">
@@ -119,7 +118,6 @@
           </v-row>
         </v-card>
       </v-dialog>
-    </div>
     <v-snackbar v-model="snackbar">
       {{ message }}
       <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
@@ -145,7 +143,6 @@ export default {
     messagePrepare: "",
     snackbar: false,
     idCardSelected: "",
-    show: true,
     idUser: "",
     id: "",
     username: ""

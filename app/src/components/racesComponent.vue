@@ -1,11 +1,11 @@
 <template>
-  <v-sheet class="mx-auto" max-width="100%" min-height="70vh">
+  <v-sheet class="mx-auto" max-width="100%" min-height="30vh">
     <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
       <v-slide-item v-for="(race, i) in races" :key="i">
         <v-card
           class="ma-4 blue--text text--darken-4 card"
           elevation="15"
-          height="58vh"
+          height="56vh"
           width="20vw"
           @click="raceSelected(race)"
         >
