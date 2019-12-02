@@ -36,7 +36,7 @@
       </v-row>
 
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-        <v-card dark>
+        <v-card dark >
           <v-toolbar class="deep-purple lighten-2" dense>
             <v-btn icon dark @click="dialog = false">
               <v-icon>mdi-close</v-icon>
@@ -46,11 +46,11 @@
             </v-row>
           </v-toolbar>
 
-          <v-row justify="center" align="center" class="pt-12">
-            <v-card elevation="20" max-width="500vw" width="80vw" max-height="85vh">
-              <v-row class="mx-6">
+          <v-row justify="center" align="center" class="pt-5">
+            <v-card elevation="20" min-width="90vw" min-height="70vh">
+              <v-row class="mx-6 ">
                 <v-row class="mx-auto">
-                  <v-col lg="6">
+                  <v-col md="6" lg="3">
                     <h1 class="title">Attributes</h1>
                     <v-divider inset></v-divider>
                     <v-row>
@@ -81,7 +81,7 @@
 
                   <v-divider vertical class="mx-3"></v-divider>
                   <v-row class="mx-auto">
-                    <v-col lg="12">
+                    <v-col md="12" lg="12">
                       <h1 class="title">Data</h1>
                       <v-divider inset></v-divider>
                       <v-row>
