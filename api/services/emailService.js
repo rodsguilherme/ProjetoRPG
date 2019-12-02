@@ -1,23 +1,26 @@
 const nodemailer = require('nodemailer')
 var transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "05ef82153707a9",
-      pass: "753b225094b020"
+    port: 587,
+    service: 'gmail',
+    auth: 
+    {
+      user: 'rodsguilherme@gmail.com',
+      pass: 'triplex@99'
     }
   });
-const url = 'http://localhost:8080/login'
-const mailOptions = {
-    from: `"Guilherme Rodrigues" <rodsguilherme@gmail.com>`,
-    to: 'wkdozegui@gmail.com',
-    subject: "teste",
-    html: `Confirme o email: <a href='${url}'>${url}</a>`
-}
-
-transport.sendMail(mailOptions, (err, info) => {
-    if(err) {
-        console.log(err)
+  const emailSend = async (email, username) => {
+    const mailOptions = {
+        from: `"Guilherme Rodrigues" <rodsguilherme@gmail.com>`,
+        to: `${email}`,
+        subject: `Olá, ${username}`,
+        html: `<strong>Mandamos esse email para agradacer o cadastro :)</strong>`
     }
-    else console.log("Email enviado com sucesso!")
-})
+    
+    transport.sendMail(mailOptions, (err, info) => {
+        if(err) {
+            console.log(err)
+        }
+        else console.log("Email enviado com sucesso!")
+    })
+    }
+  module.exports = {emailSend}

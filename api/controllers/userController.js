@@ -7,6 +7,8 @@ const jwt = require('../middleware/jwtMiddleware')
 
 
 import { generateToken } from '../services/authService'
+
+import { emailSend } from '../services/emailService'
 import { createUser, getAllUsers, getUserById, login, getUserByEmail } from '../services/userServices'
 
 router.get('/users', jwt, async (ctx) => {
@@ -29,16 +31,16 @@ router.post('/users/signup', async ctx => {
         password: ctx.request.body.password,
         image: ctx.request.body.image
     }
- 
+    console.log(user.email)
     try {
-
+        await emailSend(user.email, user.username)
         await createUser(user)
         const userCredencials = await getUserByEmail(user.email)
         const token = generateToken(userCredencials[0].idUser, userCredencials[0].username)
         ctx.body = { message: "Usuário cadastrado com sucesso.", token }
         ctx.status = 201
     } catch (error) {
-
+        console.log(error)
         ctx.body = error
         ctx.status = 400
     }
