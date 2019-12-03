@@ -83,7 +83,7 @@ router.get('/card/getCard/:idCard', jwt, async ctx => {
     const idCard = ctx.params.idCard
     const idUser = ctx.state.user.idUser
     try {
-        const cards = await getCardById(idCard)
+        const cards = await getCardById(idCard, idUser)
         if (cards.length > 0) {
             ctx.body = { cards, idUser }
             ctx.status = 200
@@ -97,12 +97,12 @@ router.get('/card/getCard/:idCard', jwt, async ctx => {
 })
 
 
-router.delete('/card/delete/:idCard', async ctx => {
+router.delete('/card/delete/:idCard', jwt, async ctx => {
     const idCard = ctx.params.idCard
-
+    const idUser = ctx.state.user.idUser
     try {
         await deleteCardbyId(idCard)
-        ctx.body = "Ficha deletada."
+        ctx.body = {message: "Ficha deletada.", idUser}
         ctx.status = 200
     } catch (error) {
  

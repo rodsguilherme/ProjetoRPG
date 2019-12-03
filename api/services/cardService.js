@@ -24,7 +24,7 @@ const getCardById = async (idCard) => {
     return cards
 }
 
-const deleteCardbyId = async idCard => {
+const deleteCardbyId = async (idCard) => {
    return await database('Card').update('deleted', 1).where({idCard}).andWhere('deleted', 0)
 }
 module.exports = { createCard, getCardByUser, getCardById, deleteCardbyId }
