@@ -1,6 +1,6 @@
 <template>
   <v-card dark class="mx-auto" elevation="15" style="backgroundColor: #212121" width="70vw">
-    <v-form v-model="valid" @click.prevent="submit">
+    <v-form v-model="valid" ref="form" @click.prevent="submit">
       <v-row class="mx-auto">
         <v-col cols="4">
           <v-select
@@ -110,7 +110,7 @@ export default {
       dexterity: "",
       strength: "",
       kind: "",
-      loader: null
+      
     },
     loading: false,
     kinds: [],
