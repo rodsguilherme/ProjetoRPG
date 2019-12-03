@@ -1,14 +1,9 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row justify="center">
       <template v-for="(card, i) in cards">
-        <v-col class="mx-auto mt-4 pl-3 pr-3" :key="i" cols="12" lg="3" md="4">
-          <v-card
-          height="500px"
-            id="card"            
-            @click="showDetails(card)"
-            outlined
-          >
+        <v-col class="px-3 pt-3" :key="i" cols="12" lg="3" md="4">
+          <v-card height="500px" id="card" @click="showDetails(card)" outlined>
             <v-row class="pt-2">
               <v-card-title class="mx-auto">
                 <h4 class="subtitle-1">
@@ -18,7 +13,7 @@
               </v-card-title>
             </v-row>
 
-            <v-img  height="85%" :src="card.img"></v-img>
+            <v-img height="85%" :src="card.img"></v-img>
 
             <v-row align="center" justify="center" class="pb-2">
               <v-card-title class="pr-10">
@@ -141,6 +136,7 @@ export default {
     drawer: null,
     cardSelected: [],
     dialog: false,
+    userAfterDelete: "",
     loading: false,
     index: -1,
     i: 0,
@@ -198,8 +194,6 @@ export default {
         .then(res => {
           res.data.cards.forEach(el => {
             this.cardSelected = el;
-            console.log(this.cardSelected);
-
             this.idCardSelected = el.idCard;
           });
         })
@@ -210,32 +204,31 @@ export default {
     },
     deletar() {
       let token = localStorage.getItem("user_token");
-      this.show = false;
+
       axios
         .delete(`http://localhost:3000/v1/card/delete/${this.idCardSelected}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
-        .catch(e => (this.messagePrepare = e.response.data))
         .then(response => {
-          this.messagePrepare = response.data;
+          this.userAfterDelete = response.data.idUser;
           axios
             .get(
-              `http://localhost:3000/v1/card/saves/${this.cardSelected.idUser}`,
+              `http://localhost:3000/v1/card/saves/${this.userAfterDelete}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
               }
             )
-            .then(res => (this.cards = res.data));
-          this.show = true;
-        })
-        .finally(() => {
-          this.snackbar = true;
-          this.message = this.messagePrepare;
-          this.dialog = false;
+            .catch(error => { if(error.response.status == 404){
+              this.$router.replace('/notFound')
+            }} )
+            .then(res => {
+              this.cards = res.data;
+              this.dialog = false;
+            });
         });
     }
   }
