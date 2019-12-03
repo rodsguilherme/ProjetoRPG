@@ -41,6 +41,18 @@ const emailIsValid = async email => {
     return pattern.test(String(email).toLowerCase())
 }
 
+const updateUserById = async (user, idUser) => {
+    const { username, image, password } = user
+    fieldAreValids(user)
+    await database('User').where({idUser}).update({username, image, password})
+}
+
+const fieldAreValids =  user => {
+    const {username, image, password} = user 
+    if( !username || !image || !password) {
+     throw "Preencha os campos"
+    }
+} 
 const getAllUsers = async () => {
     return await database.select('idUser', 'username').into('User')
 }
@@ -74,4 +86,4 @@ const login = async user => {
     return await compareUser(user)
 }
 
-module.exports = { createUser, getAllUsers, login, getUserById, getUserByEmail }
+module.exports = { createUser, getAllUsers, login, getUserById, getUserByEmail, updateUserById }
