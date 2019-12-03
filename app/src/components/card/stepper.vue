@@ -43,7 +43,7 @@
           <v-card
             class="mx-auto mb-12"
             elevation="15"
-            height="40vh"
+            min-height="40vh"
             width="55vw"
             style="backgroundColor: #212121"
             dark
