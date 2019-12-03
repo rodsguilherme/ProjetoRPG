@@ -8,7 +8,6 @@
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
           <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
           <v-btn text :class="colorMenu" to="login">login</v-btn>
-          <v-btn text :class="colorMenu" to="register">SIGN UP</v-btn>
         </v-toolbar-items>
       </v-app-bar>
     </div>
@@ -174,8 +173,8 @@ export default {
       this.connected = true;
     },
     logout() {
-      this.username = "";
       this.connected = false;
+      this.username = "";
       localStorage.clear();
       this.$router.push("/");
     }

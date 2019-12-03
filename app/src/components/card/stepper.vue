@@ -31,12 +31,12 @@
             :disabled="!idRaceSelected"
             @click="e1 = 3"
           >Continue</v-btn>
-          <v-btn :color="colorButton" text  @click="e1 = 1">Voltar</v-btn>
+          <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3"  style="padding: 10vh">
+        <v-stepper-content step="3" style="padding: 10vh">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
-          <v-btn color="deep-purple ligthen-2" style="margin: 5vh"  @click="e1 = 2">Voltar</v-btn>
+          <v-btn color="deep-purple ligthen-2" style="margin: 5vh" @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 8vh">
@@ -85,13 +85,14 @@
               </v-col>
             </v-row>
           </v-card>
-         
-            <template v-slot:loader>
-              <span class="custom-loader">
-                <v-icon light>mdi-cached</v-icon>
-              </span>
-            </template>
-     
+
+          <template v-slot:loader>
+            <span class="custom-loader">
+              <v-icon light>mdi-cached</v-icon>
+            </span>
+          </template>
+             <v-btn v-if="connected" color="deep-purple ligthen-2" dark @click="createCard">Save</v-btn>
+             
           <v-btn :color="colorButton" text @click="e1 = 3">Voltar</v-btn>
         </v-stepper-content>
       </v-stepper-items>
@@ -140,14 +141,33 @@ export default {
     strengthToSave: "",
     kindToSave: "",
     hp: 0,
-    valid: false
+    valid: false,
+    connected: false
   }),
   components: {
     racesComponent,
     attributesComponent,
     namePlayer
   },
+  created() {
+    this.$eventHub.$on("logged", this.logged);
+    this.$eventHub.$on("logout", this.logout);
+    if (localStorage.getItem("user_token")) {
+      this.connected = true;
+    }
+  },
+  beforeDestroy() {
+    this.$eventHub.$off("logged");
+  },
   methods: {
+    logged() {
+      this.connected = true;
+    },
+    logout() {
+      this.connected = false;
+      localStorage.clear();
+      this.$router.push("/");
+    },
     getPlayer(user) {
       this.nameToSave = user.name;
       this.alignmentToSave = user.alignment;
@@ -193,15 +213,17 @@ export default {
         hp: this.hp
       })
         .catch(e => {
-           this.snackbar = true
-           this.message = e.response.data
+          this.snackbar = true;
+          this.message = e.response.data;
         })
         .then(res => {
-          this.snackbar = true
-           this.ok = false;
-          this.message = res.data
+          this.snackbar = true;
+          this.ok = false;
+          this.message = res.data;
         })
-        .finally(() => {this.loading = false});
+        .finally(() => {
+          this.loading = false;
+        });
     }
   },
   watch: {
@@ -213,7 +235,7 @@ export default {
 
       this.loader = null;
     }
-  },
+  }
 };
 </script>
 
