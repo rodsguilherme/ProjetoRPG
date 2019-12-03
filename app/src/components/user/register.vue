@@ -43,9 +43,9 @@
       <v-row>
         <v-col cols="11" class="mx-auto" lg="11" md="11">
           <v-file-input
-            label="Imagem"
+            label="Avatar"
             persistent-hint
-            hint="Image is not required."
+            hint="Avatar is not required."
             accept="image/*"
             v-model="image"
           ></v-file-input>

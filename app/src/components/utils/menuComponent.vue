@@ -12,7 +12,7 @@
       </v-app-bar>
     </div>
     <div v-else>
-      <v-app-bar  fixed dark dense  elevation="10">
+      <v-app-bar fixed dark dense elevation="10">
         <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
@@ -31,6 +31,11 @@
             </template>
 
             <v-list>
+              <router-link to="profile">
+              <v-list-item>
+                <v-list-item-title>Profile</v-list-item-title>
+              </v-list-item>
+              </router-link>
               <v-list-item @click="logout">
                 <v-list-item-title>Exit</v-list-item-title>
               </v-list-item>
@@ -53,6 +58,7 @@ export default {
     colorMenu: "deep-purple--text text--lighten-2",
     connected: false,
     user: [],
+    userToProfile: [],
     username: "",
     drawer: null,
     mini: true,
@@ -84,8 +90,10 @@ export default {
             }
           })
           .then(response => {
+             
             if (!response.data[0].image) {
               this.imageExists = false;
+              
               this.username = response.data[0].username
                 .substr(0, 1)
                 .toUpperCase();
@@ -119,6 +127,7 @@ export default {
               }
             })
             .then(response => {
+              this.userToProfile = response.data[0]
               if (!response.data[0].image) {
                 this.imageExists = false;
                 this.username = response.data[0].username
