@@ -59,13 +59,6 @@ export default {
     mini: true,
     imageExists: ""
   }),
-  updated() {
-    if (localStorage.getItem("user_token")) {
-      this.connected = true;
-    } else {
-      this.connected = false;
-    }
-  },
   created() {
     if (localStorage.getItem("user_token")) {
       this.connected = true;
