@@ -170,11 +170,21 @@ export default {
       this.strengthToSave = form.strength;
       this.kindToSave = form.kind;
 
-      if (this.raceSelected == 1) {
+       if (this.raceSelected == 1) {
         this.dexterityToSave += 2;
       }
-      if (this.optionsToSave == 1) {
+      if (this.kindToSave.idKind == 1) {
         this.hp = 6;
+      }
+       if (this.raceSelected == 3) {
+        this.strengthToSave += 4;
+      }
+      if (his.kindToSave.idKind == 2) {
+        this.hp = 8;
+      }
+      
+      if (his.kindToSave.idKind == 3) {
+        this.hp = 10;
       }
     },
     createCard() {
