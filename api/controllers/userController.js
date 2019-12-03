@@ -46,7 +46,7 @@ router.post('/users/signup', async ctx => {
     }
 })
 
-router.put('/users/:idUser', jwt, async ctx => {
+router.patch('/users/:idUser', jwt, async ctx => {
     const idUser = ctx.state.user.idUser
     const { body } = ctx.request
     const user = {

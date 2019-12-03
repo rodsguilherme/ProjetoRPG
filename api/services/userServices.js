@@ -4,12 +4,12 @@ import database from '../database/connect'
 
 
 const createUser = async user => {
-    const { username, password, email, image} = user
+    const { username, password, email, image } = user
     const emailValidate = await emailExists(email)
     if (!emailValidate) {
         throw "E-mail já existe."
     }
-    if(username.length > 12) {
+    if (username.length > 12) {
         throw "Numero máximo de caracteres é 12"
     }
     if (!username || !password || !image) {
@@ -43,16 +43,26 @@ const emailIsValid = async email => {
 
 const updateUserById = async (user, idUser) => {
     const { username, image, password } = user
-    fieldAreValids(user)
-    await database('User').where({idUser}).update({username, image, password})
+    if (!password && !image) {
+        await database('User').where({ idUser }).update({ username })
+    }
+    if (!username && !image) {
+        await database('User').where({ idUser }).update({ password })
+    }
+    if(!username && !password) {
+        await database('User').where({ idUser }).update({ image })
+    }
+    if(username &&password && image){
+    await database('User').where({ idUser }).update({ username, image, password })
+    }
 }
 
-const fieldAreValids =  user => {
-    const {username, image, password} = user 
-    if( !username || !image || !password) {
-     throw "Preencha os campos"
+const fieldAreValids = user => {
+    const { username, image, password } = user
+    if (!username || !image || !password) {
+        throw "Preencha os campos"
     }
-} 
+}
 const getAllUsers = async () => {
     return await database.select('idUser', 'username').into('User')
 }
@@ -75,7 +85,7 @@ const compareUser = async user => {
 }
 
 const getUserById = async idUser => {
-    return await database.where({ idUser }).select('idUser', 'username','image').from('User')
+    return await database.where({ idUser }).select('idUser', 'username', 'image').from('User')
 }
 
 const getUserByEmail = async email => {
