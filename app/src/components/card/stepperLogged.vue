@@ -176,17 +176,17 @@ export default {
       if (this.raceSelected == 1) {
         this.dexterityToSave += 2;
       }
-      if (this.optionsToSave == 1) {
+      if (this.kindToSave.idKind == 1) {
         this.hp = 6;
       }
        if (this.raceSelected == 3) {
         this.strengthToSave += 4;
       }
-      if (this.optionsToSave == 2) {
+      if (this.kindToSave.idKind == 2) {
         this.hp = 8;
       }
       
-      if (this.optionsToSave == 2) {
+      if (this.kindToSave.idKind == 3) {
         this.hp = 10;
       }
     },
