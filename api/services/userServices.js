@@ -9,7 +9,9 @@ const createUser = async user => {
     if (!emailValidate) {
         throw "E-mail já existe."
     }
-
+    if(username.length > 12) {
+        throw "Numero máximo de caracteres é 12"
+    }
     if (!username || !password || !image) {
         throw "Preencha os campos"
     }
