@@ -2,22 +2,21 @@
 
 # ProjetoRPG
 
-
-Projeto para o trabalho final do 3 semestre - TSI.
-
   ### API 
+
+## Tecnologias: Back-end - Nodejs, Koajs | Front-end - Vue, Vuetify
 
 #### Primeiro passo - Instalar o Node.js: [Download Node.js](https://nodejs.org/en/).
 
 #### Segundo Passo - Baixe/Clone o ProjetoRPG.  
 
-### Atenção: Todos os comandos são no Terminal do Linux ou CMD!
+### Atenção: Todos os comandos são no Terminal do Linux ou Windows!
 
-Abra o Terminal/CMD, vá no diretório onde baixou os arquivos `cd ProjetoRPG/Api`.
+Abra o Terminal/CMD, vá no diretório onde baixou os arquivos `cd ProjetoRPG/api` ou `cd ProjetoRPG/app`.
 
-No terminal do Linux ou CMD digite os seguintes comandos: `npm init` para iniciar um projeto, depois o `npm install` que fará com que tudo que é necessário para o projeto seja instalado.
+No terminal do Linux ou Windows digite os seguintes comandos: `npm install` que fará com que quase tudo que é necessário para o projeto seja instalado.
 
-Para não precisar ficar atualizando a api vamos utilizar o [Nodemon](https://nodemon.io/).
+Para atualizar a api vamos utilizar o [Nodemon](https://nodemon.io/).
 Instalar o Nodemon: `npm install -g nodemon`.
 
 Para rodar a api digite no terminal: `npm run dev`.
@@ -26,17 +25,10 @@ No banco vamo usar o [Sqlite](https://www.sqlite.org/index.html).
 
 Documentação [SQLITE3 + Nodejs](https://www.sqlitetutorial.net/sqlite-nodejs/).
 
-Documentação [Express](https://expressjs.com/).
+Documentação [Koa js](https://koajs.com/).
 
-Testar a API utilize o [Postman](https://www.getpostman.com).
+Testar a API utilize o [Insomnia](https://insomnia.rest/).
 
-[O que é uma API?](https://www.youtube.com/watch?v=vGuqKIRWosk)
-
-[O que são Endpoints?](https://pt.stackoverflow.com/questions/86399/qual-a-diferen%C3%A7a-entre-endpoint-e-api/86402).
-
-[O que é o HTTP:// ?](https://www.youtube.com/watch?v=hwttZtWkXTk).
-
-[O que é Node?](https://www.youtube.com/watch?v=Oc71YSSA8Tk)
 
 ## Tasks - [Trello do Projeto](https://trello.com/b/LJAgiiLX/projeto-rpg).
 
