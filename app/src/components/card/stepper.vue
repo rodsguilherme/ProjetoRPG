@@ -179,11 +179,11 @@ export default {
        if (this.raceSelected == 3) {
         this.strengthToSave += 4;
       }
-      if (his.kindToSave.idKind == 2) {
+      if (this.kindToSave.idKind == 2) {
         this.hp = 8;
       }
       
-      if (his.kindToSave.idKind == 3) {
+      if (this.kindToSave.idKind == 3) {
         this.hp = 10;
       }
     },
