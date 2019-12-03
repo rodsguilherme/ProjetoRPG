@@ -43,7 +43,7 @@
           <v-card
             class="mx-auto mb-12"
             elevation="15"
-            height="40vh"
+            min-height="40vh"
             width="55vw"
             style="backgroundColor: #212121"
             dark
@@ -190,11 +190,21 @@ export default {
       this.strengthToSave = form.strength;
       this.kindToSave = form.kind;
 
-      if (this.raceSelected == 1) {
+       if (this.raceSelected == 1) {
         this.dexterityToSave += 2;
       }
-      if (this.optionsToSave == 1) {
+      if (this.kindToSave.idKind == 1) {
         this.hp = 6;
+      }
+       if (this.raceSelected == 3) {
+        this.strengthToSave += 4;
+      }
+      if (this.kindToSave.idKind == 2) {
+        this.hp = 8;
+      }
+      
+      if (this.kindToSave.idKind == 3) {
+        this.hp = 10;
       }
     },
     createCard() {

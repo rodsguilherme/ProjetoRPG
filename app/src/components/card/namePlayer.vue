@@ -1,15 +1,15 @@
 <template>
-  <v-card width="35vw" elevation="15" height="10%" class="mx-auto" style="backgroundColor: #212121" dark>
+  <v-card width="50vw" elevation="15" min-height="200px" class="mx-auto" style="backgroundColor: #212121" >
     <v-form ref="form" v-model="valid">
-      <v-row class="mx-auto">
-        <v-col cols="12" sm="6" md="3" lg="12">
+      <v-row class="mx-auto" justify="center">
+        <v-col cols="12" sm="6" md="11" lg="12">
           <v-text-field label="Name" :rules="rules" v-model="user.name" clearable></v-text-field>
         </v-col>
-        <v-col cols="12" sm="6" md="3" lg="12">
+        <v-col cols="12" sm="6" md="11" lg="12">
            <v-select label="Alignment" :items="alignment" v-model="user.alignment"></v-select>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="mx-auto">
         <v-col cols="12">
           <v-btn block class="deep-purple lighten-2 " dark :disabled="!valid" @click="getPlayer">Continue</v-btn>
         </v-col>

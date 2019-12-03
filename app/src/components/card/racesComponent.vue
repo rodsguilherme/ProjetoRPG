@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" max-width="100%" min-height="30vh">
+  <v-sheet class="mx-auto" max-width="100%" min-height="20vh">
     <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
       <v-slide-item v-for="(race, i) in races" :key="i">
         <v-card

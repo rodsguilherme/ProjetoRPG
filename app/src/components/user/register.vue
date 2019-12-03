@@ -13,7 +13,8 @@
       </v-row>
       <v-row>
         <v-col cols="11" class="mx-auto" lg="11" md="11">
-          <v-text-field label="Username" :rules="[rules.required]" v-model="username" clearable></v-text-field>
+          <v-text-field label="Username"  maxlength="12"
+            counter :rules="[rules.required]" v-model="username" clearable></v-text-field>
         </v-col>
       </v-row>
       <v-row>
@@ -32,6 +33,7 @@
             label="Password"
             :rules="[rules.required, rules.min]"
             v-model="password"
+           
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show1 ? 'text' : 'password'"
             @click:append="show1 = !show1"
@@ -40,7 +42,13 @@
       </v-row>
       <v-row>
         <v-col cols="11" class="mx-auto" lg="11" md="11">
-          <v-file-input label="Imagem" accept="image/*" v-model="image"></v-file-input>
+          <v-file-input
+            label="Imagem"
+            persistent-hint
+            hint="Image is not required."
+            accept="image/*"
+            v-model="image"
+          ></v-file-input>
         </v-col>
       </v-row>
       <v-row class="pt-10">
@@ -110,7 +118,7 @@ export default {
           password: this.password
         })
         .catch(e => {
-          this.message = e.response.data
+          this.message = e.response.data;
           this.snackbar = true;
         })
         .then(res => {
@@ -131,5 +139,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

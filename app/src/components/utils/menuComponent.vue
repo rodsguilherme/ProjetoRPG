@@ -12,7 +12,7 @@
       </v-app-bar>
     </div>
     <div v-else>
-      <v-app-bar app clipped-left dark dense absolute elevation="10">
+      <v-app-bar  fixed dark dense  elevation="10">
         <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
@@ -58,13 +58,6 @@ export default {
     mini: true,
     imageExists: ""
   }),
-  updated() {
-    if (localStorage.getItem("user_token")) {
-      this.connected = true;
-    } else {
-      this.connected = false;
-    }
-  },
   created() {
     if (localStorage.getItem("user_token")) {
       this.connected = true;
