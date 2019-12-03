@@ -13,7 +13,7 @@
       </v-app-bar>
     </div>
     <div v-else>
-      <v-app-bar app clipped-left dark dense absolute elevation="10">
+      <v-app-bar  fixed dark dense  elevation="10">
         <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
