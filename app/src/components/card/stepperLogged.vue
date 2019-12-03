@@ -16,12 +16,12 @@
         <v-stepper-step :complete="e1 > 4" step="4" :color="colorLabel">Card Preview</v-stepper-step>
       </v-stepper-header>
 
-      <v-stepper-items style="padding: 10vh;">
+      <v-stepper-items>
         <v-stepper-content step="1" style="padding: 19vh">
           <namePlayer @get-player="getPlayer"></namePlayer>
         </v-stepper-content>
 
-        <v-stepper-content step="2" width="10vw">
+        <v-stepper-content step="2">
           <racesComponent @emit-click="getRace"></racesComponent>
 
           <v-btn
@@ -34,9 +34,9 @@
           <v-btn :color="colorButton" text @click="e1 = 1">Voltar</v-btn>
         </v-stepper-content>
 
-        <v-stepper-content step="3" style="padding: 10vh">
+        <v-stepper-content step="3">
           <attributesComponent @emit-click-attribute="getAttributes"></attributesComponent>
-          <v-btn color="deep-purple ligthen-2" style="margin: 5vh" @click="e1 = 2">Voltar</v-btn>
+          <v-btn color="deep-purple ligthen-2" text style="margin: 5vh" @click="e1 = 2">Voltar</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4" style="padding: 8vh">
@@ -217,8 +217,9 @@ export default {
           console.log(e.response);
         })
         .then(response => {
+          console.log(response)
           this.snackbarSave = true;
-          this.messageSave = response.data;
+          this.messageSave = 'Card salvo no inventário!';
         });
     }
   }
