@@ -31,7 +31,7 @@ router.post('/users/signup', async ctx => {
         password: ctx.request.body.password,
         image: ctx.request.body.image
     }
-    console.log(user.email)
+
     try {
         await emailSend(user.email, user.username)
         await createUser(user)
@@ -49,18 +49,13 @@ router.post('/users/signup', async ctx => {
 router.patch('/users/:idUser', jwt, async ctx => {
     const idUser = ctx.state.user.idUser
     const { body } = ctx.request
-    const user = {
-        username: body.username,
-        email: body.email,
-        image: body.image
-    }
+
     try {
-        await updateUserById(user, idUser)
-        ctx.body = "Campo editado."
+        await updateUserById(body, idUser)
+        ctx.body = "Campo(s) editado(s)."
         ctx.status = 200
 
     } catch (error) {
-        console.log(error)
         ctx.status = 400
         ctx.body = error
     }

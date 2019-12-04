@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div v-if="!connected">
-      <v-app-bar dark dense fixed width="100%" elevation="10">
+      <v-app-bar dark dense fixed  elevation="20">
         <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
@@ -12,26 +12,26 @@
       </v-app-bar>
     </div>
     <div v-else>
-      <v-app-bar fixed dark dense elevation="10">
-        <v-toolbar-title :class="colorMenu">{{title}}</v-toolbar-title>
+      <v-app-bar fixed dark dense elevation="20" >
+        <v-toolbar-title :class="colorMenu" style="textShadow: 0 0 3px grey">{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-items>
+        <v-toolbar-items class="mr-3">
           <v-btn text :class="colorMenu" to="/">HOME</v-btn>
           <v-btn text :class="colorMenu" to="inventory">INVENTORY</v-btn>
-          <v-menu bottom offset-y dark class="ml-4">
+          <v-menu  bottom offset-y dark class="ml-4">
             <template v-if="imageExists" v-slot:activator="{ on }">
-              <v-avatar style="cursor: pointer" v-on="on">
-                <v-img :src="user.image"></v-img>
+              <v-avatar size="38" class="mt-1" style="cursor: pointer" v-on="on">
+                <v-img   :src="user.image"></v-img>
               </v-avatar>
             </template>
-            <template v-else v-slot:activator="{ on }">
-              <v-avatar color="deep-purple lighten-2" style="cursor: pointer" v-on="on">
+            <template  v-else v-slot:activator="{ on }">
+              <v-avatar size="38" color="deep-purple lighten-2 mt-1" style="cursor: pointer" v-on="on">
                 <span class="white--text headline">{{username}}</span>
               </v-avatar>
             </template>
 
             <v-list>
-              <router-link to="profile">
+              <router-link to="profile" style="textDecoration: none">
               <v-list-item>
                 <v-list-item-title>Profile</v-list-item-title>
               </v-list-item>
@@ -54,7 +54,7 @@ import axios from "axios";
 export default {
   name: "componentMenu",
   data: () => ({
-    title: "GENERATE CARD",
+    title: "CARD GENERATOR",
     colorMenu: "deep-purple--text text--lighten-2",
     connected: false,
     user: [],
@@ -178,7 +178,7 @@ export default {
       this.connected = false;
       this.username = "";
       localStorage.clear();
-      this.$router.push("/");
+      this.$router.replace("/");
     }
   }
 };

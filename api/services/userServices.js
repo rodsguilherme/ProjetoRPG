@@ -41,20 +41,8 @@ const emailIsValid = async email => {
     return pattern.test(String(email).toLowerCase())
 }
 
-const updateUserById = async (user, idUser) => {
-    const { username, image, password } = user
-    if (!password && !image) {
-        await database('User').where({ idUser }).update({ username })
-    }
-    if (!username && !image) {
-        await database('User').where({ idUser }).update({ password })
-    }
-    if(!username && !password) {
-        await database('User').where({ idUser }).update({ image })
-    }
-    if(username &&password && image){
-    await database('User').where({ idUser }).update({ username, image, password })
-    }
+const updateUserById = async (body, idUser) => {
+    await database('User').where({ idUser }).update(body)
 }
 
 const fieldAreValids = user => {
@@ -85,7 +73,7 @@ const compareUser = async user => {
 }
 
 const getUserById = async idUser => {
-    return await database.where({ idUser }).select('idUser', 'username', 'image').from('User')
+    return await database.where({ idUser }).select('idUser', 'username', 'image', 'email').from('User')
 }
 
 const getUserByEmail = async email => {
